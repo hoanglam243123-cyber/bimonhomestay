@@ -6,7 +6,9 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "zalo:chat-id": "node scripts/zalo-chat-id.js",
+    "google:place-id": "node scripts/google-place-id.js"
   },
   "engines": {
     "node": ">=18.17"

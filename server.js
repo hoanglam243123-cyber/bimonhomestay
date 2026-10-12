@@ -113,7 +113,7 @@ app.post("/api/dat-phong", express.json({ limit: "10kb" }), async (req, res) => 
   fs.appendFileSync(BOOKINGS_FILE, JSON.stringify(booking) + "\n");
   res.json({ ok: true, id: booking.id });
 
-  // Báo cho chủ nhà (không chặn phản hồi cho khách)
+  // Báo cho chủ nhà qua Zalo / email (không chặn phản hồi cho khách)
   notify(booking).catch((err) => console.error("[notify]", err.message));
 });
 
@@ -154,18 +154,71 @@ async function notify(k) {
       })
     );
   }
-  if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
+  if (process.env.ZALO_BOT_TOKEN && process.env.ZALO_CHAT_ID) {
     jobs.push(
-      fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      fetch(`https://bot-api.zaloplatforms.com/bot${process.env.ZALO_BOT_TOKEN}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat_id: process.env.TELEGRAM_CHAT_ID, text }),
-      }).then((r) => { if (!r.ok) throw new Error(`Telegram ${r.status}`); })
+        body: JSON.stringify({ chat_id: process.env.ZALO_CHAT_ID, text }),
+      }).then(async (r) => {
+        const body = await r.json().catch(() => ({}));
+        if (!r.ok || body.ok === false) throw new Error(`Zalo ${r.status} ${JSON.stringify(body)}`);
+      })
     );
   }
   const results = await Promise.allSettled(jobs);
   results.filter((r) => r.status === "rejected").forEach((r) => console.error("[notify]", r.reason?.message || r.reason));
 }
+
+// ---------- Đánh giá Google ----------
+// Ưu tiên lấy trực tiếp từ Google Places API (tối đa 5 đánh giá Google trả về), lưu tạm 12 giờ.
+// Không có API key thì đọc file content/reviews.json (chủ nhà tự dán đánh giá vào).
+const REVIEWS_FILE = path.join(__dirname, "content", "reviews.json");
+const MAPS_URL = process.env.GOOGLE_MAPS_URL || "https://share.google/xh4tSK7Lf7EP9lr3K";
+let reviewsCache = { at: 0, data: null };
+
+async function fetchGoogleReviews() {
+  const key = process.env.GOOGLE_PLACES_API_KEY, placeId = process.env.GOOGLE_PLACE_ID;
+  if (!key || !placeId) return null;
+  const r = await fetch(`https://places.googleapis.com/v1/places/${encodeURIComponent(placeId)}?languageCode=vi`, {
+    headers: { "X-Goog-Api-Key": key, "X-Goog-FieldMask": "rating,userRatingCount,googleMapsUri,reviews" },
+  });
+  if (!r.ok) throw new Error(`Places API ${r.status}: ${(await r.text()).slice(0, 200)}`);
+  const p = await r.json();
+  return {
+    source: "google",
+    rating: p.rating || null,
+    count: p.userRatingCount || 0,
+    url: p.googleMapsUri || MAPS_URL,
+    reviews: (p.reviews || []).map((v) => ({
+      author: v.authorAttribution?.displayName || "Khách Google",
+      photo: v.authorAttribution?.photoUri || "",
+      rating: v.rating || 5,
+      text: v.originalText?.text || v.text?.text || "",
+      time: v.relativePublishTimeDescription || "",
+    })),
+  };
+}
+
+function readManualReviews() {
+  if (!fs.existsSync(REVIEWS_FILE)) return null;
+  try {
+    const d = JSON.parse(fs.readFileSync(REVIEWS_FILE, "utf8"));
+    return { source: "manual", rating: d.rating || null, count: d.count || 0, url: d.url || MAPS_URL, reviews: (d.reviews || []).filter((v) => v.text) };
+  } catch (err) {
+    console.error("[reviews] content/reviews.json lỗi:", err.message);
+    return null;
+  }
+}
+
+app.get("/api/reviews", async (req, res) => {
+  if (!reviewsCache.data || Date.now() - reviewsCache.at > 12 * 3600 * 1000) {
+    let data = null;
+    try { data = await fetchGoogleReviews(); } catch (err) { console.error("[reviews]", err.message); }
+    reviewsCache = { at: Date.now(), data: data || readManualReviews() || { source: "none", rating: null, count: 0, url: MAPS_URL, reviews: [] } };
+  }
+  res.set("Cache-Control", "public, max-age=3600").json(reviewsCache.data);
+});
 
 // ---------- Trang quản trị: xem yêu cầu đặt phòng ----------
 function requireAdmin(req, res, next) {

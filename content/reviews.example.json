@@ -1,0 +1,9 @@
+{
+  "_ghi_chu": "Chỉ dùng khi chưa có Google Places API key. Đổi tên file thành reviews.json, dán đánh giá THẬT từ Google Maps vào (giữ nguyên tên và nội dung khách viết).",
+  "rating": 5.0,
+  "count": 12,
+  "url": "https://share.google/xh4tSK7Lf7EP9lr3K",
+  "reviews": [
+    { "author": "Tên khách trên Google", "photo": "", "rating": 5, "time": "2 tuần trước", "text": "Dán nguyên văn đánh giá của khách vào đây." }
+  ]
+}

@@ -12,53 +12,50 @@
 <meta property="og:image" content="__SITE_URL__/img/og.jpg">
 <meta property="og:url" content="__SITE_URL__/an-gi">
 <meta property="og:locale" content="vi_VN">
-<meta name="theme-color" content="#4a5d3a">
+<meta name="theme-color" content="#1E3A8A">
 <link rel="icon" href="/img/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;800&family=Great+Vibes&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;800&family=Playfair+Display:wght@700&display=swap">
 <style>
 /* Layout: one narrow phone column; sticky filter bar; list of place cards grouped by distance ring */
 :root{
-  --bg:#f3efe3;        /* kem */
-  --paper:#fbf8f0;
-  --fg:#1f2a1c;
-  --muted:#5d6a56;
-  --moss:#4a5d3a;      /* xanh rêu */
-  --moss-soft:#dfe5cf;
-  --line:#d8d2bf;
-  --open:#2f7a3d; --soon:#a86a12; --closed:#9a3b2e;
+  /* design system ui-ux-pro-max: navy + gold (đồng bộ trang chủ) */
+  --bg:#F8FAFC;
+  --paper:#FFFFFF;
+  --fg:#1E293B;
+  --muted:#475569;
+  --moss:#1E3A8A;      /* primary navy */
+  --moss-soft:#E9EEF5;
+  --gold:#A16207;
+  --line:#DBEAFE;
+  --open:#15803D; --soon:#A16207; --closed:#B91C1C;
   --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-script:"Great Vibes","Brush Script MT",cursive;
+  --f-script:"Playfair Display",Georgia,serif;
+  color-scheme:light;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#161b14;--paper:#1f261c;--fg:#ece8da;--muted:#a7b29b;--moss:#b5c99a;--moss-soft:#2c3825;--line:#34402e;
-  --open:#7fcf8b;--soon:#e2b45c;--closed:#ee8f80;color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#161b14;--paper:#1f261c;--fg:#ece8da;--muted:#a7b29b;--moss:#b5c99a;--moss-soft:#2c3825;--line:#34402e;
-  --open:#7fcf8b;--soon:#e2b45c;--closed:#ee8f80;color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.5;padding-inline:16px}
 .wrap{max-width:640px;margin:0 auto;padding-block:20px 48px}
 header{display:grid;gap:6px;padding-block:8px 14px}
-.brand{font-family:var(--f-script);font-size:2.6rem;line-height:1;color:var(--moss)}
+.brand{font-family:var(--f-script);font-size:2.2rem;font-weight:700;line-height:1;color:var(--moss)}
 .logo{display:block;aspect-ratio:1;-webkit-mask:url("/img/logo-mask.png") center/contain no-repeat;mask:url("/img/logo-mask.png") center/contain no-repeat}
-h1{font-size:1.45rem;font-weight:800;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-family:var(--f-script);color:var(--moss);font-size:1.7rem;font-weight:700;margin:0;text-wrap:balance;letter-spacing:-.01em}
 .home{color:var(--muted);font-size:.9rem;margin:0}
 .home a{color:var(--moss);font-weight:600}
 .filters{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line);display:grid;gap:8px}
 .row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
 .row::-webkit-scrollbar{display:none}
 .lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);align-self:center;flex:none;width:62px}
-.chip{flex:none;font:inherit;font-size:.85rem;border:1px solid var(--line);background:var(--paper);color:var(--fg);border-radius:999px;padding:6px 12px;cursor:pointer}
+.chip{flex:none;font:inherit;font-size:.85rem;min-height:40px;border:1px solid var(--line);background:var(--paper);color:var(--fg);border-radius:999px;padding:6px 12px;cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--moss);border-color:var(--moss);color:var(--paper);font-weight:600}
 .chip:focus-visible,.btn:focus-visible{outline:2px solid var(--moss);outline-offset:2px}
 .count{font-size:.85rem;color:var(--muted);margin:14px 0 4px}
-.ring{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--moss);font-weight:600;margin:22px 0 8px;display:flex;align-items:center;gap:8px}
+.ring{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);font-weight:600;margin:22px 0 8px;display:flex;align-items:center;gap:8px}
 .ring::after{content:"";flex:1;height:1px;background:var(--line)}
 .list{display:grid;gap:12px}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 14px 12px;display:grid;gap:8px;min-width:0}
+.card{background:var(--paper);border:1px solid var(--line);box-shadow:0 1px 2px rgba(15,30,74,.05);border-radius:14px;padding:14px 14px 12px;display:grid;gap:8px;min-width:0}
 .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
 .name{font-weight:700;font-size:1.05rem;margin:0;line-height:1.3}
 .kind{font-size:.78rem;color:var(--muted)}
@@ -66,7 +63,7 @@ h1{font-size:1.45rem;font-weight:800;margin:0;text-wrap:balance;letter-spacing:-
 .dist b{display:block;color:var(--fg);font-size:.95rem}
 .badges{display:flex;flex-wrap:wrap;gap:6px}
 .b{font-size:.72rem;border-radius:6px;padding:2px 8px;background:var(--moss-soft);color:var(--moss);font-weight:600}
-.b.pick{background:var(--moss);color:var(--paper)}
+.b.pick{background:var(--gold);color:#fff}
 .st{font-size:.72rem;font-weight:600;padding:2px 0}
 .st.open{color:var(--open)}.st.soon{color:var(--soon)}.st.closed{color:var(--closed)}
 dl{margin:0;display:grid;grid-template-columns:76px 1fr;gap:4px 10px;font-size:.88rem}
@@ -74,7 +71,7 @@ dt{color:var(--muted)}dd{margin:0;min-width:0}
 .note{font-size:.76rem;color:var(--muted);margin:0}
 .note.warn{color:var(--soon)}
 .acts{display:flex;gap:8px;flex-wrap:wrap;padding-top:2px}
-.btn{flex:1 1 130px;text-align:center;text-decoration:none;font-size:.88rem;font-weight:600;border-radius:10px;padding:9px 10px;border:1px solid var(--moss);color:var(--moss)}
+.btn{flex:1 1 130px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;font-size:.88rem;font-weight:600;border-radius:10px;padding:9px 10px;border:1px solid var(--moss);color:var(--moss)}
 .btn.main{background:var(--moss);color:var(--paper)}
 .empty{padding:28px 0;text-align:center;color:var(--muted)}
 footer{margin-top:32px;font-size:.8rem;color:var(--muted);display:grid;gap:6px}
@@ -84,7 +81,7 @@ footer a{color:var(--moss)}
 <body>
 <div class="wrap">
   <header>
-    <span class="logo" role="img" aria-label="Logo Bimon Homestay" style="width:110px;background:var(--moss)"></span>
+    <a href="/" aria-label="Về trang chủ Bimon Homestay" style="display:block;width:110px"><span class="logo" aria-hidden="true" style="width:110px;background:var(--moss)"></span></a>
     <h1>Ăn gì, đi đâu quanh Bimon</h1>
     <p class="home">Xuất phát từ home: <strong>5/141 Cầu Đất, Gia Viên, Hải Phòng</strong> · <a href="https://share.google/xh4tSK7Lf7EP9lr3K" target="_blank" rel="noopener">Mở vị trí home</a> · <a href="/">Về trang Bimon</a></p>
   </header>
