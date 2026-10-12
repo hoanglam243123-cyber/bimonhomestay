@@ -37,7 +37,6 @@ git push -u origin main
 
 Khi mua gói: chọn gói có **Node.js** (Business Web Hosting trở lên). Gói trả theo năm thường kèm tên miền miễn phí năm đầu, kiểm tra lại lúc thanh toán. Có tên miền rồi thì điền vào `SITE_URL`.
 
-Cần gói có hỗ trợ **Node.js** (Business Web Hosting, Cloud, hoặc VPS). Gói Single/Premium không chạy được Node.js.
 
 ### Cách 1: Business / Cloud Hosting (dễ nhất, tự deploy khi push GitHub)
 
