@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bimon Homestay Hải Phòng | 3 phút ra ga, giữa phố ăn Cầu Đất</title>
+<meta name="description" content="Homestay 3 phòng riêng, WC khép kín, check-in tự động, đi bộ 3 phút ra ga Hải Phòng, ngay phố ẩm thực Cầu Đất. Gửi yêu cầu để nhận giá và giữ phòng.">
+<link rel="canonical" href="__SITE_URL__/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bimon Homestay Hải Phòng | 3 phút ra ga, giữa phố ăn Cầu Đất">
+<meta property="og:description" content="Homestay 3 phòng riêng, WC khép kín, check-in tự động, đi bộ 3 phút ra ga Hải Phòng, ngay phố ẩm thực Cầu Đất. Gửi yêu cầu để nhận giá và giữ phòng.">
+<meta property="og:image" content="__SITE_URL__/img/og.jpg">
+<meta property="og:url" content="__SITE_URL__/">
+<meta property="og:locale" content="vi_VN">
+<meta name="theme-color" content="#4a5d3a">
+<link rel="icon" href="/img/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/img/favicon.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LodgingBusiness", "name": "Bimon Homestay", "description": "Homestay 3 phòng riêng có WC khép kín, giữa phố ẩm thực Cầu Đất, đi bộ 3 phút ra ga Hải Phòng.", "url": "__SITE_URL__/", "image": "__SITE_URL__/img/og.jpg", "telephone": "+84934504439", "address": {"@type": "PostalAddress", "streetAddress": "5/141 Cầu Đất", "addressLocality": "Gia Viên, Hải Phòng", "addressCountry": "VN"}, "amenityFeature": [{"@type": "LocationFeatureSpecification", "name": "Điều hoà", "value": true}, {"@type": "LocationFeatureSpecification", "name": "WiFi miễn phí", "value": true}, {"@type": "LocationFeatureSpecification", "name": "Nhà vệ sinh riêng", "value": true}, {"@type": "LocationFeatureSpecification", "name": "Bếp chung", "value": true}, {"@type": "LocationFeatureSpecification", "name": "Check-in tự động", "value": true}], "numberOfRooms": 3}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;800&display=swap">
+<style>
+/* Layout: sticky nav → logo hero on moss + booking search bar → story + real stats → rooms → amenities → gallery → location → booking + contact → footer; floating chat buttons bottom-right */
+:root{
+  --bg:#f3efe3; --paper:#fbf8f0; --fg:#1f2a1c; --muted:#5d6a56;
+  --moss:#4a5d3a; --moss-deep:#33422a; --sage:#dfe5cf; --line:#d8d2bf; --on-moss:#f3efe3;
+  --cream:#eef2e2; --cream-2:#cfdbb6;
+  --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#161b14;--paper:#1f261c;--fg:#ece8da;--muted:#a7b29b;--moss:#b5c99a;--moss-deep:#2c3825;--sage:#2c3825;--line:#34402e;--on-moss:#161b14;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#161b14;--paper:#1f261c;--fg:#ece8da;--muted:#a7b29b;--moss:#b5c99a;--moss-deep:#2c3825;--sage:#2c3825;--line:#34402e;--on-moss:#161b14;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15.5px;line-height:1.6;padding-inline:16px}
+.wrap{max-width:980px;margin:0 auto;padding-block:0 96px;display:grid;gap:52px}
+h2{font-size:clamp(1.35rem,4vw,1.75rem);font-weight:800;margin:0 0 4px;letter-spacing:-.015em;text-wrap:balance;line-height:1.25}
+.eyebrow{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--moss);font-weight:600}
+.lead{color:var(--muted);margin:0;max-width:62ch}
+section{display:grid;gap:18px}
+a{color:var(--moss)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font:inherit;font-weight:600;font-size:.93rem;border-radius:10px;padding:11px 16px;text-decoration:none;cursor:pointer;border:1.5px solid var(--moss);background:transparent;color:var(--moss)}
+.btn.main{background:var(--moss);color:var(--on-moss)}
+.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible,nav a:focus-visible{outline:2px solid var(--moss);outline-offset:2px}
+.logo{display:block;aspect-ratio:1;-webkit-mask:url("/img/logo-mask.png") center/contain no-repeat;mask:url("/img/logo-mask.png") center/contain no-repeat}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);margin-inline:-16px;padding:8px 16px;border-bottom:1px solid var(--line)}
+.nav-in{max-width:980px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.nav .logo{width:44px;background:var(--moss);flex:none}
+.nav .links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.nav .links::-webkit-scrollbar{display:none}
+.nav .links a{flex:none;text-decoration:none;color:var(--fg);font-size:.88rem;padding:6px 10px;border-radius:8px}
+.nav .links a:hover{background:var(--sage)}
+.lang{flex:none;display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.lang button{font:inherit;font-size:.75rem;font-weight:600;border:0;background:transparent;color:var(--muted);padding:5px 8px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--moss);color:var(--on-moss)}
+.nav .btn{flex:none;padding:7px 12px;font-size:.85rem}
+@media (max-width:560px){.nav .btn{display:none}}
+
+/* hero + search */
+.hero{border-radius:20px;background:#33422a;color:var(--cream);padding:36px 14px 14px;display:grid;grid-template-columns:minmax(0,1fr);gap:22px;justify-items:center;text-align:center;margin-top:16px}
+.hero .logo{width:min(210px,56vw);background:var(--cream)}
+.hero h1{margin:0;font-size:clamp(1.25rem,4.4vw,1.7rem);font-weight:600;line-height:1.35;max-width:24ch;text-wrap:balance}
+.hero p{margin:-8px 0 0;color:var(--cream-2);font-size:.95rem}
+.search{width:100%;max-width:760px;background:var(--paper);color:var(--fg);border-radius:14px;padding:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;text-align:left}
+.search .btn{align-self:end}
+label{display:grid;gap:4px;font-size:.78rem;font-weight:600;color:var(--muted);min-width:0}
+input,select,textarea{font:inherit;font-size:.95rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:9px 10px;width:100%;min-width:0}
+textarea{resize:vertical;min-height:64px}
+
+/* story */
+.story{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;align-items:center}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.stat{background:var(--paper);padding:16px 12px;display:grid;gap:2px;text-align:center}
+.stat b{font-size:1.6rem;font-weight:800;color:var(--moss);font-variant-numeric:tabular-nums;line-height:1.1}
+.stat span{font-size:.78rem;color:var(--muted)}
+
+/* rooms */
+.rooms{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.room{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:grid;grid-template-rows:auto 1fr;min-width:0}
+.room img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;max-width:100%}
+.room .body{padding:14px 16px 16px;display:grid;gap:10px;align-content:start}
+.room h3{margin:0;font-size:1.2rem;font-weight:800}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:.75rem;font-weight:600;background:var(--sage);color:var(--moss);border-radius:6px;padding:3px 8px}
+.room p{margin:0;color:var(--muted);font-size:.9rem}
+.room .btn{margin-top:4px;width:100%}
+
+/* amenities */
+.amen{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.am{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:start;padding:12px;border-radius:12px;background:var(--paper);border:1px solid var(--line)}
+.am svg{width:36px;height:36px;padding:7px;border-radius:10px;background:var(--sage);stroke:var(--moss);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.am b{display:block;font-size:.95rem}
+.am span{font-size:.83rem;color:var(--muted)}
+
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.gal figure{margin:0;border-radius:12px;overflow:hidden;position:relative;grid-column:span 2;min-width:0}
+.gal figure.w{grid-column:span 3}
+.gal img{width:100%;height:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.gal figcaption{position:absolute;left:8px;bottom:8px;background:rgba(51,66,42,.78);color:var(--cream);font-size:.75rem;padding:3px 9px;border-radius:7px}
+@media (max-width:560px){.gal figure,.gal figure.w{grid-column:span 3}}
+
+/* location */
+.loc{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px}
+.loc ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:.92rem}
+.loc li{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.loc li span:last-child{color:var(--muted);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.hint{font-size:.8rem;color:var(--muted);margin:0}
+
+/* faq */
+.faq{display:grid;gap:8px}
+details{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:0 14px}
+summary{cursor:pointer;font-weight:600;padding:12px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::after{content:"+";color:var(--moss);font-weight:800}
+details[open] summary::after{content:"–"}
+details p{margin:0 0 12px;color:var(--muted);font-size:.92rem}
+
+/* booking */
+.book{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;align-items:start}
+form.bk{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:12px;min-width:0}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.msg{white-space:pre-wrap;background:var(--bg);border:1px dashed var(--moss);border-radius:10px;padding:12px;font-size:.88rem;margin:0;font-family:inherit}
+.out{display:grid;gap:10px}
+.out .acts .btn{flex:1 1 140px}
+.toast{font-size:.82rem;color:var(--moss);font-weight:600;min-height:1.2em;margin:0}
+.contact{background:#33422a;color:var(--cream);border-radius:16px;padding:20px;display:grid;gap:12px}
+.contact .eyebrow{color:var(--cream-2)}
+.contact h3{margin:0;font-size:1.1rem}
+.phone{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(255,255,255,.08);border-radius:12px;padding:10px 12px}
+.tel{color:inherit;text-decoration:none}
+.phone b{font-size:1.2rem;letter-spacing:.02em;font-variant-numeric:tabular-nums;user-select:all}
+.phone .btn{border-color:var(--cream-2);color:var(--cream);padding:7px 12px;font-size:.82rem}
+.contact p{margin:0;font-size:.85rem;color:var(--cream-2)}
+
+footer{display:grid;gap:10px;justify-items:center;text-align:center;color:var(--muted);font-size:.84rem;border-top:1px solid var(--line);padding-top:28px}
+footer .logo{width:110px;background:var(--moss)}
+
+/* floating chat */
+.fab{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:30;display:grid;gap:8px;justify-items:end}
+.fab a,.fab button{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;border:0;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18);text-decoration:none;font:inherit;font-weight:800;font-size:.72rem}
+.fab .zalo{background:#0068ff;color:#fff}
+.fab .call{background:var(--moss);color:var(--on-moss)}
+.fab svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pop{position:fixed;right:14px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:31;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px;display:grid;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,.16);width:min(260px,calc(100vw - 28px))}
+.pop .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.pop b{font-variant-numeric:tabular-nums;user-select:all}
+.pop .btn{padding:5px 10px;font-size:.8rem}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav class="nav" aria-label="Menu">
+  <div class="nav-in">
+    <a href="#top" aria-label="Bimon Homestay"><span class="logo" role="img" aria-label="Logo Bimon Homestay"></span></a>
+    <div class="links">
+      <a href="#cac-phong" data-i="n_rooms">Phòng</a>
+      <a href="#tien-nghi" data-i="n_amen">Tiện nghi</a>
+      <a href="#anh" data-i="n_gal">Hình ảnh</a>
+      <a href="#vi-tri" data-i="n_loc">Vị trí</a>
+      <a href="/an-gi" data-i="n_food">Ăn gì</a>
+    </div>
+    <div class="lang" role="group" aria-label="Ngôn ngữ"><button type="button" id="l-vi" aria-pressed="true">VN</button><button type="button" id="l-en" aria-pressed="false">EN</button></div>
+    <a class="btn main" href="#dat-phong" data-i="book">Đặt phòng</a>
+  </div>
+</nav>
+
+<div class="wrap" id="top">
+
+  <header class="hero">
+    <span class="logo" role="img" aria-label="Logo Bimon Homestay"></span>
+    <h1 data-i="h_title">Ở giữa phố ăn Hải Phòng, đi bộ 3 phút ra ga</h1>
+    <p data-i="h_sub">3 phòng riêng, nhà vệ sinh khép kín, check-in tự động.</p>
+    <form class="search" id="search" novalidate>
+      <label for="s-den"><span data-i="f_in">Nhận phòng</span><input id="s-den" type="date"></label>
+      <label for="s-di"><span data-i="f_out">Trả phòng</span><input id="s-di" type="date"></label>
+      <label for="s-khach"><span data-i="f_guests">Số khách</span><select id="s-khach"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5+</option></select></label>
+      <button class="btn main" type="submit" data-i="find">Tìm phòng</button>
+    </form>
+  </header>
+
+  <section class="story">
+    <div style="display:grid;gap:10px">
+      <div class="eyebrow" data-i="s_eye">Câu chuyện</div>
+      <h2 data-i="s_title">Không phải khách sạn. Là một ngôi nhà cho người đi ăn.</h2>
+      <p class="lead" data-i="s_body">Bimon nằm trong ngõ 141 Cầu Đất, giữa phố ẩm thực Cầu Đất và Lương Khánh Thiện. Xuống tàu là đi bộ về nhà, cất đồ rồi đi ăn. Nhà chỉ có 3 phòng nên luôn yên tĩnh, sạch sẽ, và chủ nhà có thời gian chỉ cho bạn quán ngon.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>3</b><span data-i="st1">phòng riêng</span></div>
+      <div class="stat"><b>3'</b><span data-i="st2">đi bộ ra ga</span></div>
+      <div class="stat"><b>27</b><span data-i="st3">quán ăn trong 3 km</span></div>
+    </div>
+  </section>
+
+  <section id="cac-phong">
+    <div><div class="eyebrow" data-i="r_eye">Các phòng</div><h2 data-i="r_title">Chọn một góc của riêng bạn</h2>
+    <p class="lead" data-i="r_lead">Phòng nào cũng có điều hoà, WiFi và nhà vệ sinh riêng. Nhắn Bimon để nhận giá theo ngày.</p></div>
+    <div class="rooms">
+      <article class="room" data-room="Bi" data-max="2">
+        <img src="/img/phong-bi.jpg" alt="Phòng Bi" loading="lazy">
+        <div class="body">
+          <h3 data-i="bi_t">Phòng Bi</h3>
+          <div class="tags"><span class="tag" data-i="bed1">1 giường đôi</span><span class="tag" data-i="wc">WC riêng</span><span class="tag" data-i="fit12">1–2 người</span></div>
+          <p data-i="bi_d">Tông gỗ ấm, đèn hắt dịu, tủ quần áo lớn và bàn trang điểm nhỏ.</p>
+          <button class="btn main" type="button" data-pick="Phòng Bi" data-i="bi_b">Đặt phòng Bi</button>
+        </div>
+      </article>
+      <article class="room" data-room="Mun" data-max="2">
+        <img src="/img/phong-mun.jpg" alt="Phòng Mun" loading="lazy">
+        <div class="body">
+          <h3 data-i="mun_t">Phòng Mun</h3>
+          <div class="tags"><span class="tag" data-i="bed1">1 giường đôi</span><span class="tag" data-i="wc">WC riêng</span><span class="tag" data-i="fit12">1–2 người</span></div>
+          <p data-i="mun_d">Gọn gàng, sáng sủa, tông be nhẹ, có ghế băng và đèn đứng đọc sách.</p>
+          <button class="btn main" type="button" data-pick="Phòng Mun" data-i="mun_b">Đặt phòng Mun</button>
+        </div>
+      </article>
+      <article class="room" data-room="Moon" data-max="4">
+        <img src="/img/phong-moon.jpg" alt="Phòng Moon với hai giường" loading="lazy">
+        <div class="body">
+          <h3 data-i="moon_t">Phòng Moon</h3>
+          <div class="tags"><span class="tag" data-i="bed2">2 giường đôi</span><span class="tag" data-i="wc">WC riêng</span><span class="tag" data-i="fit34">3–4 người</span></div>
+          <p data-i="moon_d">Phòng rộng nhất nhà, hai giường lớn, hợp nhóm bạn đi foodtour.</p>
+          <button class="btn main" type="button" data-pick="Phòng Moon" data-i="moon_b">Đặt phòng Moon</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="tien-nghi">
+    <div><div class="eyebrow" data-i="a_eye">Tiện nghi</div><h2 data-i="a_title">Chăm từng chi tiết nhỏ</h2></div>
+    <div class="amen">
+      <div class="am"><svg viewBox="0 0 24 24"><path d="M3 9h18v6H3z"/><path d="M7 15v3M12 15v4M17 15v3"/></svg><div><b data-i="a1">Điều hoà</b><span data-i="a1d">Tất cả các phòng</span></div></div>
+      <div class="am"><svg viewBox="0 0 24 24"><path d="M2 9a15 15 0 0 1 20 0"/><path d="M5.5 12.5a10 10 0 0 1 13 0"/><path d="M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="19" r="1"/></svg><div><b>WiFi</b><span data-i="a2d">Miễn phí, cả nhà</span></div></div>
+      <div class="am"><svg viewBox="0 0 24 24"><path d="M4 12h16v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M6 12V6a2 2 0 0 1 4 0"/></svg><div><b data-i="a3">Nhà vệ sinh khép kín</b><span data-i="a3d">Riêng từng phòng, gương đèn LED</span></div></div>
+      <div class="am"><svg viewBox="0 0 24 24"><path d="M5 3v18M5 9h4a2 2 0 0 0 2-2V3M15 3c-1.5 2-1.5 6 0 8v10"/></svg><div><b data-i="a4">Bếp chung</b><span data-i="a4d">Tủ lạnh, bồn rửa, bàn ăn, dụng cụ nấu</span></div></div>
+      <div class="am"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15" r="1.3"/></svg><div><b data-i="a5">Check-in tự động</b><span data-i="a5d">Đến giờ nào cũng vào được</span></div></div>
+      <div class="am"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><div><b data-i="a6">Gần ga, dễ dàng foodtour</b><span data-i="a6d">Phố ẩm thực ngay đầu ngõ</span></div></div>
+    </div>
+  </section>
+
+  <section id="anh">
+    <div><div class="eyebrow" data-i="g_eye">Hình ảnh</div><h2 data-i="g_title">Thấy sao, ở vậy</h2></div>
+    <div class="gal">
+      <figure class="w"><img src="/img/phong-bi.jpg" alt="Phòng Bi" loading="lazy"><figcaption data-i="bi_t">Phòng Bi</figcaption></figure>
+      <figure class="w"><img src="/img/phong-moon.jpg" alt="Phòng Moon" loading="lazy"><figcaption data-i="moon_t">Phòng Moon</figcaption></figure>
+      <figure><img src="/img/phong-mun.jpg" alt="Phòng Mun" loading="lazy"><figcaption data-i="mun_t">Phòng Mun</figcaption></figure>
+      <figure><img src="/img/wc.jpg" alt="Nhà vệ sinh khép kín" loading="lazy"><figcaption data-i="a3">Nhà vệ sinh khép kín</figcaption></figure>
+      <figure><img src="/img/bep.jpg" alt="Bếp chung" loading="lazy"><figcaption data-i="a4">Bếp chung</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="vi-tri">
+    <div><div class="eyebrow" data-i="l_eye">Vị trí</div><h2>5/141 Cầu Đất, Gia Viên, Hải Phòng</h2>
+    <p class="lead" data-i="l_lead">Ngõ yên tĩnh, ra đầu ngõ là phố ăn Cầu Đất và Lương Khánh Thiện.</p></div>
+    <div class="loc">
+      <ul>
+        <li><span data-i="p1">Ga Hải Phòng</span><span data-i="p1t">~3 phút đi bộ</span></li>
+        <li><span data-i="p2">Bánh đa cua Bà Cụ</span><span data-i="p2t">~2 phút đi bộ</span></li>
+        <li><span data-i="p3">Chợ ăn vặt Lương Văn Can</span><span data-i="p3t">~10 phút đi bộ</span></li>
+        <li><span data-i="p4">Nhà hát lớn, phố đi bộ Tam Bạc</span><span data-i="p4t">~5 phút đi xe</span></li>
+        <li><span data-i="p5">Sân bay Cát Bi</span><span data-i="p5t">~20–30 phút taxi</span></li>
+      </ul>
+      <div style="display:grid;gap:12px;align-content:start">
+        <p class="hint" data-i="l_hint">Thời gian là ước tính. Đi tàu từ Hà Nội thì xuống ga là đi bộ về nhà được.</p>
+        <div class="acts">
+          <a class="btn main" href="https://share.google/xh4tSK7Lf7EP9lr3K" target="_blank" rel="noopener" data-i="l_map">Mở Google Maps</a>
+          <a class="btn" href="/an-gi" data-i="l_food">Quanh nhà ăn gì?</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="dat-phong">
+    <div><div class="eyebrow" data-i="b_eye">Đặt phòng</div><h2 data-i="b_title">Gửi yêu cầu, Bimon báo giá và giữ phòng</h2>
+    <p class="lead" data-i="b_lead">Để lại tên, số điện thoại và ngày ở. Bimon nhận yêu cầu ngay và gọi lại báo giá, giữ phòng cho bạn.</p></div>
+    <div class="book">
+      <form class="bk" id="f" novalidate>
+        <div class="f2">
+          <label for="ten"><span data-i="f_name">Tên bạn</span><input id="ten" autocomplete="name" maxlength="80" required></label>
+          <label for="sdt"><span data-i="f_phone">Số điện thoại</span><input id="sdt" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" required></label>
+        </div>
+        <div class="f2">
+          <label for="den"><span data-i="f_in">Nhận phòng</span><input id="den" type="date"></label>
+          <label for="di"><span data-i="f_out">Trả phòng</span><input id="di" type="date"></label>
+        </div>
+        <div class="f2">
+          <label for="phong"><span data-i="f_room">Phòng</span><select id="phong"><option value="any" data-i="any">Phòng nào cũng được</option><option value="Phòng Bi" data-i="bi_t">Phòng Bi</option><option value="Phòng Mun" data-i="mun_t">Phòng Mun</option><option value="Phòng Moon" data-i="moon_t">Phòng Moon</option></select></label>
+          <label for="khach"><span data-i="f_guests">Số khách</span><select id="khach"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5+</option></select></label>
+        </div>
+        <label for="note"><span data-i="f_note">Ghi chú</span><textarea id="note" maxlength="1000"></textarea></label>
+        <button class="btn main" type="submit" data-i="f_go">Gửi yêu cầu đặt phòng</button>
+        <input type="text" name="website" id="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0">
+        <p class="toast" id="err" role="status"></p>
+      </form>
+      <div class="out">
+        <pre class="msg" id="msg" hidden></pre>
+        <div class="acts" id="msgActs" hidden>
+          <button class="btn main" type="button" id="copy" data-i="copy_msg">Sao chép tin nhắn</button>
+        </div>
+        <p class="toast" id="toast" role="status"></p>
+        <div class="contact">
+          <div class="eyebrow" data-i="c_eye">Liên hệ trực tiếp</div>
+          <h3 data-i="c_title">Gọi hoặc nhắn tin cho Bimon</h3>
+          <div class="phone"><a class="tel" href="tel:0934504439"><b>0934 504 439</b></a><button class="btn" type="button" data-copy="0934504439" data-i="copy">Sao chép</button></div>
+          <div class="phone"><a class="tel" href="tel:0941205555"><b>0941 205 555</b></a><button class="btn" type="button" data-copy="0941205555" data-i="copy">Sao chép</button></div>
+          <p>5/141 Cầu Đất, Gia Viên, Hải Phòng</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="logo" role="img" aria-label="Logo Bimon Homestay"></span>
+    <div data-i="foot">Ở Bimon, bạn không chỉ thuê phòng mà gia nhập một gia đình du khách.</div>
+    <div>5/141 Cầu Đất, Gia Viên, Hải Phòng · 0934 504 439 · 0941 205 555</div>
+  </footer>
+</div>
+
+<div class="fab">
+  <button class="call" type="button" id="callBtn" aria-label="Số điện thoại" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></button>
+</div>
+<div class="pop" id="pop" hidden>
+  <div class="row"><a class="tel" href="tel:0934504439"><b>0934 504 439</b></a><button class="btn" type="button" data-copy="0934504439" data-i="copy">Sao chép</button></div>
+  <div class="row"><a class="tel" href="tel:0941205555"><b>0941 205 555</b></a><button class="btn" type="button" data-copy="0941205555" data-i="copy">Sao chép</button></div>
+  <p class="hint" data-i="pop_hint">Bấm vào số để gọi ngay.</p>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const EN={n_rooms:"Rooms",n_amen:"Amenities",n_gal:"Photos",n_loc:"Location",n_faq:"FAQ",book:"Book",
+h_title:"In the middle of Hai Phong's food streets, 3 minutes' walk from the station",h_sub:"3 private rooms, en-suite bathrooms, self check-in.",
+f_in:"Check-in",f_out:"Check-out",f_guests:"Guests",find:"Find rooms",
+s_eye:"Our story",s_title:"Not a hotel. A home for people who travel to eat.",s_body:"Bimon sits in a quiet lane off Cau Dat street, between the Cau Dat and Luong Khanh Thien food streets. Step off the train, walk home, drop your bags and go eat. With only 3 rooms the house stays quiet and clean, and your host has time to point you to the good places.",
+st1:"private rooms",st2:"walk to the station",st3:"eateries within 3 km",
+r_eye:"Rooms",r_title:"Choose a space of your own",r_lead:"Every room has air-conditioning, Wi-Fi and its own bathroom. Message Bimon for rates on your dates.",
+bi_t:"Bi room",mun_t:"Mun room",moon_t:"Moon room",bed1:"1 double bed",bed2:"2 double beds",wc:"Private bathroom",fit12:"1–2 guests",fit34:"3–4 guests",
+bi_d:"Warm wood tones, soft lighting, a large wardrobe and a small vanity.",mun_d:"Neat and bright in soft beige, with a bench and a reading lamp.",moon_d:"Our largest room, two big beds, ideal for a group of friends on a food trip.",
+bi_b:"Book Bi",mun_b:"Book Mun",moon_b:"Book Moon",
+a_eye:"Amenities",a_title:"Every small detail looked after",a1:"Air-conditioning",a1d:"In every room",a2d:"Free, whole house",a3:"En-suite bathroom",a3d:"Private to each room, LED mirror",a4:"Shared kitchen",a4d:"Fridge, sink, dining table, basic cookware",a5:"Self check-in",a5d:"Arrive at any hour",a6:"Near the station, easy food tours",a6d:"Food streets at the end of the lane",
+g_eye:"Photos",g_title:"What you see is what you get",
+l_eye:"Location",l_lead:"A quiet lane opening onto the Cau Dat and Luong Khanh Thien food streets.",p1:"Hai Phong Railway Station",p1t:"~3 min walk",p2:"Ba Cu crab noodle soup",p2t:"~2 min walk",p3:"Luong Van Can snack market",p3t:"~10 min walk",p4:"Opera House, Tam Bac walking street",p4t:"~5 min ride",p5:"Cat Bi Airport",p5t:"~20–30 min taxi",l_hint:"Times are estimates. Coming by train from Hanoi, you can walk from the station.",l_map:"Open Google Maps",l_food:"What to eat nearby",
+q_eye:"FAQ",q_title:"Questions guests often ask",
+q1:"How much is a room?",q1a:"Rates vary by date and room. Message us on Zalo or send a request below and Bimon will quote you and hold the room.",
+q2:"How do I check in if I arrive late?",q2a:"Bimon has self check-in, so you can let yourself in at any hour.",
+q3:"How do I get from the station?",q3a:"About 3 minutes on foot. From Cat Bi Airport, a taxi or Grab takes about 20–30 minutes.",
+q4:"How many people fit in the Moon room?",q4a:"Moon has 2 double beds, good for 3–4 people. Bi and Mun each have 1 double bed for 1–2 people.",
+q5:"Can I cook?",q5a:"Yes, there is a shared kitchen with a fridge, sink, dining table and basic cookware.",
+q6:"What's good to eat nearby?",q6a:"Crab noodle soup, shrimp noodles, steamed rice rolls, sweet dumplings and grilled oysters are all a few minutes' walk away. See Bimon's picks under “What to eat nearby”.",
+b_eye:"Booking",b_title:"Send a request and Bimon will quote and hold your room",b_lead:"Leave your name, phone and dates. Bimon gets your request right away and calls back with a quote.",
+f_name:"Your name",f_phone:"Phone",f_room:"Room",any:"Any room",f_note:"Notes",f_go:"Send booking request",n_food:"Food",copy_msg:"Copy message",open_zalo:"Open Bimon on Zalo",
+c_eye:"Contact",c_title:"Call or text Bimon",copy:"Copy",pop_hint:"Long-press a number to call from your phone.",
+foot:"At Bimon you don't just rent a room, you join a family of travellers."};
+const VI={};document.querySelectorAll("[data-i]").forEach(el=>{if(!(el.dataset.i in VI))VI[el.dataset.i]=el.textContent});
+let lang="vi";
+function setLang(l){lang=l;const D=l==="en"?EN:VI;document.querySelectorAll("[data-i]").forEach(el=>{const v=D[el.dataset.i];if(v)el.textContent=v});
+  document.documentElement.lang=l;$("l-vi").setAttribute("aria-pressed",l==="vi");$("l-en").setAttribute("aria-pressed",l==="en");try{localStorage.setItem("bimon-lang",l)}catch(e){}}
+$("l-vi").onclick=()=>setLang("vi");$("l-en").onclick=()=>setLang("en");
+try{if(localStorage.getItem("bimon-lang")==="en")setLang("en")}catch(e){}
+
+const T={vi:{need:"Chọn ngày nhận và ngày trả phòng để Bimon kiểm tra phòng trống.",order:"Ngày trả phòng cần sau ngày nhận phòng.",who:"Cho Bimon xin tên và số điện thoại để gọi lại báo giá nhé.",bad:"Số điện thoại chưa đúng, bạn kiểm tra lại giúp Bimon.",sending:"Đang gửi...",sent:"Bimon đã nhận yêu cầu và sẽ gọi lại sớm. Bạn có thể sao chép tin nhắn dưới đây để nhắn thêm.",offline:"Chưa gửi được lên hệ thống. Bạn sao chép tin nhắn dưới đây và nhắn cho Bimon nhé.",copied:"Đã sao chép. Dán vào tin nhắn gửi Bimon.",num:"Đã sao chép số ",fail:"Không sao chép tự động được. Bạn nhấn giữ để sao chép."},
+ en:{need:"Pick check-in and check-out dates so Bimon can check availability.",order:"Check-out must be after check-in.",who:"Please leave your name and phone so Bimon can call you back.",bad:"That phone number doesn't look right.",sending:"Sending...",sent:"Bimon has your request and will call you back soon. You can also copy the message below.",offline:"Couldn't send online. Copy the message below and text it to Bimon.",copied:"Copied. Paste it into a message to Bimon.",num:"Copied ",fail:"Couldn't copy automatically. Long-press to copy."}};
+const toast=(t,el=$("toast"))=>{el.textContent=t;clearTimeout(el._t);el._t=setTimeout(()=>el.textContent="",3500)};
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const plus1=v=>{const[y,m,d]=v.split("-").map(Number);return iso(new Date(y,m-1,d+1))};
+const today=iso(new Date());
+["s-den","den"].forEach(id=>$(id).min=today);["s-di","di"].forEach(id=>$(id).min=plus1(today));
+[["s-den","s-di"],["den","di"]].forEach(([a,b])=>$(a).addEventListener("change",()=>{const v=$(a).value;if(!v)return;$(b).min=plus1(v);if(!$(b).value||$(b).value<=v)$(b).value=plus1(v)}));
+
+// thanh tìm phòng: chuyển ngày + khách xuống form, gợi ý phòng hợp số khách
+$("search").addEventListener("submit",e=>{e.preventDefault();
+  $("den").value=$("s-den").value;$("di").value=$("s-di").value;$("khach").value=$("s-khach").value;
+  const g=Number($("s-khach").value);
+  document.querySelectorAll(".room").forEach(r=>r.style.opacity=g>Number(r.dataset.max)?".45":"1");
+  if(g>2)$("phong").value="Phòng Moon";
+  $("cac-phong").scrollIntoView({behavior:"smooth"});
+});
+document.querySelectorAll("[data-pick]").forEach(b=>b.addEventListener("click",()=>{$("phong").value=b.dataset.pick;if(b.dataset.pick==="Phòng Moon"&&Number($("khach").value)<3)$("khach").value="4";$("dat-phong").scrollIntoView({behavior:"smooth"});setTimeout(()=>$("ten").focus({preventScroll:true}),450)}));
+
+const vn=v=>{const[y,m,d]=v.split("-");return`${d}/${m}/${y}`};
+$("f").addEventListener("submit",async e=>{e.preventDefault();
+  const den=$("den").value,di=$("di").value,ten=$("ten").value.trim(),sdt=$("sdt").value.trim();
+  if(!den||!di){toast(T[lang].need,$("err"));return}
+  if(di<=den){toast(T[lang].order,$("err"));return}
+  if(!ten||!sdt){toast(T[lang].who,$("err"));return}
+  if(!/^[+0-9 .()-]{8,20}$/.test(sdt)){toast(T[lang].bad,$("err"));return}
+  const dem=Math.round((new Date(di)-new Date(den))/864e5);
+  const room=$("phong").value==="any"?"Phòng nào cũng được":$("phong").value;
+  const k=$("khach").value==="5"?"5 người trở lên":$("khach").value+" người";
+  const lines=["Chào Bimon, mình muốn đặt phòng:",`• Phòng: ${room}`,`• Nhận phòng: ${vn(den)} · Trả phòng: ${vn(di)} (${dem} đêm)`,`• Số khách: ${k}`,
+    `• Tên: ${ten}`,`• SĐT: ${sdt}`,
+    $("note").value.trim()?`• Ghi chú: ${$("note").value.trim()}`:null,"Bimon báo giá và giữ phòng giúp mình nhé!"].filter(Boolean);
+  const btn=e.submitter||$("f").querySelector("button[type=submit]");btn.disabled=true;const old=btn.textContent;btn.textContent=T[lang].sending;
+  let ok=false;
+  try{const r=await fetch("/api/dat-phong",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({ten,sdt,den,di,phong:room,khach:$("khach").value,ghichu:$("note").value.trim(),website:$("hp").value,lang})});
+    ok=r.ok}catch(err){}
+  btn.disabled=false;btn.textContent=old;
+  toast(ok?T[lang].sent:T[lang].offline,$("toast"));clearTimeout($("toast")._t);
+  $("msg").textContent=lines.join("\n");$("msg").hidden=false;$("msgActs").hidden=false;$("msg").scrollIntoView({behavior:"smooth",block:"nearest"});
+  if(ok)$("f").reset();
+});
+function copyText(t,label,sel){
+  const fb=()=>{if(sel){const r=document.createRange();r.selectNodeContents(sel);const s=getSelection();s.removeAllRanges();s.addRange(r)}toast(T[lang].fail)};
+  try{navigator.clipboard.writeText(t).then(()=>toast(label),fb)}catch(e){fb()}
+}
+$("copy").addEventListener("click",()=>copyText($("msg").textContent,T[lang].copied,$("msg")));
+document.querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",()=>{copyText(b.dataset.copy,T[lang].num+b.dataset.copy,b.previousElementSibling);const o=b.textContent;b.textContent=lang==="en"?"Copied":"Đã chép";setTimeout(()=>b.textContent=o,1600)}));
+$("callBtn").addEventListener("click",()=>{const p=$("pop");p.hidden=!p.hidden;$("callBtn").setAttribute("aria-expanded",String(!p.hidden))});
+</script>
+</body>
+</html>

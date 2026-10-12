@@ -1,0 +1,19 @@
+{
+  "name": "bimon-homestay-website",
+  "version": "1.0.0",
+  "description": "Website Bimon Homestay Hải Phòng - giới thiệu phòng, ăn gì quanh nhà, nhận yêu cầu đặt phòng",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18.17"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.21.2",
+    "nodemailer": "^6.9.16"
+  }
+}
