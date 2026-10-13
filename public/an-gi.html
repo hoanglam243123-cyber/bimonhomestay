@@ -2,6 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
+<script>try{var t=localStorage.getItem("bimon-theme");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Ăn gì quanh Bimon Homestay | Foodtour Hải Phòng</title>
 <meta name="description" content="27 quán ăn và 8 điểm nên đi trong bán kính 3 km quanh Bimon Homestay, có giờ mở cửa và chỉ đường Google Maps.">
@@ -35,6 +36,18 @@
   --f-script:"Playfair Display",Georgia,serif;
   color-scheme:light;
 }
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12160F; --paper:#1B2217; --fg:#E4E8DC; --muted:#A8B39C;
+  --moss:#B5C99A; --moss-soft:#252E20; --gold:#E3B341; --line:#38452F;
+  --open:#4ADE80; --soon:#E3B341; --closed:#F87171;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#12160F; --paper:#1B2217; --fg:#E4E8DC; --muted:#A8B39C;
+  --moss:#B5C99A; --moss-soft:#252E20; --gold:#E3B341; --line:#38452F;
+  --open:#4ADE80; --soon:#E3B341; --closed:#F87171;
+  color-scheme:dark;
+}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.5;padding-inline:16px}
 .wrap{max-width:640px;margin:0 auto;padding-block:20px 48px}
@@ -64,6 +77,8 @@ h1{font-family:var(--f-script);color:var(--moss);font-size:1.7rem;font-weight:70
 .badges{display:flex;flex-wrap:wrap;gap:6px}
 .b{font-size:.72rem;border-radius:6px;padding:2px 8px;background:var(--moss-soft);color:var(--moss);font-weight:600}
 .b.pick{background:var(--gold);color:#fff}
+:root[data-theme="dark"] .b.pick{color:#1B2217}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .b.pick{color:#1B2217}}
 .st{font-size:.72rem;font-weight:600;padding:2px 0}
 .st.open{color:var(--open)}.st.soon{color:var(--soon)}.st.closed{color:var(--closed)}
 dl{margin:0;display:grid;grid-template-columns:76px 1fr;gap:4px 10px;font-size:.88rem}

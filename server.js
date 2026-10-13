@@ -86,6 +86,7 @@ function renderRoom(slug, rooms, req) {
 <html lang="vi">
 <head>
 <meta charset="utf-8">
+<script>try{var t=localStorage.getItem("bimon-theme");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>${escHtml(title)}</title>
 <meta name="description" content="${escHtml(r.desc.vi)}">
@@ -147,6 +148,7 @@ ${shell.foot}
 ${shell.fab}
 
 <script type="application/json" id="room-i18n">${JSON.stringify(en).replace(/</g, "\\u003c")}</script>
+<script src="/js/theme.js?v=1" defer></script>
 <script src="/js/fab.js?v=1" defer></script>
 <script src="/js/phong.js?v=1" defer></script>
 </body>
