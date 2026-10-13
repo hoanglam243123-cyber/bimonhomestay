@@ -11,6 +11,7 @@ const EN = {
   s_body1: "On a Hai Phong food trip, staying far from the centre means half the day goes on getting around. Big hotels are noisy, pricey and short on local flavour.",
   s_body2: "Bimon sits in lane 141 off Cau Dat street, between the Cau Dat and Luong Khanh Thien food streets. With only 3 rooms the house stays quiet and clean, and your host has time to point you to the good places.",
   s_link: "See 27 favourite eateries nearby",
+  c_go: "Check availability",
   r_eye: "Rooms", r_title: "Choose a space of your own", r_lead: "Every room has air-conditioning, Wi-Fi and its own bathroom. Send a request for rates on your dates.",
   bi_t: "Bi room", mun_t: "Mun room", moon_t: "Moon room", bed1: "1 double bed", bed2: "2 double beds", wc: "Private bathroom", fit12: "1–2 guests", fit34: "3–4 guests", proj: "Netflix projector", tv: "Netflix TV", xbed: "Extra bed available", xbed: "Extra bed available",
   moon_badge: "Great for groups",
@@ -41,8 +42,14 @@ const EN = {
   foot: "At Bimon you don't just rent a room, you join a family of travellers.",
 };
 const T = {
-  vi: { reviews: "đánh giá", of: "/" },
-  en: { reviews: "reviews", of: "/" },
+  vi: { reviews: "đánh giá", of: "/", need: "Chọn ngày nhận và ngày trả phòng nhé.", order: "Ngày trả phòng cần sau ngày nhận phòng.", long: "Ở trên 30 đêm, bạn nhắn Bimon để có giá tốt nhé.", checking: "Đang kiểm tra...",
+    free: "Còn trống", booked: "Đã kín", ask: "Liên hệ để hỏi", view: "Xem phòng", upto: "Tối đa {n} người",
+    sumFree: "{x} phòng còn trống cho {n} đêm ({a} – {b}). Nhắn Bimon để giữ phòng:", sumNone: "Ngày bạn chọn đã kín phòng. Nhắn Bimon để được gợi ý ngày gần nhất:", sumAsk: "Bimon cần xác nhận lại lịch cho ngày này. Nhắn Bimon để hỏi nhanh:",
+    off: "Chưa xem được lịch tự động lúc này. Bạn nhắn Bimon để hỏi phòng trống nhé:", group: "Nhóm từ 5 người: đặt nhiều phòng hoặc thuê nguyên căn (tối đa 12 người).", call: "Gọi" },
+  en: { reviews: "reviews", of: "/", need: "Please pick check-in and check-out dates.", order: "Check-out must be after check-in.", long: "For stays over 30 nights, message Bimon for the best rate.", checking: "Checking...",
+    free: "Available", booked: "Fully booked", ask: "Contact us to check", view: "View room", upto: "Up to {n} guests",
+    sumFree: "{x} room(s) available for {n} night(s) ({a} – {b}). Message Bimon to hold it:", sumNone: "Those dates are fully booked. Message Bimon for the nearest free dates:", sumAsk: "Bimon needs to double-check these dates. Message us for a quick answer:",
+    off: "Live availability isn't available right now. Message Bimon to check:", group: "Groups of 5+: book several rooms or the whole house (up to 12 guests).", call: "Call" },
 };
 
 // ---------- Ngôn ngữ ----------
@@ -58,9 +65,59 @@ function setLang(l) {
   $("l-en").setAttribute("aria-pressed", l === "en");
   try { localStorage.setItem("bimon-lang", l); } catch (e) {}
   if (reviewsData) renderReviews();
+  if (lastCheck) renderCheck();
 }
 $("l-vi").onclick = () => setLang("vi");
 $("l-en").onclick = () => setLang("en");
+
+// ---------- Kiểm tra phòng trống (lịch đọc từ Google Sheet, xem server.js) ----------
+const ROOMS = [{ id: "bi", max: 2 }, { id: "moon", max: 4 }, { id: "mun", max: 2 }];
+const iso = (d) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+const plus1 = (v) => { const [y, m, d] = v.split("-").map(Number); return iso(new Date(y, m - 1, d + 1)); };
+const dmy = (v) => v.split("-").reverse().slice(0, 2).join("/");
+const fill = (str, o) => str.replace(/\{(\w)\}/g, (_, k) => o[k]);
+const today = iso(new Date());
+$("c-den").min = today; $("c-di").min = plus1(today);
+$("c-den").addEventListener("change", () => {
+  const v = $("c-den").value; if (!v) return;
+  $("c-di").min = plus1(v);
+  if (!$("c-di").value || $("c-di").value <= v) $("c-di").value = plus1(v);
+});
+let lastCheck = null;
+function renderCheck() {
+  const t = T[lang], box = $("checkRes"), c = lastCheck;
+  box.hidden = false;
+  if (c.msg) { box.innerHTML = `<p class="check-err">${t[c.msg]}</p>`; return; }
+  if (c.loading) { box.innerHTML = `<p>${t.checking}</p>`; return; }
+  const name = (id) => (lang === "en" ? EN : VI)[id + "_t"];
+  let html = "";
+  if (!c.data || !c.data.ready) html = `<p class="check-sum">${t.off}</p>`;
+  else {
+    const order = { free: 0, ask: 1, booked: 2 };
+    const rooms = ROOMS.map((r) => ({ ...r, st: c.data.rooms[r.id] }))
+      .sort((a, b) => order[a.st] - order[b.st] || (b.max >= c.g) - (a.max >= c.g));
+    const nFree = rooms.filter((r) => r.st === "free").length;
+    html = `<ul class="check-list">${rooms.map((r) => `<li class="${r.st}"><div><b>${name(r.id)}</b><small>${fill(t.upto, { n: r.max })}</small></div><span class="st">${t[r.st]}</span><a href="/phong/${r.id}">${t.view}</a></li>`).join("")}</ul>`;
+    const sum = nFree ? fill(t.sumFree, { x: nFree, n: c.data.nights, a: dmy(c.den), b: dmy(c.di) })
+      : rooms.some((r) => r.st === "ask") ? t.sumAsk : t.sumNone;
+    html += `<p class="check-sum">${sum}</p>`;
+  }
+  if (c.g >= 5) html += `<p class="check-note">${t.group}</p>`;
+  html += `<div class="check-cta"><a class="btn gold" href="https://zalo.me/0934504439" target="_blank" rel="noopener">Zalo</a><a class="btn outline" href="https://m.me/61589770299091" target="_blank" rel="noopener">Messenger</a><a class="btn outline" href="tel:0934504439">${t.call}</a></div>`;
+  box.innerHTML = html;
+}
+$("check").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const den = $("c-den").value, di = $("c-di").value, g = Number($("c-khach").value);
+  const show = (o) => { lastCheck = o; renderCheck(); };
+  if (!den || !di) return show({ msg: "need" });
+  if (di <= den) return show({ msg: "order" });
+  if ((new Date(di) - new Date(den)) / 864e5 > 30) return show({ msg: "long" });
+  show({ loading: true });
+  let data = null;
+  try { const r = await fetch(`/api/phong-trong?den=${den}&di=${di}`); if (r.ok) data = await r.json(); } catch (err) {}
+  show({ den, di, g, data });
+});
 
 // ---------- Đánh giá Google ----------
 let reviewsData = null, revIndex = 0;

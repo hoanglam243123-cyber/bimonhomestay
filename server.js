@@ -346,6 +346,83 @@ app.get(["/api/reviews", "/reviews.json"], async (req, res) => {
   res.set("Cache-Control", "public, max-age=3600").json(reviewsCache.data);
 });
 
+// ---------- Phòng trống: đọc lịch màu trong Google Sheet ----------
+// Google Apps Script trong bảng tính (scripts/google-apps-script.gs) trả về các trang lịch "T10/2026"...
+// gồm chữ và màu từng ô. Ô ngày có màu = đêm đó đã có khách; đỏ = khách giờ; trắng = trống.
+const AVAILABILITY_URL = process.env.AVAILABILITY_URL || "";
+const FLOOR_ROOM = { 2: "bi", 3: "moon", 4: "mun" };
+let calCache = { at: 0, data: null };
+
+function colorStatus(hex) {
+  const m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(String(hex || "").trim());
+  if (!m) return "free";
+  const [r, g, b] = m.slice(1).map((h) => parseInt(h, 16));
+  if (r >= 235 && g >= 235 && b >= 235) return "free"; // trắng
+  if (r > 150 && g < 120 && r - g > 60 && r - b > 60) return "hourly"; // đỏ: khách giờ
+  return "booked"; // vàng/cam hoặc màu khác: đã book
+}
+
+// Đọc một trang "T10/2026": tìm nhãn "Tầng 2/3/4", lịch 7 cột nằm ngay dưới hàng thứ (T2...CN).
+// Trả về { "2026-10-03": { bi: "booked", moon: "hourly", mun: "free" }, ... }
+function parseMonthSheet(name, values, colors) {
+  const nm = /^T(\d{1,2})\/(\d{4})$/.exec(name);
+  if (!nm) return {};
+  const month = Number(nm[1]), year = Number(nm[2]);
+  const days = {};
+  values.forEach((row, r) => row.forEach((cell, c) => {
+    const fm = /Tầng\s*(\d)/i.exec(String(cell));
+    const room = fm && FLOOR_ROOM[fm[1]];
+    if (!room) return;
+    const head = values[r + 1] || [];
+    let c0 = -1;
+    for (let k = Math.max(0, c - 3); k <= c + 1; k++) if (String(head[k] || "").trim().toUpperCase() === "T2") { c0 = k; break; }
+    if (c0 < 0) return;
+    for (let rr = r + 2; rr < Math.min(values.length, r + 9); rr++) {
+      for (let k = c0; k < c0 + 7; k++) {
+        const d = Number(String((values[rr] || [])[k] || "").trim());
+        if (!Number.isInteger(d) || d < 1 || d > 31) continue;
+        const key = `${year}-${String(month).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+        (days[key] ||= {})[room] = colorStatus((colors[rr] || [])[k]);
+      }
+    }
+  }));
+  return days;
+}
+
+async function loadCalendar() {
+  if (!AVAILABILITY_URL) return null;
+  if (calCache.data && Date.now() - calCache.at < 5 * 60 * 1000) return calCache.data;
+  try {
+    const r = await fetch(AVAILABILITY_URL, { signal: AbortSignal.timeout(10000) });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const j = await r.json();
+    const days = {};
+    for (const [name, s] of Object.entries(j.sheets || {})) Object.assign(days, parseMonthSheet(name, s.values || [], s.colors || []));
+    calCache = { at: Date.now(), data: days };
+  } catch (err) {
+    console.error("[phong-trong]", err.message);
+    if (calCache.data) calCache.at = Date.now() - 4 * 60 * 1000; // lỗi tạm: dùng bản cũ, thử lại sau 1 phút
+  }
+  return calCache.data;
+}
+
+app.get("/api/phong-trong", async (req, res) => {
+  res.set("Cache-Control", "no-store");
+  const { den, di } = req.query;
+  if (!isDate(den) || !isDate(di) || di <= den) return res.status(400).json({ error: "dates" });
+  const nights = [];
+  for (let d = new Date(den + "T00:00:00Z"); d < new Date(di + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + 1)) nights.push(d.toISOString().slice(0, 10));
+  if (nights.length > 31) return res.status(400).json({ error: "range" });
+  const cal = await loadCalendar();
+  if (!cal) return res.json({ ready: false });
+  const rooms = {};
+  for (const room of Object.values(FLOOR_ROOM)) {
+    const st = nights.map((n) => cal[n]?.[room] || "unknown");
+    rooms[room] = st.includes("booked") ? "booked" : st.every((s) => s === "free") ? "free" : "ask";
+  }
+  res.json({ ready: true, nights: nights.length, rooms });
+});
+
 // ---------- Trang quản trị: xem yêu cầu đặt phòng ----------
 function requireAdmin(req, res, next) {
   const user = process.env.ADMIN_USER, pass = process.env.ADMIN_PASS;

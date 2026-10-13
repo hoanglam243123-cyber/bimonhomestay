@@ -115,3 +115,14 @@ Chưa cấu hình cách nào thì mục này hiện nút "Xem tất cả đánh 
 - **Thêm ảnh:** thả file `.jpg`, `.png` hoặc `.webp` vào `public/img/phong/bi/` (hoặc `mun/`, `moon/`). Ảnh hiện theo thứ tự tên file, nên đặt tên `01.jpg`, `02.jpg`... Ảnh đầu tiên của trang luôn là ảnh đại diện phòng ở trang chủ. Nên nén ảnh dưới ~500 KB (cạnh dài ~1600px) để trang tải nhanh.
 - **Sửa tiện nghi, mô tả, nhãn:** trong `content/rooms.json`, mỗi dòng có bản tiếng Việt (`vi`) và tiếng Anh (`en`).
 - Không cần khởi động lại server: trang đọc ảnh và `rooms.json` mỗi lần có người mở (chỉ cần tải lại trang).
+
+## Kiểm tra phòng trống (đọc từ Google Sheet)
+
+Nút "Kiểm tra phòng trống" ở đầu trang chủ đọc lịch màu trong Google Sheet "BiMon Homestay" (các trang `T10/2026`, `T11/2026`...): ô trắng = trống, vàng/cam = đã book, đỏ = khách giờ (website báo "Liên hệ để hỏi"). Tầng 2 = Bi, tầng 3 = Moon, tầng 4 = Mun. Tháng chưa có trang lịch thì website cũng báo "Liên hệ để hỏi".
+
+Cài một lần:
+1. Mở Google Sheet → **Tiện ích mở rộng → Apps Script**, xoá code mẫu, dán toàn bộ `scripts/google-apps-script.gs`, bấm Lưu.
+2. **Triển khai → Tùy chọn triển khai mới → Ứng dụng web**: Thực thi dưới dạng *Tôi*, Ai có quyền truy cập *Bất kỳ ai* → Triển khai → cấp quyền → copy **URL ứng dụng web**.
+3. Thêm biến môi trường `AVAILABILITY_URL` = URL đó (Hostinger → app Node.js → Biến môi trường), rồi triển khai lại.
+
+Script chỉ gửi các trang lịch màu, không gửi các trang "Đặt lịch..." có tên/số điện thoại khách. Website cập nhật theo bảng tính sau tối đa 5 phút. Mỗi tháng mới, tạo trang lịch đặt tên đúng dạng `T12/2026` với bố cục như các tháng trước.
