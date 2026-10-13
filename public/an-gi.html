@@ -60,6 +60,14 @@ h1{font-family:var(--f-script);color:var(--moss);font-size:1.7rem;font-weight:70
 .filters{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line);display:grid;gap:8px}
 .row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
 .row::-webkit-scrollbar{display:none}
+.search{display:flex;align-items:center;gap:8px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:0 4px 0 12px;min-height:46px}
+.search:focus-within{border-color:var(--moss);box-shadow:0 0 0 3px color-mix(in srgb,var(--moss) 25%,transparent)}
+.search svg{width:18px;height:18px;flex:none;fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round}
+.search input{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:16px;color:var(--fg);outline:none;min-height:44px}
+.search input::placeholder{color:var(--muted)}
+.search input::-webkit-search-cancel-button{display:none}
+#q-clear{flex:none;width:40px;height:40px;border:0;border-radius:8px;background:transparent;color:var(--muted);font-size:1rem;cursor:pointer}
+#q-clear:hover{background:var(--moss-soft);color:var(--fg)}
 .lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);align-self:center;flex:none;width:62px}
 .chip{flex:none;font:inherit;font-size:.85rem;min-height:40px;border:1px solid var(--line);background:var(--paper);color:var(--fg);border-radius:999px;padding:6px 12px;cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--moss);border-color:var(--moss);color:var(--paper);font-weight:600}
@@ -102,6 +110,7 @@ footer a{color:var(--moss)}
   </header>
 
   <div class="filters" role="group" aria-label="Bộ lọc">
+    <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Tìm món hoặc quán: bánh đa cua, bún cá, chè…" autocomplete="off" enterkeyhint="search" aria-label="Tìm món hoặc quán"><button type="button" id="q-clear" aria-label="Xoá tìm kiếm" hidden>✕</button></label>
     <div class="row" id="f-type"><span class="lbl">Xem</span></div>
     <div class="row" id="f-dist"><span class="lbl">Cách home</span></div>
     <div class="row" id="f-time"><span class="lbl">Buổi</span></div>
@@ -226,9 +235,26 @@ function card(p){
   </article>`;
 }
 
+const norm=s=>String(s).normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[đĐ]/g,"d").toLowerCase();
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+// Chuỗi tìm kiếm: bỏ dấu, chỉ giữ chữ/số, có dấu cách hai đầu để so khớp đầu từ
+const toWords=s=>norm(s).replace(/[^a-z0-9]+/g," ").trim();
+P.forEach(p=>{p._s=" "+toWords([p.n,p.k,p.m,p.a].join(" "))+" "});
+// Ưu tiên khớp nguyên cụm ("bun ca" → Bún cá); không có thì mọi từ phải khớp ở đầu chữ
+function match(list,q){
+  const ph=toWords(q);if(!ph) return list;
+  const exact=list.filter(p=>p._s.includes(" "+ph));
+  if(exact.length) return exact;
+  const ws=ph.split(" ");
+  return list.filter(p=>ws.every(w=>p._s.includes(" "+w)));
+}
+const qEl=document.getElementById("q"),qClear=document.getElementById("q-clear");
+qEl.addEventListener("input",()=>{qClear.hidden=!qEl.value;render()});
+qClear.onclick=()=>{qEl.value="";qClear.hidden=true;render();qEl.focus()};
 function render(){
   document.querySelectorAll(".chip").forEach(b=>{const k=b.parentElement.id.slice(2);const key=k==="type"?"type":k==="dist"?"dist":"time";b.setAttribute("aria-pressed",String(st[key]===b.dataset.v))});
-  let L=P.filter(p=>{
+  const q=qEl.value.trim();
+  let L=match(P,q).filter(p=>{
     if(st.type==="food"&&p.s) return false;
     if(st.type==="see"&&!p.s) return false;
     if(st.type==="pick"&&!p.pick) return false;
@@ -238,12 +264,14 @@ function render(){
     else if(st.time!=="all"&&!p.t.includes(st.time)) return false;
     return true;
   }).sort((a,b)=>a.d-b.d);
-  document.getElementById("count").textContent=L.length?`${L.length} điểm, gần home nhất trước`:"";
+  document.getElementById("count").textContent=L.length?(q?`${L.length} kết quả cho “${qEl.value.trim()}”, gần home nhất trước`:`${L.length} điểm, gần home nhất trước`):"";
   const near=L.filter(p=>p.d<=1000),far=L.filter(p=>p.d>1000);
   let html="";
   if(near.length) html+=`<div class="ring">Dưới 1 km · đi bộ được</div><div class="list">${near.map(card).join("")}</div>`;
   if(far.length) html+=`<div class="ring">1–3 km · nên đi xe</div><div class="list">${far.map(card).join("")}</div>`;
-  document.getElementById("out").innerHTML=html||`<p class="empty">Không có điểm nào khớp bộ lọc này. Thử chọn “Cả ngày” hoặc “Mọi khoảng cách”.</p>`;
+  document.getElementById("out").innerHTML=html||(q
+    ?`<p class="empty">Không tìm thấy “${esc(qEl.value.trim())}”. Thử từ khác, hoặc chọn “Tất cả”, “Mọi khoảng cách”, “Cả ngày”.</p>`
+    :`<p class="empty">Không có điểm nào khớp bộ lọc này. Thử chọn “Cả ngày” hoặc “Mọi khoảng cách”.</p>`);
 }
 render();
 setInterval(render,60000);
