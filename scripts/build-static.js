@@ -2,8 +2,8 @@
 // (Hostinger Premium, Cloudflare Pages...). Cách làm: chạy server.js tạm trên máy,
 // tải từng trang về rồi lưu thành file, nên bản tĩnh luôn giống hệt bản đang chạy.
 //
-//   npm run build                                  (dùng SITE_URL trong .env nếu có)
-//   SITE_URL=https://bimonhomestay.com npm run build
+//   npm run build:static                                  (dùng SITE_URL trong .env nếu có)
+//   SITE_URL=https://bimonhomestay.com npm run build:static
 const fs = require("fs");
 const path = require("path");
 const { spawn } = require("child_process");
@@ -49,7 +49,7 @@ async function main() {
 
     console.log(`\nXong! Website tĩnh nằm trong thư mục dist/ (${Object.keys(pages).length} trang).`);
     if (makeZip()) console.log("Đã đóng gói: bimon-website-static.zip (tải file này lên Hostinger rồi giải nén vào public_html).");
-    if (!SITE_URL) console.log("Lưu ý: chưa có SITE_URL. Khi có tên miền, chạy lại: SITE_URL=https://ten-mien-cua-ban npm run build");
+    if (!SITE_URL) console.log("Lưu ý: chưa có SITE_URL. Khi có tên miền, chạy lại: SITE_URL=https://ten-mien-cua-ban npm run build:static");
   } finally {
     server.kill();
   }
