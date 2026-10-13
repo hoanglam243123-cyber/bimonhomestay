@@ -7,7 +7,7 @@ Website Node.js (Express) cho Bimon Homestay, 5/141 Cầu Đất, Gia Viên, H�
 | Đường dẫn | Nội dung |
 |---|---|
 | `/` | Trang giới thiệu: phòng Bi / Mun / Moon, tiện nghi, ảnh, vị trí, form đặt phòng (VN/EN) |
-| `/an-gi` | 26 quán ăn + 4 điểm nên đi quanh nhà, lọc theo khoảng cách, giờ mở cửa, chỉ đường |
+| `/an-gi` | 27 quán ăn + 4 điểm nên đi quanh nhà, lọc theo khoảng cách, giờ mở cửa, chỉ đường |
 | `/phong/bi`, `/phong/mun`, `/phong/moon` | Trang chi tiết từng phòng: ảnh, tiện nghi trong phòng |
 | `POST /api/dat-phong` | Nhận yêu cầu đặt phòng, lưu vào `data/bookings.jsonl`, báo cho chủ nhà qua Zalo (và email nếu bật) |
 | `/api/reviews` | Đánh giá Google Maps cho mục "Khách nói gì" |
