@@ -1,0 +1,77 @@
+{
+  "_ghi_chu": "Thông tin trang chi tiết từng phòng (/phong/bi, /phong/mun, /phong/moon). Ảnh: thả file .jpg/.png/.webp vào public/img/phong/<tên phòng>/ (ví dụ public/img/phong/bi/), web tự hiện theo thứ tự tên file (01.jpg, 02.jpg...). Sửa xong không cần khởi động lại server.",
+  "bi": {
+    "name": { "vi": "Phòng Bi", "en": "Bi room" },
+    "cover": "/img/phong-bi-1600.webp",
+    "desc": { "vi": "Tông gỗ ấm, đèn hắt dịu, tủ quần áo lớn và bàn trang điểm nhỏ.", "en": "Warm wood tones, soft lighting, a large wardrobe and a small vanity." },
+    "tags": [
+      { "vi": "1 giường đôi", "en": "1 double bed" },
+      { "vi": "WC riêng", "en": "Private bathroom" },
+      { "vi": "1–2 người", "en": "1–2 guests" },
+      { "vi": "Máy chiếu Netflix", "en": "Netflix projector" },
+      { "vi": "Kê thêm giường phụ", "en": "Extra bed available" }
+    ],
+    "amenities": [
+      { "vi": "Giường đôi 1m8 × 2m", "en": "Double bed, 1.8 × 2 m" },
+      { "vi": "Nhà vệ sinh khép kín, gương đèn LED", "en": "En-suite bathroom with LED mirror" },
+      { "vi": "Thiết bị vệ sinh INAX", "en": "INAX bathroom fixtures" },
+      { "vi": "Điều hoà 2 chiều", "en": "Air-conditioning (heating and cooling)" },
+      { "vi": "WiFi, có cổng cắm mạng LAN", "en": "WiFi, plus a wired LAN port" },
+      { "vi": "Máy chiếu Netflix", "en": "Netflix projector" },
+      { "vi": "Tủ quần áo lớn", "en": "Large wardrobe" },
+      { "vi": "Bàn trang điểm", "en": "Vanity table" },
+      { "vi": "Bàn làm việc", "en": "Work desk" },
+      { "vi": "2 ghế sofa đơn", "en": "2 single sofa chairs" },
+      { "vi": "Có thể kê thêm giường phụ", "en": "Extra bed on request" }
+    ]
+  },
+  "moon": {
+    "name": { "vi": "Phòng Moon", "en": "Moon room" },
+    "cover": "/img/phong-moon-1600.webp",
+    "desc": { "vi": "Phòng rộng nhất nhà, hai giường lớn, hợp nhóm bạn đi foodtour.", "en": "Our largest room, two big beds, ideal for a group of friends on a food trip." },
+    "tags": [
+      { "vi": "2 giường đôi", "en": "2 double beds" },
+      { "vi": "WC riêng", "en": "Private bathroom" },
+      { "vi": "3–4 người", "en": "3–4 guests" },
+      { "vi": "TV Netflix", "en": "Netflix TV" },
+      { "vi": "Kê thêm giường phụ", "en": "Extra bed available" }
+    ],
+    "amenities": [
+      { "vi": "Giường 1m8 × 2m", "en": "Bed, 1.8 × 2 m" },
+      { "vi": "Giường 1m2 × 1m8", "en": "Bed, 1.2 × 1.8 m" },
+      { "vi": "Nhà vệ sinh khép kín, gương đèn LED", "en": "En-suite bathroom with LED mirror" },
+      { "vi": "Thiết bị vệ sinh INAX", "en": "INAX bathroom fixtures" },
+      { "vi": "Điều hoà 2 chiều", "en": "Air-conditioning (heating and cooling)" },
+      { "vi": "Bình nóng lạnh", "en": "Water heater" },
+      { "vi": "WiFi, có cổng cắm mạng LAN", "en": "WiFi, plus a wired LAN port" },
+      { "vi": "TV Netflix", "en": "Netflix TV" },
+      { "vi": "Tủ quần áo nhỏ", "en": "Small wardrobe" },
+      { "vi": "Có thể kê thêm giường phụ", "en": "Extra bed on request" }
+    ]
+  },
+  "mun": {
+    "name": { "vi": "Phòng Mun", "en": "Mun room" },
+    "cover": "/img/phong-mun-1600.webp?v=2",
+    "desc": { "vi": "Gọn gàng, sáng sủa, tông be nhẹ, có ghế băng và đèn đứng đọc sách.", "en": "Neat and bright in soft beige, with a bench and a reading lamp." },
+    "tags": [
+      { "vi": "1 giường đôi", "en": "1 double bed" },
+      { "vi": "WC riêng", "en": "Private bathroom" },
+      { "vi": "1–2 người", "en": "1–2 guests" },
+      { "vi": "Máy chiếu Netflix", "en": "Netflix projector" },
+      { "vi": "Kê thêm giường phụ", "en": "Extra bed available" }
+    ],
+    "amenities": [
+      { "vi": "Giường đôi 1m8 × 2m", "en": "Double bed, 1.8 × 2 m" },
+      { "vi": "Nhà vệ sinh khép kín, gương đèn LED", "en": "En-suite bathroom with LED mirror" },
+      { "vi": "Thiết bị vệ sinh INAX", "en": "INAX bathroom fixtures" },
+      { "vi": "Điều hoà 2 chiều", "en": "Air-conditioning (heating and cooling)" },
+      { "vi": "Bình nóng lạnh", "en": "Water heater" },
+      { "vi": "WiFi", "en": "WiFi" },
+      { "vi": "Máy chiếu Netflix", "en": "Netflix projector" },
+      { "vi": "Tủ lạnh mini", "en": "Mini fridge" },
+      { "vi": "Ghế băng", "en": "Bench" },
+      { "vi": "Đèn đứng đọc sách", "en": "Reading lamp" },
+      { "vi": "Có thể kê thêm giường phụ", "en": "Extra bed on request" }
+    ]
+  }
+}

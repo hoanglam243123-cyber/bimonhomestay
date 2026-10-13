@@ -12,15 +12,16 @@
 <meta property="og:image" content="__SITE_URL__/img/og.jpg">
 <meta property="og:url" content="__SITE_URL__/">
 <meta property="og:locale" content="vi_VN">
-<meta name="theme-color" content="#1E3A8A">
+<meta name="theme-color" content="#4A5D3A">
 <link rel="icon" href="/img/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap">
 <link rel="preload" as="image" href="/img/phong-bi-1600.webp" imagesrcset="/img/phong-bi-800.webp 800w, /img/phong-bi-1600.webp 1600w" imagesizes="100vw">
-<link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/home.css?v=18">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LodgingBusiness","name":"Bimon Homestay","description":"Homestay 3 phòng riêng có WC khép kín, giữa phố ẩm thực Cầu Đất, đi bộ 3 phút ra ga Hải Phòng.","url":"__SITE_URL__/","image":"__SITE_URL__/img/og.jpg","telephone":"+84934504439","address":{"@type":"PostalAddress","streetAddress":"5/141 Cầu Đất","addressLocality":"Gia Viên, Hải Phòng","addressCountry":"VN"},"amenityFeature":[{"@type":"LocationFeatureSpecification","name":"Điều hoà","value":true},{"@type":"LocationFeatureSpecification","name":"WiFi miễn phí","value":true},{"@type":"LocationFeatureSpecification","name":"Nhà vệ sinh riêng","value":true},{"@type":"LocationFeatureSpecification","name":"Bếp chung","value":true},{"@type":"LocationFeatureSpecification","name":"Check-in tự động","value":true}],"numberOfRooms":3}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Giờ nhận phòng và trả phòng là mấy giờ?","acceptedAnswer":{"@type":"Answer","text":"Nhận phòng từ 14:00, trả phòng trước 12:00. Bimon check-in tự động nên bạn đến muộn vẫn vào phòng được. Cần nhận sớm hoặc trả muộn, nhắn Bimon để hỏi trước."}},{"@type":"Question","name":"Giá phòng có bao gồm bữa sáng không?","acceptedAnswer":{"@type":"Answer","text":"Giá phòng không bao gồm bữa sáng. Ngay đầu ngõ là phố ẩm thực Cầu Đất, bạn xem gợi ý quán ăn sáng ở mục Ăn gì trên menu."}},{"@type":"Question","name":"Có thể đặt nguyên căn không?","acceptedAnswer":{"@type":"Answer","text":"Có. Bạn có thể đặt cả 3 phòng cho nhóm tối đa 12 người với giá ưu đãi hơn đặt lẻ từng phòng. Gửi yêu cầu hoặc gọi Bimon để nhận báo giá."}},{"@type":"Question","name":"Chính sách huỷ phòng thế nào?","acceptedAnswer":{"@type":"Answer","text":"Bimon nhận cọc 30% tiền phòng để giữ phòng. Tiền cọc không được hoàn lại khi huỷ phòng, nhưng bạn có thể đổi sang ngày khác nếu Bimon còn phòng trống."}},{"@type":"Question","name":"Có những hình thức thanh toán nào?","acceptedAnswer":{"@type":"Answer","text":"Chuyển khoản ngân hàng, tiền mặt hoặc ví điện tử. Bạn cọc 30% khi đặt, phần còn lại thanh toán khi nhận phòng."}},{"@type":"Question","name":"Có chỗ để xe không?","acceptedAnswer":{"@type":"Answer","text":"Bimon có chỗ để xe máy ở tầng 1, ngay trong nhà. Ô tô gửi ở bãi cách nhà khoảng 100 m, phí 50.000đ/đêm."}}]}</script>
 </head>
 <body>
 <a class="skip" href="#main" data-i="skip">Bỏ qua tới nội dung</a>
@@ -36,7 +37,6 @@
       <li><a href="/an-gi" data-i="n_food">Ăn gì</a></li>
     </ul></nav>
     <div class="lang" role="group" aria-label="Ngôn ngữ / Language"><button type="button" id="l-vi" aria-pressed="true">VN</button><button type="button" id="l-en" aria-pressed="false">EN</button></div>
-    <a class="btn gold nav-cta" href="#dat-phong" data-i="book">Đặt phòng</a>
   </div>
 </header>
 
@@ -45,15 +45,9 @@
     <img class="hero-img" src="/img/phong-bi-1600.webp" srcset="/img/phong-bi-800.webp 800w, /img/phong-bi-1600.webp 1600w" sizes="100vw" alt="" fetchpriority="high" width="1448" height="1086">
     <div class="hero-in">
       <p class="eyebrow light" data-i="h_eye">Homestay · Hải Phòng</p>
-      <h1 data-i="h_title">Ở giữa phố ăn Hải Phòng, đi bộ 3 phút ra ga</h1>
+      <h1 data-i="h_title">Sống chậm giữa lòng phố cổ Hải Phòng</h1>
       <p class="hero-sub" data-i="h_sub">3 phòng riêng, nhà vệ sinh khép kín, check-in tự động. Xuống tàu là về nhà, cất đồ rồi đi ăn.</p>
       <div class="rating-pill" id="heroRating" hidden></div>
-      <form class="search" id="search" novalidate>
-        <label><span data-i="f_in">Nhận phòng</span><input id="s-den" type="date" required></label>
-        <label><span data-i="f_out">Trả phòng</span><input id="s-di" type="date" required></label>
-        <label><span data-i="f_guests">Số khách</span><select id="s-khach"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5+</option></select></label>
-        <button class="btn gold" type="submit" data-i="find">Kiểm tra phòng</button>
-      </form>
     </div>
   </section>
 
@@ -90,18 +84,9 @@
           <img src="/img/phong-bi-800.webp" alt="Phòng Bi: giường đôi, tủ gỗ lớn, đèn hắt" loading="lazy" width="800" height="600">
           <div class="room-b">
             <h3 data-i="bi_t">Phòng Bi</h3>
-            <ul class="tags"><li data-i="bed1">1 giường đôi</li><li data-i="wc">WC riêng</li><li data-i="fit12">1–2 người</li></ul>
+            <ul class="tags"><li data-i="bed1">1 giường đôi</li><li data-i="wc">WC riêng</li><li data-i="fit12">1–2 người</li><li data-i="proj">Máy chiếu Netflix</li><li data-i="xbed">Kê thêm giường phụ</li></ul>
             <p data-i="bi_d">Tông gỗ ấm, đèn hắt dịu, tủ quần áo lớn và bàn trang điểm nhỏ.</p>
-            <button class="btn navy" type="button" data-pick="Phòng Bi" data-i="bi_b">Đặt phòng Bi</button>
-          </div>
-        </article>
-        <article class="room" data-max="2">
-          <img src="/img/phong-mun-800.webp" alt="Phòng Mun: tông be sáng, giường đôi" loading="lazy" width="800" height="600">
-          <div class="room-b">
-            <h3 data-i="mun_t">Phòng Mun</h3>
-            <ul class="tags"><li data-i="bed1">1 giường đôi</li><li data-i="wc">WC riêng</li><li data-i="fit12">1–2 người</li></ul>
-            <p data-i="mun_d">Gọn gàng, sáng sủa, tông be nhẹ, có ghế băng và đèn đứng đọc sách.</p>
-            <button class="btn navy" type="button" data-pick="Phòng Mun" data-i="mun_b">Đặt phòng Mun</button>
+            <a class="btn navy" href="/phong/bi" data-i="room_b">Xem chi tiết phòng</a>
           </div>
         </article>
         <article class="room" data-max="4">
@@ -109,9 +94,18 @@
           <img src="/img/phong-moon-800.webp" alt="Phòng Moon: hai giường đôi lớn" loading="lazy" width="800" height="601">
           <div class="room-b">
             <h3 data-i="moon_t">Phòng Moon</h3>
-            <ul class="tags"><li data-i="bed2">2 giường đôi</li><li data-i="wc">WC riêng</li><li data-i="fit34">3–4 người</li></ul>
+            <ul class="tags"><li data-i="bed2">2 giường đôi</li><li data-i="wc">WC riêng</li><li data-i="fit34">3–4 người</li><li data-i="tv">TV Netflix</li><li data-i="xbed">Kê thêm giường phụ</li></ul>
             <p data-i="moon_d">Phòng rộng nhất nhà, hai giường lớn, hợp nhóm bạn đi foodtour.</p>
-            <button class="btn navy" type="button" data-pick="Phòng Moon" data-i="moon_b">Đặt phòng Moon</button>
+            <a class="btn navy" href="/phong/moon" data-i="room_b">Xem chi tiết phòng</a>
+          </div>
+        </article>
+        <article class="room" data-max="2">
+          <img src="/img/phong-mun-800.webp?v=2" alt="Phòng Mun: tông be sáng, giường đôi" loading="lazy" width="800" height="600">
+          <div class="room-b">
+            <h3 data-i="mun_t">Phòng Mun</h3>
+            <ul class="tags"><li data-i="bed1">1 giường đôi</li><li data-i="wc">WC riêng</li><li data-i="fit12">1–2 người</li><li data-i="proj">Máy chiếu Netflix</li><li data-i="xbed">Kê thêm giường phụ</li></ul>
+            <p data-i="mun_d">Gọn gàng, sáng sủa, tông be nhẹ, có ghế băng và đèn đứng đọc sách.</p>
+            <a class="btn navy" href="/phong/mun" data-i="room_b">Xem chi tiết phòng</a>
           </div>
         </article>
       </div>
@@ -120,16 +114,14 @@
 
   <section class="wrap sec" id="tien-nghi">
     <div class="head">
-      <p class="eyebrow" data-i="a_eye">Tiện nghi</p>
+      <p class="eyebrow" data-i="a_eye">Tiện nghi &amp; đặc quyền</p>
       <h2 data-i="a_title">Chăm từng chi tiết nhỏ</h2>
     </div>
     <ul class="amen">
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="8" rx="2"/><path d="M7 17v2M12 17v3M17 17v2M7 9h10"/></svg><div><b data-i="a1">Điều hoà</b><span data-i="a1d">Tất cả các phòng</span></div></li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="19.5" r="1"/></svg><div><b>WiFi</b><span data-i="a2d">Miễn phí, cả nhà</span></div></li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM6 12V6a2 2 0 0 1 4 0"/></svg><div><b data-i="a3">Nhà vệ sinh khép kín</b><span data-i="a3d">Riêng từng phòng, gương đèn LED</span></div></li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3v18M5 9h4a2 2 0 0 0 2-2V3M15 3c-1.5 2-1.5 6 0 8v10"/></svg><div><b data-i="a4">Bếp chung</b><span data-i="a4d">Tủ lạnh, bồn rửa, bàn ăn, dụng cụ nấu</span></div></li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15" r="1.3"/></svg><div><b data-i="a5">Check-in tự động</b><span data-i="a5d">Đến giờ nào cũng vào được</span></div></li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><div><b data-i="a6">Gần ga, dễ foodtour</b><span data-i="a6d">Phố ẩm thực ngay đầu ngõ</span></div></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="19.5" r="1"/></svg><div><b data-i="perk1">WiFi ổn định</b><span data-i="perk1d">Thoải mái làm việc từ xa và giữ liên lạc trong suốt kỳ nghỉ</span></div></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.5 6 .9-4.35 4.2 1 6L12 16.8 6.65 19.6l1-6L3.3 9.4l6-.9z"/></svg><div><b data-i="perk2">Trải nghiệm 5 sao</b><span data-i="perk2d">Giường, khăn, đồ dùng và quy trình chăm sóc phòng được kiểm tra sau mỗi lượt ở</span></div></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><div><b data-i="perk3">Vị trí đắc địa</b><span data-i="perk3d">Dễ di chuyển tới ga tàu, Nhà hát lớn thành phố và các tuyến phố đi bộ khu trung tâm</span></div></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0M16 4.5a3.2 3.2 0 0 1 0 6.4M18 14.5a6 6 0 0 1 3 5.5"/></svg><div><b data-i="perk4">Đội ngũ địa phương</b><span data-i="perk4d">Gợi ý ăn uống, lịch trình và trải nghiệm quanh phố</span></div></li>
     </ul>
   </section>
 
@@ -142,7 +134,7 @@
       <div class="gal">
         <figure class="big"><img src="/img/phong-moon-1600.webp" srcset="/img/phong-moon-800.webp 800w, /img/phong-moon-1600.webp 1600w" sizes="(min-width: 900px) 60vw, 100vw" alt="Phòng Moon" loading="lazy" width="1447" height="1087"><figcaption data-i="moon_t">Phòng Moon</figcaption></figure>
         <figure><img src="/img/phong-bi-800.webp" alt="Phòng Bi" loading="lazy" width="800" height="600"><figcaption data-i="bi_t">Phòng Bi</figcaption></figure>
-        <figure><img src="/img/phong-mun-800.webp" alt="Phòng Mun" loading="lazy" width="800" height="600"><figcaption data-i="mun_t">Phòng Mun</figcaption></figure>
+        <figure><img src="/img/phong-mun-800.webp?v=2" alt="Phòng Mun" loading="lazy" width="800" height="600"><figcaption data-i="mun_t">Phòng Mun</figcaption></figure>
         <figure><img src="/img/wc-800.webp" alt="Nhà vệ sinh khép kín với gương đèn LED" loading="lazy" width="800" height="600"><figcaption data-i="a3">Nhà vệ sinh khép kín</figcaption></figure>
         <figure><img src="/img/bep-800.webp" alt="Bếp chung với bàn ăn" loading="lazy" width="800" height="600"><figcaption data-i="a4">Bếp chung</figcaption></figure>
       </div>
@@ -179,7 +171,7 @@
         <p class="lead" data-i="l_lead">Ngõ yên tĩnh, ra đầu ngõ là phố ăn Cầu Đất và Lương Khánh Thiện.</p>
         <div class="acts">
           <a class="btn navy" href="https://share.google/xh4tSK7Lf7EP9lr3K" target="_blank" rel="noopener" data-i="l_map">Mở Google Maps</a>
-          <a class="btn outline" href="/an-gi" data-i="l_food">Quanh nhà ăn gì?</a>
+          <a class="btn outline" href="/an-gi" data-i="l_food">Quanh Home có gì?</a>
         </div>
       </div>
       <div>
@@ -198,43 +190,32 @@
   <section class="wrap sec" id="dat-phong">
     <div class="head">
       <p class="eyebrow" data-i="b_eye">Đặt phòng</p>
-      <h2 data-i="b_title">Gửi yêu cầu, Bimon báo giá và giữ phòng</h2>
-      <p class="lead" data-i="b_lead">Để lại tên, số điện thoại và ngày ở. Bimon nhận yêu cầu ngay và gọi lại báo giá cho bạn.</p>
+      <h2 data-i="b_title">Gọi hoặc nhắn tin cho Bimon</h2>
+      <p class="lead" data-i="b_lead">Bimon kiểm tra lịch phòng trống và báo giá ngay cho bạn.</p>
     </div>
     <div class="book">
-      <form class="card bk" id="f" novalidate>
-        <div class="f2">
-          <label for="ten"><span data-i="f_name">Tên bạn</span><input id="ten" autocomplete="name" maxlength="80" required></label>
-          <label for="sdt"><span data-i="f_phone">Số điện thoại</span><input id="sdt" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" required></label>
-        </div>
-        <div class="f2">
-          <label for="den"><span data-i="f_in">Nhận phòng</span><input id="den" type="date" required></label>
-          <label for="di"><span data-i="f_out">Trả phòng</span><input id="di" type="date" required></label>
-        </div>
-        <div class="f2">
-          <label for="phong"><span data-i="f_room">Phòng</span><select id="phong"><option value="any" data-i="any">Phòng nào cũng được</option><option value="Phòng Bi" data-i="bi_t">Phòng Bi</option><option value="Phòng Mun" data-i="mun_t">Phòng Mun</option><option value="Phòng Moon" data-i="moon_t">Phòng Moon</option></select></label>
-          <label for="khach"><span data-i="f_guests">Số khách</span><select id="khach"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5+</option></select></label>
-        </div>
-        <label for="note"><span data-i="f_note">Ghi chú (giờ đến, yêu cầu thêm...)</span><textarea id="note" maxlength="1000" rows="3"></textarea></label>
-        <input type="text" id="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
-        <p class="err" id="err" role="alert"></p>
-        <button class="btn gold block" type="submit" data-i="f_go">Gửi yêu cầu đặt phòng</button>
-        <p class="hint" data-i="f_hint">Không mất phí. Bimon chỉ dùng số điện thoại để báo giá cho bạn.</p>
-      </form>
-      <div class="side">
-        <div class="ok card" id="ok" hidden role="status">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
-          <div><b id="okT"></b><p id="okD"></p></div>
-        </div>
-        <pre class="msg" id="msg" hidden></pre>
-        <button class="btn outline" type="button" id="copy" hidden data-i="copy_msg">Sao chép tin nhắn</button>
-        <div class="contact">
-          <p class="eyebrow light" data-i="c_eye">Liên hệ trực tiếp</p>
-          <h3 data-i="c_title">Gọi hoặc nhắn tin cho Bimon</h3>
-          <a class="phone" href="tel:0934504439"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>0934 504 439</a>
-          <a class="phone" href="tel:0941205555"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>0941 205 555</a>
-          <p class="addr">5/141 Cầu Đất, Gia Viên, Hải Phòng</p>
-        </div>
+      <div class="contact">
+        <a class="phone" href="tel:0934504439"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>0934 504 439</a>
+        <a class="phone" href="tel:0941205555"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>0941 205 555</a>
+        <a class="phone" href="https://m.me/61589770299091" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C7 3 3 6.7 3 11.3c0 2.6 1.3 4.9 3.3 6.4V21l3-1.7c.9.3 1.8.4 2.7.4 5 0 9-3.7 9-8.4S17 3 12 3z"/><path d="M7.5 13.5l3-3.2 2 2 3-3.2"/></svg><span data-i="c_msg">Nhắn tin qua Messenger</span></a>
+        <p class="addr">5/141 Cầu Đất, Gia Viên, Hải Phòng</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec tint" id="hoi-dap">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow" data-i="q_eye">Hỏi đáp</p>
+        <h2 data-i="q_title">Câu hỏi thường gặp</h2>
+      </div>
+      <div class="faq">
+        <details><summary data-i="q1">Giờ nhận phòng và trả phòng là mấy giờ?</summary><p data-i="q1a">Nhận phòng từ 14:00, trả phòng trước 12:00. Bimon check-in tự động nên bạn đến muộn vẫn vào phòng được. Cần nhận sớm hoặc trả muộn, nhắn Bimon để hỏi trước.</p></details>
+        <details><summary data-i="q2">Giá phòng có bao gồm bữa sáng không?</summary><p data-i="q2a">Giá phòng không bao gồm bữa sáng. Ngay đầu ngõ là phố ẩm thực Cầu Đất, bạn xem gợi ý quán ăn sáng ở mục Ăn gì trên menu.</p></details>
+        <details><summary data-i="q3">Có thể đặt nguyên căn không?</summary><p data-i="q3a">Có. Bạn có thể đặt cả 3 phòng cho nhóm tối đa 12 người với giá ưu đãi hơn đặt lẻ từng phòng. Gửi yêu cầu hoặc gọi Bimon để nhận báo giá.</p></details>
+        <details><summary data-i="q4">Chính sách huỷ phòng thế nào?</summary><p data-i="q4a">Bimon nhận cọc 30% tiền phòng để giữ phòng. Tiền cọc không được hoàn lại khi huỷ phòng, nhưng bạn có thể đổi sang ngày khác nếu Bimon còn phòng trống.</p></details>
+        <details><summary data-i="q5">Có những hình thức thanh toán nào?</summary><p data-i="q5a">Chuyển khoản ngân hàng, tiền mặt hoặc ví điện tử. Bạn cọc 30% khi đặt, phần còn lại thanh toán khi nhận phòng.</p></details>
+        <details><summary data-i="q6">Có chỗ để xe không?</summary><p data-i="q6a">Bimon có chỗ để xe máy ở tầng 1, ngay trong nhà. Ô tô gửi ở bãi cách nhà khoảng 100 m, phí 50.000đ/đêm.</p></details>
       </div>
     </div>
   </section>
@@ -248,11 +229,33 @@
   </div>
 </footer>
 
-<div class="mbar" id="mbar">
-  <a class="btn outline-light" href="tel:0934504439" data-i="call">Gọi ngay</a>
-  <a class="btn gold" href="#dat-phong" data-i="book">Đặt phòng</a>
+<div class="fab" id="fab">
+  <div class="fab-list" id="fabList">
+    <div class="fab-item">
+      <button class="fab-btn f-call" type="button" aria-expanded="false" aria-controls="fabCall" aria-label="Gọi điện cho Bimon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></button>
+      <div class="fab-pop" id="fabCall" hidden>
+        <a href="tel:0934504439">0934 504 439</a>
+        <a href="tel:0941205555">0941 205 555</a>
+      </div>
+    </div>
+    <div class="fab-item">
+      <a class="fab-btn f-wa" href="https://wa.me/84934504439" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="fill" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2z"/><path class="ink" d="M8.6 7.3c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.5.7c-.1.2-.2.3 0 .6.5.9 1.2 1.6 2 2.1.4.2.6.3.8.1l.7-.8c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.4.3.1.4 0 1.1-.4 1.6-.4.5-1.2 1-2 1-.7 0-1.6-.2-3.3-1.2-1.4-.9-2.6-2.3-3.1-3.4-.6-1.2-.6-2.2-.3-3 .2-.4.5-.8.8-1z"/></svg></a>
+    </div>
+    <div class="fab-item">
+      <button class="fab-btn f-zalo" type="button" aria-expanded="false" aria-controls="fabZalo" aria-label="Zalo"><span aria-hidden="true">Zalo</span></button>
+      <div class="fab-pop" id="fabZalo" hidden>
+        <a href="https://zalo.me/0934504439" target="_blank" rel="noopener">0934 504 439</a>
+        <a href="https://zalo.me/0941205555" target="_blank" rel="noopener">0941 205 555</a>
+      </div>
+    </div>
+    <div class="fab-item">
+      <a class="fab-btn f-ms" href="https://m.me/61589770299091" target="_blank" rel="noopener" aria-label="Messenger"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="fill" d="M12 2.5c-5.3 0-9.5 3.9-9.5 9 0 2.8 1.2 5.2 3.2 6.9v3.1l3-1.6c1 .3 2.1.5 3.3.5 5.3 0 9.5-3.9 9.5-9s-4.2-8.9-9.5-8.9z"/><path class="ink" d="M6.3 14.6l3.5-3.8 2.3 2.2 3.6-3.8-3.5 3.8-2.3-2.2z"/></svg></a>
+    </div>
+  </div>
+  <button class="fab-btn f-toggle" id="fabToggle" type="button" aria-expanded="true" aria-controls="fabList" aria-label="Thu gọn liên hệ"><svg class="i-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><svg class="i-chat" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12z"/></svg></button>
 </div>
 
-<script src="/js/home.js" defer></script>
+<script src="/js/fab.js?v=1" defer></script>
+<script src="/js/home.js?v=18" defer></script>
 </body>
 </html>

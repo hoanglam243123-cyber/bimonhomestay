@@ -8,6 +8,7 @@ Website Node.js (Express) cho Bimon Homestay, 5/141 Cầu Đất, Gia Viên, H�
 |---|---|
 | `/` | Trang giới thiệu: phòng Bi / Mun / Moon, tiện nghi, ảnh, vị trí, form đặt phòng (VN/EN) |
 | `/an-gi` | 27 quán ăn + 8 điểm nên đi quanh nhà, lọc theo khoảng cách, giờ mở cửa, chỉ đường |
+| `/phong/bi`, `/phong/mun`, `/phong/moon` | Trang chi tiết từng phòng: ảnh, tiện nghi trong phòng |
 | `POST /api/dat-phong` | Nhận yêu cầu đặt phòng, lưu vào `data/bookings.jsonl`, báo cho chủ nhà qua Zalo (và email nếu bật) |
 | `/api/reviews` | Đánh giá Google Maps cho mục "Khách nói gì" |
 | `/admin` | Xem danh sách yêu cầu đặt phòng, tải CSV (cần đăng nhập) |
@@ -93,3 +94,9 @@ Chưa cấu hình cách nào thì mục này hiện nút "Xem tất cả đánh 
 - Màu sắc, font: biến ở đầu `public/css/home.css`.
 - Danh sách quán ăn: mảng `P` trong `public/an-gi.html`.
 - Ảnh: `public/img/` (giữ tên file hoặc sửa đường dẫn trong HTML).
+
+## Trang chi tiết phòng
+
+- **Thêm ảnh:** thả file `.jpg`, `.png` hoặc `.webp` vào `public/img/phong/bi/` (hoặc `mun/`, `moon/`). Ảnh hiện theo thứ tự tên file, nên đặt tên `01.jpg`, `02.jpg`... Ảnh đầu tiên của trang luôn là ảnh đại diện phòng ở trang chủ. Nên nén ảnh dưới ~500 KB (cạnh dài ~1600px) để trang tải nhanh.
+- **Sửa tiện nghi, mô tả, nhãn:** trong `content/rooms.json`, mỗi dòng có bản tiếng Việt (`vi`) và tiếng Anh (`en`).
+- Không cần khởi động lại server: trang đọc ảnh và `rooms.json` mỗi lần có người mở (chỉ cần tải lại trang).
