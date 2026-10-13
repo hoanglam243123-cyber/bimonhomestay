@@ -106,6 +106,6 @@ $("revList").addEventListener("scroll", () => {
   revIndex = best; updatePos();
 }, { passive: true });
 
-fetch("/api/reviews").then((r) => (r.ok ? r.json() : null)).then((d) => { if (d) { reviewsData = d; renderReviews(); } }).catch(() => {});
+fetch("/reviews.json").then((r) => (r.ok ? r.json() : null)).then((d) => { if (d) { reviewsData = d; renderReviews(); } }).catch(() => {});
 
 try { if (localStorage.getItem("bimon-lang") === "en") setLang("en"); } catch (e) {}

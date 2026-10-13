@@ -335,7 +335,7 @@ function readManualReviews() {
   }
 }
 
-app.get("/api/reviews", async (req, res) => {
+app.get(["/api/reviews", "/reviews.json"], async (req, res) => {
   if (!reviewsCache.data || Date.now() - reviewsCache.at > 12 * 3600 * 1000) {
     let data = null;
     try { data = await fetchGoogleReviews(); } catch (err) { console.error("[reviews]", err.message); }

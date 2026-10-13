@@ -29,12 +29,27 @@ npm start              # http://localhost:3000
 ## Đưa lên GitHub
 
 ```bash
-git remote add origin https://github.com/<tai-khoan>/bimon-website.git
+git remote add origin https://github.com/hoanglam243123-cyber/bimonhomestay.git
 git branch -M main
 git push -u origin main
 ```
 
-## Deploy lên Hostinger
+## Đưa lên Hostinger Premium (website tĩnh, không cần Node.js)
+
+Gói Premium không chạy Node.js, nên xuất website thành file HTML tĩnh rồi tải lên:
+
+1. Chạy `npm run build`. Lệnh tạo thư mục `dist/` và file `bimon-website-static.zip`.
+   Khi đã có tên miền, build kèm tên miền để link chia sẻ Facebook/Zalo và Google đúng:
+   `SITE_URL=https://ten-mien-cua-ban npm run build` (hoặc ghi `SITE_URL=...` vào file `.env`).
+2. hPanel → **Websites** → chọn website → **File Manager** → mở `public_html`.
+3. Xoá file mặc định của Hostinger (`default.php`, `index.php` nếu có), tải `bimon-website-static.zip` lên, chuột phải → **Extract** ngay trong `public_html`, rồi xoá file zip.
+4. Bật SSL miễn phí cho tên miền.
+
+**Sau này sửa nội dung:** sửa file như bình thường → `npm run build` → tải zip mới lên và giải nén đè vào `public_html`.
+
+Bản tĩnh không có: trang `/admin`, form đặt phòng gửi Zalo/email, và tự lấy đánh giá qua Google API (đánh giá nhập tay trong `content/reviews.json` vẫn hiện bình thường).
+
+## Deploy lên Hostinger (gói có Node.js)
 
 Khi mua gói: chọn gói có **Node.js** (Business Web Hosting trở lên). Gói trả theo năm thường kèm tên miền miễn phí năm đầu, kiểm tra lại lúc thanh toán. Có tên miền rồi thì điền vào `SITE_URL`.
 
