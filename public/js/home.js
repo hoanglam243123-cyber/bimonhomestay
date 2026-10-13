@@ -10,7 +10,7 @@ const EN = {
   s_eye: "Our story", s_title: "Not a hotel. A home for people who travel to eat.",
   s_body1: "On a Hai Phong food trip, staying far from the centre means half the day goes on getting around. Big hotels are noisy, pricey and short on local flavour.",
   s_body2: "Bimon sits in lane 141 off Cau Dat street, between the Cau Dat and Luong Khanh Thien food streets. With only 3 rooms the house stays quiet and clean, and your host has time to point you to the good places.",
-  s_link: "See 34 favourite eateries nearby",
+  s_link: "See 35 favourite eateries nearby",
   c_go: "Check availability",
   r_eye: "Rooms", r_title: "Choose a space of your own", r_lead: "Every room has air-conditioning, Wi-Fi and its own bathroom. Send a request for rates on your dates.",
   bi_t: "Bi room", mun_t: "Mun room", moon_t: "Moon room", bed1: "1 double bed", bed2: "2 double beds", wc: "Private bathroom", fit12: "1–2 guests", fit34: "3–4 guests", proj: "Netflix projector", tv: "Netflix TV", xbed: "Extra bed available", xbed: "Extra bed available",
