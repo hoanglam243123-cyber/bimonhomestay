@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
+    "build": "echo \"Khong can build: server.js chay truc tiep\"",
     "build:static": "node scripts/build-static.js",
     "zalo:chat-id": "node scripts/zalo-chat-id.js",
     "google:place-id": "node scripts/google-place-id.js"
