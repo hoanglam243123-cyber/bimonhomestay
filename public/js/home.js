@@ -77,14 +77,22 @@ $("l-en").onclick = () => setLang("en");
   const imgs = [...document.querySelectorAll("#heroSlides .hero-img")];
   if (imgs.length < 2) return;
   // Máy bật "giảm chuyển động": vẫn đổi ảnh (chỉ mờ dần, không phóng to), đổi chậm hơn
-  const every = matchMedia("(prefers-reduced-motion: reduce)").matches ? 9000 : 6000;
+  const every = matchMedia("(prefers-reduced-motion: reduce)").matches ? 9000 : 6500;
   let i = 0, timer = null;
   const load = (img) => { if (img.dataset.src) { if (img.dataset.srcset) img.srcset = img.dataset.srcset; img.src = img.dataset.src; delete img.dataset.src; } };
   const next = () => {
     const n = (i + 1) % imgs.length, img = imgs[n];
     load(img);
-    const show = () => { imgs[i].classList.remove("on"); img.classList.add("on"); i = n; load(imgs[(n + 1) % imgs.length]); };
-    img.complete && img.naturalWidth ? show() : img.addEventListener("load", show, { once: true });
+    const show = () => {
+      const old = imgs[i];
+      imgs.forEach((x) => x !== old && x !== img && x.classList.remove("prev"));
+      old.classList.replace("on", "prev"); // ảnh cũ nằm dưới, vẫn hiện rõ
+      img.classList.add("on");              // ảnh mới hiện dần đè lên
+      setTimeout(() => old.classList.remove("prev"), 2400);
+      i = n; load(imgs[(n + 1) % imgs.length]);
+    };
+    // Giải mã ảnh trước rồi mới chuyển, tránh khựng hình
+    (img.decode ? img.decode() : Promise.resolve()).then(show, show);
   };
   const start = () => { if (!timer) timer = setInterval(next, every); };
   const stop = () => { clearInterval(timer); timer = null; };
