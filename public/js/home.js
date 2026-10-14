@@ -72,6 +72,27 @@ function setLang(l) {
 $("l-vi").onclick = () => setLang("vi");
 $("l-en").onclick = () => setLang("en");
 
+// ---------- Ảnh nền đầu trang chạy slide ----------
+(() => {
+  const imgs = [...document.querySelectorAll("#heroSlides .hero-img")];
+  if (imgs.length < 2) return;
+  // Máy bật "giảm chuyển động": vẫn đổi ảnh (chỉ mờ dần, không phóng to), đổi chậm hơn
+  const every = matchMedia("(prefers-reduced-motion: reduce)").matches ? 9000 : 6000;
+  let i = 0, timer = null;
+  const load = (img) => { if (img.dataset.src) { if (img.dataset.srcset) img.srcset = img.dataset.srcset; img.src = img.dataset.src; delete img.dataset.src; } };
+  const next = () => {
+    const n = (i + 1) % imgs.length, img = imgs[n];
+    load(img);
+    const show = () => { imgs[i].classList.remove("on"); img.classList.add("on"); i = n; load(imgs[(n + 1) % imgs.length]); };
+    img.complete && img.naturalWidth ? show() : img.addEventListener("load", show, { once: true });
+  };
+  const start = () => { if (!timer) timer = setInterval(next, every); };
+  const stop = () => { clearInterval(timer); timer = null; };
+  // Tải ảnh thứ 2 sau khi trang hiện xong, rồi mới bắt đầu chạy
+  addEventListener("load", () => { load(imgs[1]); start(); });
+  document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+})();
+
 // ---------- Kiểm tra phòng trống (lịch đọc từ Google Sheet, xem server.js) ----------
 // Giá/đêm: ngày thường (w) và đêm thứ 6, thứ 7 (e)
 const ROOMS = [{ id: "bi", max: 2, w: 490000, e: 590000 }, { id: "moon", max: 4, w: 550000, e: 650000 }, { id: "mun", max: 2, w: 490000, e: 590000 }];
