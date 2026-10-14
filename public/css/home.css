@@ -104,11 +104,31 @@ ul{margin:0;padding:0;list-style:none}
 /* Hero */
 .hero{position:relative;min-height:min(88vh,760px);display:grid;align-items:end;color:#fff;overflow:hidden;isolation:isolate}
 .hero-slides{position:absolute;inset:0;z-index:-2;overflow:hidden;background:#33422A}
-/* Ảnh mới (.on) hiện dần đè lên ảnh cũ (.prev, vẫn rõ bên dưới) nên không lộ nền tối; phóng chậm liên tục, không giật */
-.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;z-index:0;transform:scale(1.08);transition:opacity 2.2s cubic-bezier(.45,0,.25,1),transform 10s linear;will-change:opacity,transform}
-.hero-img.prev{opacity:1;z-index:1;transform:scale(1);transition:transform 10s linear}
-.hero-img.on{opacity:1;z-index:2;transform:scale(1)}
-@media (prefers-reduced-motion:reduce){.hero-img,.hero-img.prev,.hero-img.on{transform:none}}
+/* Slide ảnh nền: ảnh mới (.on) được "quét" lộ ra đè lên ảnh cũ (.prev) bằng mask mềm,
+   mỗi ảnh có chuyển động Ken Burns riêng (kb0..kb2). Máy bật giảm chuyển động: chỉ mờ dần. */
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;z-index:0;will-change:transform}
+.hero-img.prev{opacity:1;z-index:1}
+.hero-img.on{opacity:1;z-index:2}
+@keyframes kb0{from{transform:scale(1.14) translate(-2.5%,0)}to{transform:scale(1.02) translate(1.5%,0)}}
+@keyframes kb1{from{transform:scale(1.02) translate(2%,0)}to{transform:scale(1.14) translate(-2%,0)}}
+@keyframes kb2{from{transform:scale(1.14) translate(0,2.5%)}to{transform:scale(1.03) translate(0,-1.5%)}}
+/* Quét mềm: dải chuyển trong suốt → rõ, chạy ngang qua ảnh */
+.hero-img{-webkit-mask-image:linear-gradient(90deg,#000 40%,transparent 60%);mask-image:linear-gradient(90deg,#000 40%,transparent 60%);-webkit-mask-size:260% 100%;mask-size:260% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:100% 0;mask-position:100% 0}
+.hero-img.rev{-webkit-mask-image:linear-gradient(270deg,#000 40%,transparent 60%);mask-image:linear-gradient(270deg,#000 40%,transparent 60%);-webkit-mask-position:0 0;mask-position:0 0}
+/* Cùng một danh sách animation cho .on và .prev → đổi lớp không làm chạy lại (không giật) */
+.hero-img.kb0.on,.hero-img.kb0.prev{animation:kb0 12s linear both,wipe 2s cubic-bezier(.65,0,.35,1) both}
+.hero-img.kb1.on,.hero-img.kb1.prev{animation:kb1 12s linear both,wipe 2s cubic-bezier(.65,0,.35,1) both}
+.hero-img.kb2.on,.hero-img.kb2.prev{animation:kb2 12s linear both,wipe 2s cubic-bezier(.65,0,.35,1) both}
+.hero-img.rev.kb0.on,.hero-img.rev.kb0.prev{animation:kb0 12s linear both,wipeR 2s cubic-bezier(.65,0,.35,1) both}
+.hero-img.rev.kb1.on,.hero-img.rev.kb1.prev{animation:kb1 12s linear both,wipeR 2s cubic-bezier(.65,0,.35,1) both}
+.hero-img.rev.kb2.on,.hero-img.rev.kb2.prev{animation:kb2 12s linear both,wipeR 2s cubic-bezier(.65,0,.35,1) both}
+.hero-img.first.on,.hero-img.first.prev{animation:kb0 12s linear both} /* ảnh đầu: không quét khi mở trang */
+.hero-img.first{-webkit-mask-position:0 0;mask-position:0 0}
+@keyframes wipe{from{-webkit-mask-position:100% 0;mask-position:100% 0}to{-webkit-mask-position:0 0;mask-position:0 0}}
+@keyframes wipeR{from{-webkit-mask-position:0 0;mask-position:0 0}to{-webkit-mask-position:100% 0;mask-position:100% 0}}
+@media (prefers-reduced-motion:reduce){
+  .hero-img,.hero-img.rev{-webkit-mask-image:none;mask-image:none;animation:none!important;transform:none;transition:opacity 2.2s ease}
+}
 .hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(51,66,42,.25) 0%,rgba(51,66,42,.55) 45%,rgba(51,66,42,.92) 100%)}
 .hero-in{max-width:1160px;width:100%;margin:0 auto;padding:120px 16px 40px;display:grid;gap:16px}
 @media (min-width:768px){.hero-in{padding:140px 24px 56px}}

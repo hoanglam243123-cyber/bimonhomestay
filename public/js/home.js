@@ -78,7 +78,7 @@ $("l-en").onclick = () => setLang("en");
   if (imgs.length < 2) return;
   // Máy bật "giảm chuyển động": vẫn đổi ảnh (chỉ mờ dần, không phóng to), đổi chậm hơn
   const every = matchMedia("(prefers-reduced-motion: reduce)").matches ? 9000 : 6500;
-  let i = 0, timer = null;
+  let i = 0, step = 0, timer = null;
   const load = (img) => { if (img.dataset.src) { if (img.dataset.srcset) img.srcset = img.dataset.srcset; img.src = img.dataset.src; delete img.dataset.src; } };
   const next = () => {
     const n = (i + 1) % imgs.length, img = imgs[n];
@@ -86,8 +86,13 @@ $("l-en").onclick = () => setLang("en");
     const show = () => {
       const old = imgs[i];
       imgs.forEach((x) => x !== old && x !== img && x.classList.remove("prev"));
+      // Hướng chuyển động & hướng quét đổi luân phiên
+      step++;
+      img.classList.remove("kb0", "kb1", "kb2", "rev", "first");
+      img.classList.add("kb" + (step % 3));
+      if (step % 2) img.classList.add("rev");
       old.classList.replace("on", "prev"); // ảnh cũ nằm dưới, vẫn hiện rõ
-      img.classList.add("on");              // ảnh mới hiện dần đè lên
+      img.classList.add("on");              // ảnh mới được quét lộ ra đè lên
       setTimeout(() => old.classList.remove("prev"), 2400);
       i = n; load(imgs[(n + 1) % imgs.length]);
     };
