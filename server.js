@@ -1,19 +1,14 @@
-// Bimon Homestay website: trang giới thiệu, trang "Ăn gì quanh Bimon", nhận yêu cầu đặt phòng.
+// Bimon Homestay website: trang giới thiệu, trang phòng, "Ăn gì quanh Bimon", đánh giá, kiểm tra phòng trống.
 const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const compression = require("compression");
-const nodemailer = require("nodemailer");
 
 loadEnv(path.join(__dirname, ".env"));
 
 const PORT = Number(process.env.PORT) || 3000;
 const SITE_URL = (process.env.SITE_URL || "").replace(/\/+$/, "");
-const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "data");
-const BOOKINGS_FILE = path.join(DATA_DIR, "bookings.jsonl");
 const PUBLIC_DIR = path.join(__dirname, "public");
-
-fs.mkdirSync(DATA_DIR, { recursive: true });
 
 const app = express();
 app.set("trust proxy", true);
@@ -24,8 +19,25 @@ app.use((req, res, next) => {
     "X-Content-Type-Options": "nosniff",
     "Referrer-Policy": "strict-origin-when-cross-origin",
     "X-Frame-Options": "SAMEORIGIN",
-    "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+    "Cross-Origin-Opener-Policy": "same-origin",
+    // Chỉ cho chạy script/CSS/ảnh từ chính website (và font Google), chặn nhúng script lạ
+    "Content-Security-Policy": [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline'",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "font-src 'self' https://fonts.gstatic.com",
+      "img-src 'self' data: https:",
+      "connect-src 'self'",
+      "object-src 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+      "frame-ancestors 'self'",
+      "upgrade-insecure-requests",
+    ].join("; "),
   });
+  // Bắt buộc HTTPS cho các lần truy cập sau (chỉ gửi khi đang chạy HTTPS thật)
+  if (req.secure) res.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
   next();
 });
 
@@ -174,7 +186,7 @@ app.get(["/index.html", "/an-gi.html"], (req, res) =>
 );
 
 app.get("/robots.txt", (req, res) =>
-  res.type("text/plain").send(`User-agent: *\nDisallow: /admin\nDisallow: /api/\nSitemap: ${baseUrl(req)}/sitemap.xml\n`)
+  res.type("text/plain").send(`User-agent: *\nDisallow: /api/\nSitemap: ${baseUrl(req)}/sitemap.xml\n`)
 );
 app.get("/sitemap.xml", (req, res) => {
   const today = new Date().toISOString().slice(0, 10);
@@ -197,104 +209,7 @@ app.use(
   })
 );
 
-// ---------- Nhận yêu cầu đặt phòng ----------
-const hits = new Map(); // giới hạn 5 yêu cầu / 10 phút / IP
-function rateLimited(ip) {
-  const now = Date.now();
-  const list = (hits.get(ip) || []).filter((t) => now - t < 10 * 60 * 1000);
-  list.push(now);
-  hits.set(ip, list);
-  return list.length > 5;
-}
-
-const ROOMS = ["Phòng Bi", "Phòng Mun", "Phòng Moon", "Phòng nào cũng được"];
 const isDate = (v) => typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v) && !isNaN(Date.parse(v));
-const clean = (v, max) => String(v ?? "").replace(/[\u0000-\u001f\u007f]/g, " ").trim().slice(0, max);
-const vnDate = (v) => v.split("-").reverse().join("/");
-
-app.post("/api/dat-phong", express.json({ limit: "10kb" }), async (req, res) => {
-  const b = req.body || {};
-  if (b.website) return res.json({ ok: true }); // bẫy bot (ô ẩn)
-  if (rateLimited(req.ip)) return res.status(429).json({ ok: false, error: "Bạn gửi quá nhiều lần, thử lại sau ít phút." });
-
-  const booking = {
-    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
-    createdAt: new Date().toISOString(),
-    ten: clean(b.ten, 80),
-    sdt: clean(b.sdt, 20),
-    den: clean(b.den, 10),
-    di: clean(b.di, 10),
-    phong: ROOMS.includes(b.phong) ? b.phong : "Phòng nào cũng được",
-    khach: clean(b.khach, 2),
-    ghichu: clean(b.ghichu, 1000),
-    lang: b.lang === "en" ? "en" : "vi",
-    ip: req.ip,
-  };
-  const errors = [];
-  if (!booking.ten) errors.push("Thiếu tên");
-  if (!/^[+0-9 .()-]{8,20}$/.test(booking.sdt)) errors.push("Số điện thoại không hợp lệ");
-  if (!isDate(booking.den) || !isDate(booking.di) || booking.di <= booking.den) errors.push("Ngày không hợp lệ");
-  if (errors.length) return res.status(400).json({ ok: false, error: errors.join(", ") });
-
-  fs.appendFileSync(BOOKINGS_FILE, JSON.stringify(booking) + "\n");
-  res.json({ ok: true, id: booking.id });
-
-  // Báo cho chủ nhà qua Zalo / email (không chặn phản hồi cho khách)
-  notify(booking).catch((err) => console.error("[notify]", err.message));
-});
-
-function summary(k) {
-  const nights = Math.round((Date.parse(k.di) - Date.parse(k.den)) / 864e5);
-  return [
-    "🏠 YÊU CẦU ĐẶT PHÒNG MỚI - Bimon Homestay",
-    `Tên: ${k.ten}`,
-    `SĐT: ${k.sdt}`,
-    `Phòng: ${k.phong}`,
-    `Nhận: ${vnDate(k.den)} · Trả: ${vnDate(k.di)} (${nights} đêm)`,
-    `Số khách: ${k.khach === "5" ? "5+" : k.khach}`,
-    k.ghichu ? `Ghi chú: ${k.ghichu}` : null,
-    k.lang === "en" ? "Khách dùng tiếng Anh" : null,
-  ].filter(Boolean).join("\n");
-}
-
-let mailer = null;
-if (process.env.SMTP_HOST && process.env.SMTP_USER) {
-  mailer = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT) || 465,
-    secure: (Number(process.env.SMTP_PORT) || 465) === 465,
-    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
-  });
-}
-
-async function notify(k) {
-  const text = summary(k);
-  const jobs = [];
-  if (mailer && process.env.NOTIFY_EMAIL) {
-    jobs.push(
-      mailer.sendMail({
-        from: `"Bimon Website" <${process.env.SMTP_USER}>`,
-        to: process.env.NOTIFY_EMAIL,
-        subject: `Đặt phòng: ${k.ten} · ${vnDate(k.den)} → ${vnDate(k.di)}`,
-        text,
-      })
-    );
-  }
-  if (process.env.ZALO_BOT_TOKEN && process.env.ZALO_CHAT_ID) {
-    jobs.push(
-      fetch(`https://bot-api.zaloplatforms.com/bot${process.env.ZALO_BOT_TOKEN}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat_id: process.env.ZALO_CHAT_ID, text }),
-      }).then(async (r) => {
-        const body = await r.json().catch(() => ({}));
-        if (!r.ok || body.ok === false) throw new Error(`Zalo ${r.status} ${JSON.stringify(body)}`);
-      })
-    );
-  }
-  const results = await Promise.allSettled(jobs);
-  results.filter((r) => r.status === "rejected").forEach((r) => console.error("[notify]", r.reason?.message || r.reason));
-}
 
 // ---------- Đánh giá Google ----------
 // Ưu tiên lấy trực tiếp từ Google Places API (tối đa 5 đánh giá Google trả về), lưu tạm 12 giờ.
@@ -406,7 +321,17 @@ async function loadCalendar() {
   return calCache.data;
 }
 
-app.get("/api/phong-trong", async (req, res) => {
+// Giới hạn 60 lần / phút / IP cho API kiểm tra phòng (chống spam)
+const apiHits = new Map();
+setInterval(() => apiHits.clear(), 60 * 1000).unref();
+function apiLimit(req, res, next) {
+  const n = (apiHits.get(req.ip) || 0) + 1;
+  apiHits.set(req.ip, n);
+  if (n > 60) return res.status(429).json({ error: "too_many" });
+  next();
+}
+
+app.get("/api/phong-trong", apiLimit, async (req, res) => {
   res.set("Cache-Control", "no-store");
   const { den, di } = req.query;
   if (!isDate(den) || !isDate(di) || di <= den) return res.status(400).json({ error: "dates" });
@@ -421,47 +346,6 @@ app.get("/api/phong-trong", async (req, res) => {
     rooms[room] = st.includes("booked") ? "booked" : st.every((s) => s === "free") ? "free" : "ask";
   }
   res.json({ ready: true, nights: nights.length, rooms });
-});
-
-// ---------- Trang quản trị: xem yêu cầu đặt phòng ----------
-function requireAdmin(req, res, next) {
-  const user = process.env.ADMIN_USER, pass = process.env.ADMIN_PASS;
-  if (!user || !pass) return res.status(503).send("Chưa cấu hình ADMIN_USER / ADMIN_PASS.");
-  const [type, token] = (req.get("authorization") || "").split(" ");
-  const [u, p] = type === "Basic" && token ? Buffer.from(token, "base64").toString().split(/:(.*)/s) : [];
-  if (u === user && p === pass) return next();
-  res.set("WWW-Authenticate", 'Basic realm="Bimon admin", charset="UTF-8"').status(401).send("Cần đăng nhập.");
-}
-
-const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-
-function readBookings() {
-  if (!fs.existsSync(BOOKINGS_FILE)) return [];
-  return fs.readFileSync(BOOKINGS_FILE, "utf8").split("\n").filter(Boolean)
-    .map((l) => { try { return JSON.parse(l); } catch { return null; } })
-    .filter(Boolean).reverse();
-}
-
-app.get("/admin", requireAdmin, (req, res) => {
-  const rows = readBookings().map((k) => `<tr>
-    <td>${esc(new Date(k.createdAt).toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh" }))}</td>
-    <td>${esc(k.ten)}</td><td><a href="tel:${esc(k.sdt.replace(/[^+0-9]/g, ""))}">${esc(k.sdt)}</a></td>
-    <td>${esc(k.phong)}</td><td>${esc(vnDate(k.den))} → ${esc(vnDate(k.di))}</td><td>${esc(k.khach)}</td><td>${esc(k.ghichu)}</td></tr>`).join("");
-  res.set("Cache-Control", "no-store").type("html").send(`<!doctype html><html lang="vi"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Bimon · Yêu cầu đặt phòng</title>
-<style>body{font-family:system-ui,sans-serif;background:#f3efe3;color:#1f2a1c;margin:0;padding:16px}h1{color:#4a5d3a;font-size:1.3rem}
-.t{overflow-x:auto}table{border-collapse:collapse;width:100%;background:#fbf8f0;font-size:.9rem}th,td{padding:8px 10px;border-bottom:1px solid #d8d2bf;text-align:left;vertical-align:top}
-th{background:#4a5d3a;color:#fff;white-space:nowrap}a{color:#4a5d3a;font-weight:600}</style></head><body>
-<h1>Yêu cầu đặt phòng (${readBookings().length})</h1><p><a href="/admin/bookings.csv">Tải file CSV</a></p>
-<div class="t"><table><thead><tr><th>Gửi lúc</th><th>Tên</th><th>SĐT</th><th>Phòng</th><th>Ngày</th><th>Khách</th><th>Ghi chú</th></tr></thead>
-<tbody>${rows || '<tr><td colspan="7">Chưa có yêu cầu nào.</td></tr>'}</tbody></table></div></body></html>`);
-});
-
-app.get("/admin/bookings.csv", requireAdmin, (req, res) => {
-  const cols = ["createdAt", "ten", "sdt", "phong", "den", "di", "khach", "ghichu"];
-  const q = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
-  const csv = [cols.join(","), ...readBookings().map((k) => cols.map((c) => q(k[c])).join(","))].join("\n");
-  res.set("Content-Disposition", 'attachment; filename="bimon-dat-phong.csv"').type("text/csv").send("﻿" + csv);
 });
 
 app.use((req, res) => res.status(404).type("html").send(

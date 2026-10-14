@@ -1,7 +1,7 @@
 {
   "name": "bimon-homestay-website",
   "version": "1.0.0",
-  "description": "Website Bimon Homestay Hải Phòng - giới thiệu phòng, ăn gì quanh nhà, nhận yêu cầu đặt phòng",
+  "description": "Website Bimon Homestay Hải Phòng - giới thiệu phòng, ăn gì quanh nhà, kiểm tra phòng trống",
   "main": "server.js",
   "private": true,
   "scripts": {
@@ -9,7 +9,6 @@
     "dev": "node --watch server.js",
     "build": "echo \"Khong can build: server.js chay truc tiep\"",
     "build:static": "node scripts/build-static.js",
-    "zalo:chat-id": "node scripts/zalo-chat-id.js",
     "google:place-id": "node scripts/google-place-id.js"
   },
   "engines": {
@@ -17,7 +16,6 @@
   },
   "dependencies": {
     "compression": "^1.7.4",
-    "express": "^4.21.2",
-    "nodemailer": "^6.9.16"
+    "express": "^4.21.2"
   }
 }

@@ -9,9 +9,7 @@ Website Node.js (Express) cho Bimon Homestay, 5/141 Cầu Đất, Gia Viên, H�
 | `/` | Trang giới thiệu: phòng Bi / Mun / Moon, tiện nghi, ảnh, vị trí, form đặt phòng (VN/EN) |
 | `/an-gi` | 41 quán ăn + 4 điểm nên đi quanh nhà, lọc theo khoảng cách, giờ mở cửa, chỉ đường |
 | `/phong/bi`, `/phong/mun`, `/phong/moon` | Trang chi tiết từng phòng: ảnh, tiện nghi trong phòng |
-| `POST /api/dat-phong` | Nhận yêu cầu đặt phòng, lưu vào `data/bookings.jsonl`, báo cho chủ nhà qua Zalo (và email nếu bật) |
 | `/api/reviews` | Đánh giá Google Maps cho mục "Khách nói gì" |
-| `/admin` | Xem danh sách yêu cầu đặt phòng, tải CSV (cần đăng nhập) |
 | `/sitemap.xml`, `/robots.txt` | SEO |
 
 Giao diện theo design system của ui-ux-pro-max (Hotel/Hospitality): xanh navy + vàng gold, font Playfair Display + Be Vietnam Pro.
@@ -22,7 +20,7 @@ Không hiện giá phòng công khai: khách để lại tên, SĐT, ngày ở v
 
 ```bash
 npm install
-cp .env.example .env   # rồi sửa ADMIN_PASS, email...
+cp .env.example .env   # rồi điền SITE_URL, AVAILABILITY_URL...
 npm start              # http://localhost:3000
 ```
 
@@ -47,7 +45,7 @@ Gói Premium không chạy Node.js, nên xuất website thành file HTML tĩnh r
 
 **Sau này sửa nội dung:** sửa file như bình thường → `npm run build:static` → tải zip mới lên và giải nén đè vào `public_html`.
 
-Bản tĩnh không có: trang `/admin`, form đặt phòng gửi Zalo/email, và tự lấy đánh giá qua Google API (đánh giá nhập tay trong `content/reviews.json` vẫn hiện bình thường).
+Bản tĩnh không có: nút kiểm tra phòng trống và tự lấy đánh giá qua Google API (đánh giá nhập tay trong `content/reviews.json` vẫn hiện bình thường).
 
 ## Deploy lên Hostinger (gói có Node.js)
 
@@ -64,7 +62,7 @@ Khi mua gói: chọn gói có **Node.js** (Business Web Hosting trở lên). Gó
    - Node version: **20** hoặc **22**
    - Entry file: `server.js`
    - Build command: để trống · Install: `npm install`
-4. **Environment variables**: thêm các biến trong `.env.example` (ít nhất `SITE_URL`, `ADMIN_USER`, `ADMIN_PASS`).
+4. **Environment variables**: thêm các biến trong `.env.example` (ít nhất `SITE_URL`, `AVAILABILITY_URL`).
 5. Deploy, rồi trỏ tên miền vào app và bật SSL miễn phí.
 6. Từ nay mỗi lần `git push` lên `main`, Hostinger tự deploy lại.
 
@@ -77,18 +75,6 @@ cp .env.example .env && nano .env
 npm i -g pm2 && pm2 start server.js --name bimon && pm2 save && pm2 startup
 ```
 Sau đó cấu hình Nginx reverse proxy tên miền → `localhost:3000` và cài SSL bằng Certbot.
-
-## Báo đặt phòng qua Zalo
-
-1. Vào https://bot.zapps.me, đăng nhập Zalo của chủ nhà, tạo bot và lấy **Bot Token**.
-2. Mở Zalo, tìm bot vừa tạo và nhắn cho bot 1 tin bất kỳ.
-3. Trên máy: điền `ZALO_BOT_TOKEN` vào `.env`, chạy `npm run zalo:chat-id`, chép dòng `ZALO_CHAT_ID=...` vào `.env`.
-4. Trên Hostinger: thêm 2 biến `ZALO_BOT_TOKEN`, `ZALO_CHAT_ID` vào Environment variables.
-
-Mỗi khi khách gửi form, Zalo của chủ nhà nhận tin có tên, SĐT, phòng, ngày ở. Danh sách đầy đủ xem ở `/admin`.
-(Có thể bật thêm email dự phòng bằng các biến `SMTP_*`.)
-
-Lưu ý: file `data/bookings.jsonl` nằm trên server, có thể bị xoá khi deploy lại, nên Zalo là kênh chính.
 
 ## Đánh giá Google Maps
 
