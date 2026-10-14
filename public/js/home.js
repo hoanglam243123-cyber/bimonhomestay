@@ -12,18 +12,20 @@ const EN = {
   s_body2: "Bimon sits in lane 141 off Cau Dat street, between the Cau Dat and Luong Khanh Thien food streets. With only 3 rooms the house stays quiet and clean, and your host has time to point you to the good places.",
   s_link: "See 41 favourite eateries nearby",
   c_go: "Check availability",
-  r_eye: "Rooms", r_title: "Choose a space of your own", r_lead: "Every room has air-conditioning, Wi-Fi and its own bathroom. Send a request for rates on your dates.",
-  bi_t: "Bi room", mun_t: "Mun room", moon_t: "Moon room", bed1: "1 double bed", bed2: "2 double beds", wc: "Private bathroom", fit12: "1–2 guests", fit34: "3–4 guests", proj: "Netflix projector", tv: "Netflix TV", xbed: "Extra bed available", xbed: "Extra bed available",
+  r_eye: "Rooms", r_title: "Choose a space of your own", r_lead: "Every room has air-conditioning, Wi-Fi and its own bathroom. Weekend nights (Fri, Sat) cost a little more.",
+  bi_t: "Bi room", mun_t: "Mun room", moon_t: "Moon room", bed1: "1 double bed", bed2: "2 beds (1.8 m & 1.2 m)", wc: "Private bathroom", fit12: "1–2 guests", fit34: "3–4 guests", proj: "Netflix projector", tv: "Netflix TV", xbed: "Extra bed available", xbed: "Extra bed available",
   moon_badge: "Great for groups",
   q_eye: "FAQ", q_title: "Frequently asked questions",
   q1: "What are the check-in and check-out times?", q1a: "Check-in is from 14:00 and check-out is before 12:00. Self check-in means you can arrive late and still get in. For early check-in or late check-out, message Bimon in advance.",
   q2: "Is breakfast included?", q2a: "Breakfast is not included. The Cau Dat food street is right at the end of the lane; see breakfast picks under Food in the menu.",
-  q3: "Can I book the whole house?", q3a: "Yes. You can book all 3 rooms for a group of up to 12 at a better rate than booking each room separately. Send a request or call Bimon for a quote.",
+  q3: "Can I book the whole house?", q3a: "Yes. You can book all 3 rooms for a group of up to 12 at a better rate than booking each room separately. Call or message Bimon for a quote.",
   q4: "What is the cancellation policy?", q4a: "Bimon takes a 30% deposit to hold your room. The deposit is non-refundable if you cancel, but you can move your booking to other dates if Bimon has availability.",
   q5: "What payment methods do you accept?", q5a: "Bank transfer, cash or e-wallet. Pay a 30% deposit when booking and the rest at check-in.",
   q6: "Is there parking?", q6a: "Motorbikes can be parked on the ground floor, inside the house. Cars can park at a lot about 100 m away for 50,000 VND per night.",
-  bi_d: "Warm wood tones, soft lighting, a large wardrobe and a small vanity.", mun_d: "Neat and bright in soft beige, with a bench and a reading lamp.", moon_d: "Our largest room, two big beds, ideal for a group of friends on a food trip.",
+  bi_d: "Warm wood tones, soft lighting, a large wardrobe and a small vanity.", mun_d: "Neat and bright in soft beige, with a bench and a reading lamp.", moon_d: "Our largest room, two beds, ideal for a group of friends on a food trip.",
   room_b: "View room details",
+  bi_p: "From 490,000₫/night", bi_w: "Fri & Sat: 590,000₫", mun_p: "From 490,000₫/night", mun_w: "Fri & Sat: 590,000₫",
+  moon_p: "From 550,000₫/night", moon_w: "Fri & Sat: 650,000₫",
   a_eye: "Amenities & perks", a_title: "Every small detail looked after",
   perk1: "Reliable WiFi", perk1d: "Work remotely and stay in touch throughout your stay",
   perk2: "A 5-star experience", perk2d: "Beds, towels, amenities and housekeeping checked after every stay",
@@ -43,11 +45,11 @@ const EN = {
 };
 const T = {
   vi: { reviews: "đánh giá", of: "/", need: "Chọn ngày nhận và ngày trả phòng nhé.", order: "Ngày trả phòng cần sau ngày nhận phòng.", long: "Ở trên 30 đêm, bạn nhắn Bimon để có giá tốt nhé.", checking: "Đang kiểm tra...",
-    free: "Còn trống", booked: "Đã kín", ask: "Liên hệ để hỏi", view: "Xem phòng", upto: "Tối đa {n} người",
+    free: "Còn trống", booked: "Đã kín", ask: "Liên hệ để hỏi", view: "Xem phòng", upto: "Tối đa {n} người", est: "~{p} / {n} đêm",
     sumFree: "{x} phòng còn trống cho {n} đêm ({a} – {b}). Nhắn Bimon để giữ phòng:", sumNone: "Ngày bạn chọn đã kín phòng. Nhắn Bimon để được gợi ý ngày gần nhất:", sumAsk: "Bimon cần xác nhận lại lịch cho ngày này. Nhắn Bimon để hỏi nhanh:",
     off: "Chưa xem được lịch tự động lúc này. Bạn nhắn Bimon để hỏi phòng trống nhé:", group: "Nhóm từ 5 người: đặt nhiều phòng hoặc thuê nguyên căn (tối đa 12 người).", call: "Gọi" },
   en: { reviews: "reviews", of: "/", need: "Please pick check-in and check-out dates.", order: "Check-out must be after check-in.", long: "For stays over 30 nights, message Bimon for the best rate.", checking: "Checking...",
-    free: "Available", booked: "Fully booked", ask: "Contact us to check", view: "View room", upto: "Up to {n} guests",
+    free: "Available", booked: "Fully booked", ask: "Contact us to check", view: "View room", upto: "Up to {n} guests", est: "~{p} / {n} night(s)",
     sumFree: "{x} room(s) available for {n} night(s) ({a} – {b}). Message Bimon to hold it:", sumNone: "Those dates are fully booked. Message Bimon for the nearest free dates:", sumAsk: "Bimon needs to double-check these dates. Message us for a quick answer:",
     off: "Live availability isn't available right now. Message Bimon to check:", group: "Groups of 5+: book several rooms or the whole house (up to 12 guests).", call: "Call" },
 };
@@ -71,7 +73,14 @@ $("l-vi").onclick = () => setLang("vi");
 $("l-en").onclick = () => setLang("en");
 
 // ---------- Kiểm tra phòng trống (lịch đọc từ Google Sheet, xem server.js) ----------
-const ROOMS = [{ id: "bi", max: 2 }, { id: "moon", max: 4 }, { id: "mun", max: 2 }];
+// Giá/đêm: ngày thường (w) và đêm thứ 6, thứ 7 (e)
+const ROOMS = [{ id: "bi", max: 2, w: 490000, e: 590000 }, { id: "moon", max: 4, w: 550000, e: 650000 }, { id: "mun", max: 2, w: 490000, e: 590000 }];
+const vnd = (n) => n.toLocaleString("vi-VN") + "đ";
+function stayCost(r, den, di) {
+  let sum = 0;
+  for (let d = new Date(den + "T00:00:00"); d < new Date(di + "T00:00:00"); d.setDate(d.getDate() + 1)) sum += [5, 6].includes(d.getDay()) ? r.e : r.w;
+  return sum;
+}
 const iso = (d) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
 const plus1 = (v) => { const [y, m, d] = v.split("-").map(Number); return iso(new Date(y, m - 1, d + 1)); };
 const dmy = (v) => v.split("-").reverse().slice(0, 2).join("/");
@@ -97,7 +106,7 @@ function renderCheck() {
     const rooms = ROOMS.map((r) => ({ ...r, st: c.data.rooms[r.id] }))
       .sort((a, b) => order[a.st] - order[b.st] || (b.max >= c.g) - (a.max >= c.g));
     const nFree = rooms.filter((r) => r.st === "free").length;
-    html = `<ul class="check-list">${rooms.map((r) => `<li class="${r.st}"><div><b>${name(r.id)}</b><small>${fill(t.upto, { n: r.max })}</small></div><span class="st">${t[r.st]}</span><a href="/phong/${r.id}">${t.view}</a></li>`).join("")}</ul>`;
+    html = `<ul class="check-list">${rooms.map((r) => `<li class="${r.st}"><div><b>${name(r.id)}</b><small>${fill(t.upto, { n: r.max })}${r.st === "free" ? " · " + fill(t.est, { p: vnd(stayCost(r, c.den, c.di)), n: c.data.nights }) : ""}</small></div><span class="st">${t[r.st]}</span><a href="/phong/${r.id}">${t.view}</a></li>`).join("")}</ul>`;
     const sum = nFree ? fill(t.sumFree, { x: nFree, n: c.data.nights, a: dmy(c.den), b: dmy(c.di) })
       : rooms.some((r) => r.st === "ask") ? t.sumAsk : t.sumNone;
     html += `<p class="check-sum">${sum}</p>`;

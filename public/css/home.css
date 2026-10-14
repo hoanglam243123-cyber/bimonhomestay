@@ -165,6 +165,9 @@ ul{margin:0;padding:0;list-style:none}
 .room-b .btn{margin-top:auto}
 .badge{position:absolute;top:12px;left:12px;background:var(--accent);color:#fff;font-size:.78rem;font-weight:700;padding:5px 10px;border-radius:999px;z-index:1}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
+.price{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin:0}
+.price b{font-size:1.15rem;color:var(--accent-text)}
+.price span{font-size:.86rem;color:var(--muted-fg)}
 .tags li{font-size:.8rem;font-weight:600;background:var(--muted);color:var(--primary);padding:4px 10px;border-radius:999px}
 
 /* Amenities */

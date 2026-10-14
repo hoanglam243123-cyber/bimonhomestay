@@ -112,3 +112,15 @@ Cài một lần:
 3. Thêm biến môi trường `AVAILABILITY_URL` = URL đó (Hostinger → app Node.js → Biến môi trường), rồi triển khai lại.
 
 Script chỉ gửi các trang lịch màu, không gửi các trang "Đặt lịch..." có tên/số điện thoại khách. Website cập nhật theo bảng tính sau tối đa 5 phút. Mỗi tháng mới, tạo trang lịch đặt tên đúng dạng `T12/2026` với bố cục như các tháng trước.
+
+## Đo lượt truy cập (Google Analytics)
+
+1. Vào https://analytics.google.com bằng tài khoản Google → **Bắt đầu đo lường** → tạo tài khoản và thuộc tính "Bimon Homestay" (múi giờ Việt Nam, tiền VND).
+2. Chọn nền tảng **Web**, nhập `https://bimonhomestay.com` → tạo luồng → copy **Mã đo lường** (dạng `G-XXXXXXXXXX`).
+3. Hostinger → app Node.js → **Biến môi trường**: thêm `GA_MEASUREMENT_ID` = mã đó → triển khai lại.
+
+Để trống biến này thì website không gắn Google Analytics.
+
+## Giá phòng
+
+Giá hiện ở thẻ phòng trang chủ (`public/index.html` + bản tiếng Anh trong `public/js/home.js`), trang chi tiết phòng (`price` trong `content/rooms.json`) và phần ước tính tiền của nút kiểm tra phòng trống (`ROOMS` trong `public/js/home.js`). Đổi giá thì sửa cả ba chỗ.

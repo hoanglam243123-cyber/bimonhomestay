@@ -24,11 +24,11 @@ app.use((req, res, next) => {
     // Chỉ cho chạy script/CSS/ảnh từ chính website (và font Google), chặn nhúng script lạ
     "Content-Security-Policy": [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline'",
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: https:",
-      "connect-src 'self'",
+      "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com",
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",
@@ -47,12 +47,17 @@ const pages = {
   "/": fs.readFileSync(path.join(PUBLIC_DIR, "index.html"), "utf8"),
   "/an-gi": fs.readFileSync(path.join(PUBLIC_DIR, "an-gi.html"), "utf8"),
 };
+const GA_ID = /^G-[A-Z0-9]{4,15}$/.test(process.env.GA_MEASUREMENT_ID || "") ? process.env.GA_MEASUREMENT_ID : "";
+const GA_TAG = GA_ID ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","${GA_ID}");</script>
+` : "";
+const withAnalytics = (html) => (GA_TAG ? html.replace("</head>", GA_TAG + "</head>") : html);
 const baseUrl = (req) => SITE_URL || `${req.protocol}://${req.get("host")}`;
 
 for (const [route, html] of Object.entries(pages)) {
   app.get(route, (req, res) => {
     res.set("Cache-Control", "public, max-age=300");
-    res.type("html").send(html.replaceAll("__SITE_URL__", baseUrl(req)));
+    res.type("html").send(withAnalytics(html.replaceAll("__SITE_URL__", baseUrl(req))));
   });
 }
 // ---------- Trang chi tiết phòng: /phong/bi, /phong/mun, /phong/moon ----------
@@ -71,6 +76,8 @@ const shell = {
   css: pick(/\/css\/home\.css\?v=\d+/),
 };
 
+const vnd = (n) => n.toLocaleString("vi-VN") + "đ";
+
 function roomPhotos(slug) {
   try {
     return fs.readdirSync(path.join(ROOM_IMG_DIR, slug))
@@ -85,6 +92,7 @@ function renderRoom(slug, rooms, req) {
   const site = baseUrl(req);
   const photos = [r.cover, ...roomPhotos(slug)].filter(Boolean);
   const en = { [`${slug}_t`]: r.name.en, [`${slug}_d`]: r.desc.en };
+  if (r.price) Object.assign(en, { rp_from: `From ${r.price.week.toLocaleString("en-US")}₫/night`, rp_wk: `Fri & Sat: ${r.price.weekend.toLocaleString("en-US")}₫` });
   const t = (key, v) => { en[key] = v.en; return `data-i="${key}">${escHtml(v.vi)}`; };
   const tags = r.tags.map((v, i) => `<li ${t(`tag${i}`, v)}</li>`).join("");
   const amen = r.amenities.map((v, i) => `<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span ${t(`am${i}`, v)}</span></li>`).join("");
@@ -128,6 +136,7 @@ ${shell.nav}
       <h1 data-i="${slug}_t">${escHtml(r.name.vi)}</h1>
       <ul class="tags">${tags}</ul>
       <p class="lead" data-i="${slug}_d">${escHtml(r.desc.vi)}</p>
+      ${r.price ? `<p class="price"><b data-i="rp_from">Từ ${vnd(r.price.week)}/đêm</b><span data-i="rp_wk">Thứ 6, thứ 7: ${vnd(r.price.weekend)}</span></p>` : ""}
     </div>
     <h2 class="sr-only" data-i="rp_photos">Ảnh phòng</h2>
     <div class="rp-gal${photos.length === 1 ? " one" : ""}">${gal}</div>
@@ -178,7 +187,7 @@ app.get("/phong/:slug", (req, res, next) => {
   if (req.params.slug.startsWith("_") || !rooms[req.params.slug]) return next();
   // Không cho trình duyệt giữ bản cũ: sửa rooms.json hay thêm ảnh là thấy ngay.
   res.set("Cache-Control", "no-cache");
-  res.type("html").send(renderRoom(req.params.slug, rooms, req));
+  res.type("html").send(withAnalytics(renderRoom(req.params.slug, rooms, req)));
 });
 
 app.get(["/index.html", "/an-gi.html"], (req, res) =>

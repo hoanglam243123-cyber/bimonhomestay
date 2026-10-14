@@ -1,6 +1,7 @@
 {
   "_ghi_chu": "Thông tin trang chi tiết từng phòng (/phong/bi, /phong/mun, /phong/moon). Ảnh: thả file .jpg/.png/.webp vào public/img/phong/<tên phòng>/ (ví dụ public/img/phong/bi/), web tự hiện theo thứ tự tên file (01.jpg, 02.jpg...). Sửa xong không cần khởi động lại server.",
   "bi": {
+    "price": { "week": 490000, "weekend": 590000 },
     "name": { "vi": "Phòng Bi", "en": "Bi room" },
     "cover": "/img/phong-bi-1600.webp",
     "desc": { "vi": "Tông gỗ ấm, đèn hắt dịu, tủ quần áo lớn và bàn trang điểm nhỏ.", "en": "Warm wood tones, soft lighting, a large wardrobe and a small vanity." },
@@ -26,11 +27,12 @@
     ]
   },
   "moon": {
+    "price": { "week": 550000, "weekend": 650000 },
     "name": { "vi": "Phòng Moon", "en": "Moon room" },
     "cover": "/img/phong-moon-1600.webp",
-    "desc": { "vi": "Phòng rộng nhất nhà, hai giường lớn, hợp nhóm bạn đi foodtour.", "en": "Our largest room, two big beds, ideal for a group of friends on a food trip." },
+    "desc": { "vi": "Phòng rộng nhất nhà, hai giường, hợp nhóm bạn đi foodtour.", "en": "Our largest room, two beds, ideal for a group of friends on a food trip." },
     "tags": [
-      { "vi": "2 giường đôi", "en": "2 double beds" },
+      { "vi": "2 giường (1m8 và 1m2)", "en": "2 beds (1.8 m & 1.2 m)" },
       { "vi": "WC riêng", "en": "Private bathroom" },
       { "vi": "3–4 người", "en": "3–4 guests" },
       { "vi": "TV Netflix", "en": "Netflix TV" },
@@ -38,7 +40,7 @@
     ],
     "amenities": [
       { "vi": "Giường 1m8 × 2m", "en": "Bed, 1.8 × 2 m" },
-      { "vi": "Giường 1m2 × 1m8", "en": "Bed, 1.2 × 1.8 m" },
+      { "vi": "Giường 1m2 × 2m", "en": "Bed, 1.2 × 2 m" },
       { "vi": "Nhà vệ sinh khép kín, gương đèn LED", "en": "En-suite bathroom with LED mirror" },
       { "vi": "Thiết bị vệ sinh INAX", "en": "INAX bathroom fixtures" },
       { "vi": "Điều hoà 2 chiều", "en": "Air-conditioning (heating and cooling)" },
@@ -50,6 +52,7 @@
     ]
   },
   "mun": {
+    "price": { "week": 490000, "weekend": 590000 },
     "name": { "vi": "Phòng Mun", "en": "Mun room" },
     "cover": "/img/phong-mun-1600.webp?v=2",
     "desc": { "vi": "Gọn gàng, sáng sủa, tông be nhẹ, có ghế băng và đèn đứng đọc sách.", "en": "Neat and bright in soft beige, with a bench and a reading lamp." },
