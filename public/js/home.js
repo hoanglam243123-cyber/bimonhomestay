@@ -77,8 +77,9 @@ $("l-en").onclick = () => setLang("en");
   const imgs = [...document.querySelectorAll("#heroSlides .hero-img")];
   if (imgs.length < 2) return;
   // Máy bật "giảm chuyển động": vẫn đổi ảnh (chỉ mờ dần, không phóng to), đổi chậm hơn
-  const every = matchMedia("(prefers-reduced-motion: reduce)").matches ? 9000 : 6500;
-  let i = 0, step = 0, timer = null;
+  const every = matchMedia("(prefers-reduced-motion: reduce)").matches ? 8000 : 6500;
+  let i = 0, timer = null;
+  const count = document.getElementById("heroCount");
   const load = (img) => { if (img.dataset.src) { if (img.dataset.srcset) img.srcset = img.dataset.srcset; img.src = img.dataset.src; delete img.dataset.src; } };
   const next = () => {
     const n = (i + 1) % imgs.length, img = imgs[n];
@@ -86,15 +87,11 @@ $("l-en").onclick = () => setLang("en");
     const show = () => {
       const old = imgs[i];
       imgs.forEach((x) => x !== old && x !== img && x.classList.remove("prev"));
-      // Hướng chuyển động & hướng quét đổi luân phiên
-      step++;
-      img.classList.remove("kb0", "kb1", "kb2", "rev", "first");
-      img.classList.add("kb" + (step % 3));
-      if (step % 2) img.classList.add("rev");
-      old.classList.replace("on", "prev"); // ảnh cũ nằm dưới, vẫn hiện rõ
-      img.classList.add("on");              // ảnh mới được quét lộ ra đè lên
-      setTimeout(() => old.classList.remove("prev"), 2400);
+      old.classList.replace("on", "prev"); // ảnh cũ nằm dưới, vẫn rõ
+      img.classList.add("on");              // ảnh mới hiện dần đè lên
+      setTimeout(() => old.classList.remove("prev"), 1800);
       i = n; load(imgs[(n + 1) % imgs.length]);
+      if (count) count.innerHTML = `<b>${String(n + 1).padStart(2, "0")}</b> / ${String(imgs.length).padStart(2, "0")}`;
     };
     // Giải mã ảnh trước rồi mới chuyển, tránh khựng hình
     (img.decode ? img.decode() : Promise.resolve()).then(show, show);

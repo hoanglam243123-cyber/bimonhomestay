@@ -104,30 +104,24 @@ ul{margin:0;padding:0;list-style:none}
 /* Hero */
 .hero{position:relative;min-height:min(88vh,760px);display:grid;align-items:end;color:#fff;overflow:hidden;isolation:isolate}
 .hero-slides{position:absolute;inset:0;z-index:-2;overflow:hidden;background:#33422A}
-/* Slide ảnh nền: ảnh mới (.on) được "quét" lộ ra đè lên ảnh cũ (.prev) bằng mask mềm,
-   mỗi ảnh có chuyển động Ken Burns riêng (kb0..kb2). Máy bật giảm chuyển động: chỉ mờ dần. */
-.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;z-index:0;will-change:transform}
-.hero-img.prev{opacity:1;z-index:1}
+/* Slide ảnh nền: ảnh mới (.on) hiện dần (1,6s) đè lên ảnh cũ (.prev, vẫn rõ bên dưới → không chớp tối).
+   Mỗi ảnh thu nhỏ chậm 108% → 100% (Ken Burns); .on và .prev dùng cùng animation nên không bị giật. */
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;z-index:0;transform:scale(1.08);transition:opacity 1.6s ease;will-change:opacity,transform}
+.hero-img.prev{opacity:1;z-index:1;transition:none}
 .hero-img.on{opacity:1;z-index:2}
-@keyframes kb0{from{transform:scale(1.14) translate(-2.5%,0)}to{transform:scale(1.02) translate(1.5%,0)}}
-@keyframes kb1{from{transform:scale(1.02) translate(2%,0)}to{transform:scale(1.14) translate(-2%,0)}}
-@keyframes kb2{from{transform:scale(1.14) translate(0,2.5%)}to{transform:scale(1.03) translate(0,-1.5%)}}
-/* Quét mềm: dải chuyển trong suốt → rõ, chạy ngang qua ảnh */
-.hero-img{-webkit-mask-image:linear-gradient(90deg,#000 40%,transparent 60%);mask-image:linear-gradient(90deg,#000 40%,transparent 60%);-webkit-mask-size:260% 100%;mask-size:260% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:100% 0;mask-position:100% 0}
-.hero-img.rev{-webkit-mask-image:linear-gradient(270deg,#000 40%,transparent 60%);mask-image:linear-gradient(270deg,#000 40%,transparent 60%);-webkit-mask-position:0 0;mask-position:0 0}
-/* Cùng một danh sách animation cho .on và .prev → đổi lớp không làm chạy lại (không giật) */
-.hero-img.kb0.on,.hero-img.kb0.prev{animation:kb0 12s linear both,wipe 2s cubic-bezier(.65,0,.35,1) both}
-.hero-img.kb1.on,.hero-img.kb1.prev{animation:kb1 12s linear both,wipe 2s cubic-bezier(.65,0,.35,1) both}
-.hero-img.kb2.on,.hero-img.kb2.prev{animation:kb2 12s linear both,wipe 2s cubic-bezier(.65,0,.35,1) both}
-.hero-img.rev.kb0.on,.hero-img.rev.kb0.prev{animation:kb0 12s linear both,wipeR 2s cubic-bezier(.65,0,.35,1) both}
-.hero-img.rev.kb1.on,.hero-img.rev.kb1.prev{animation:kb1 12s linear both,wipeR 2s cubic-bezier(.65,0,.35,1) both}
-.hero-img.rev.kb2.on,.hero-img.rev.kb2.prev{animation:kb2 12s linear both,wipeR 2s cubic-bezier(.65,0,.35,1) both}
-.hero-img.first.on,.hero-img.first.prev{animation:kb0 12s linear both} /* ảnh đầu: không quét khi mở trang */
-.hero-img.first{-webkit-mask-position:0 0;mask-position:0 0}
-@keyframes wipe{from{-webkit-mask-position:100% 0;mask-position:100% 0}to{-webkit-mask-position:0 0;mask-position:0 0}}
-@keyframes wipeR{from{-webkit-mask-position:0 0;mask-position:0 0}to{-webkit-mask-position:100% 0;mask-position:100% 0}}
+.hero-img.on,.hero-img.prev{animation:kenburns 8s ease-out both}
+@keyframes kenburns{from{transform:scale(1.08)}to{transform:scale(1)}}
+/* Chữ đầu trang trồi lên lần lượt khi mở trang */
+.rv{animation:revealUp .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
+@keyframes revealUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+/* Bộ đếm ảnh "01 / 03" */
+.hero-count{position:absolute;right:16px;bottom:16px;z-index:1;font:600 .8rem/1 var(--f-body);letter-spacing:.18em;color:rgba(255,255,255,.85);font-variant-numeric:tabular-nums;animation:fadeIn 1s ease 1.2s both}
+.hero-count b{color:#fff;font-weight:700}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@media (min-width:960px){.hero-count{right:max(16px,calc((100vw - 1160px)/2 + 16px));bottom:28px}}
 @media (prefers-reduced-motion:reduce){
-  .hero-img,.hero-img.rev{-webkit-mask-image:none;mask-image:none;animation:none!important;transform:none;transition:opacity 2.2s ease}
+  .hero-img.on,.hero-img.prev{animation:none;transform:none}
+  .rv{animation:fadeIn .8s ease both;animation-delay:var(--d,0s)}
 }
 .hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(51,66,42,.25) 0%,rgba(51,66,42,.55) 45%,rgba(51,66,42,.92) 100%)}
 .hero-in{max-width:1160px;width:100%;margin:0 auto;padding:120px 16px 40px;display:grid;gap:16px}
@@ -271,6 +265,11 @@ ul{margin:0;padding:0;list-style:none}
 .fab-btn:hover{transform:scale(1.07)}
 .fab-btn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .f-call,.f-toggle{background:var(--accent)}
+.f-toggle{position:relative;isolation:isolate}
+.f-toggle::before,.f-toggle::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--accent);z-index:-1;animation:chatRipple 2s ease-out infinite}
+.f-toggle::after{animation-delay:1s}
+@keyframes chatRipple{0%{opacity:.45;transform:scale(1)}70%{opacity:0;transform:scale(2.2)}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.f-toggle::before,.f-toggle::after{display:none}}
 .f-wa{background:#25D366}
 .f-zalo{background:#0068FF;font:700 .9rem/1 var(--f-body);letter-spacing:-.02em}
 .f-ms{background:radial-gradient(circle at 30% 105%,#FFC300 0,#FF5280 35%,#A033FF 65%,#0099FF 100%)}
