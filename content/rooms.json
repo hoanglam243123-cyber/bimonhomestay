@@ -164,13 +164,7 @@
         "vi": "Có thể kê thêm giường phụ",
         "en": "Extra bed on request"
       }
-    ],
-    "video": {
-      "src": "/img/phong/moon-clip.mp4",
-      "poster": "/img/phong/moon-clip-poster.jpg",
-      "vi": "Video phòng Moon",
-      "en": "Moon room video"
-    }
+    ]
   },
   "mun": {
     "price": {

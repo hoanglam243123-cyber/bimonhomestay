@@ -96,7 +96,7 @@ function renderRoom(slug, rooms, req) {
   const t = (key, v) => { en[key] = v.en; return `data-i="${key}">${escHtml(v.vi)}`; };
   const tags = r.tags.map((v, i) => `<li ${t(`tag${i}`, v)}</li>`).join("");
   const amen = r.amenities.map((v, i) => `<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span ${t(`am${i}`, v)}</span></li>`).join("");
-  const vid = r.video ? `<figure class="rp-video"><video src="${escHtml(r.video.src)}" poster="${escHtml(r.video.poster)}" controls playsinline muted loop preload="metadata" aria-label="${escHtml(r.video.vi)}"></video></figure>` : "";
+  const vid = "";
   const gal = photos.map((src, i) => `<button type="button" data-full="${escHtml(src)}"${i === 0 ? ' class="first"' : ""}><img src="${escHtml(src)}" alt="${escHtml(r.name.vi)}, ảnh ${i + 1}" ${i === 0 ? 'fetchpriority="high"' : 'loading="lazy"'}></button>`).join("");
   const others = Object.entries(rooms).filter(([k]) => k !== slug && !k.startsWith("_")).map(([k, o]) => {
     en[`${k}_t`] = o.name.en;
