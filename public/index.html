@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap">
 <link rel="preload" as="image" href="/img/phong-bi-1600.webp" imagesrcset="/img/phong-bi-800.webp 800w, /img/phong-bi-1600.webp 1600w" imagesizes="100vw">
-<link rel="stylesheet" href="/css/home.css?v=32">
+<link rel="stylesheet" href="/css/home.css?v=33">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LodgingBusiness","name":"Bimon Homestay","description":"Homestay 3 phòng riêng có WC khép kín, giữa phố ẩm thực Cầu Đất, 3 phút đi xe ra ga Hải Phòng.","url":"__SITE_URL__/","image":"__SITE_URL__/img/og.jpg","telephone":"+84934504439","address":{"@type":"PostalAddress","streetAddress":"5/141 Cầu Đất","addressLocality":"Gia Viên, Hải Phòng","addressCountry":"VN"},"amenityFeature":[{"@type":"LocationFeatureSpecification","name":"Điều hoà","value":true},{"@type":"LocationFeatureSpecification","name":"WiFi miễn phí","value":true},{"@type":"LocationFeatureSpecification","name":"Nhà vệ sinh riêng","value":true},{"@type":"LocationFeatureSpecification","name":"Bếp chung","value":true},{"@type":"LocationFeatureSpecification","name":"Check-in tự động","value":true}],"numberOfRooms":3,"priceRange":"490.000đ – 690.000đ / đêm"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Giờ nhận phòng và trả phòng là mấy giờ?","acceptedAnswer":{"@type":"Answer","text":"Nhận phòng từ 14:00, trả phòng trước 12:00. Bimon check-in tự động nên bạn đến muộn vẫn vào phòng được. Cần nhận sớm hoặc trả muộn, nhắn Bimon để hỏi trước."}},{"@type":"Question","name":"Giá phòng có bao gồm bữa sáng không?","acceptedAnswer":{"@type":"Answer","text":"Giá phòng không bao gồm bữa sáng. Ngay đầu ngõ là phố ẩm thực Cầu Đất, bạn xem gợi ý quán ăn sáng ở mục Ăn gì trên menu."}},{"@type":"Question","name":"Có thể đặt nguyên căn không?","acceptedAnswer":{"@type":"Answer","text":"Có. Bạn có thể đặt cả 3 phòng cho nhóm tối đa 12 người với giá ưu đãi hơn đặt lẻ từng phòng. Gọi hoặc nhắn Bimon để nhận báo giá."}},{"@type":"Question","name":"Chính sách huỷ phòng thế nào?","acceptedAnswer":{"@type":"Answer","text":"Bimon nhận cọc 30% tiền phòng để giữ phòng. Tiền cọc không được hoàn lại khi huỷ phòng, nhưng bạn có thể đổi sang ngày khác nếu Bimon còn phòng trống."}},{"@type":"Question","name":"Có những hình thức thanh toán nào?","acceptedAnswer":{"@type":"Answer","text":"Chuyển khoản ngân hàng, tiền mặt hoặc ví điện tử. Bạn cọc 30% khi đặt, phần còn lại thanh toán khi nhận phòng."}},{"@type":"Question","name":"Có chỗ để xe không?","acceptedAnswer":{"@type":"Answer","text":"Bimon có chỗ để xe máy ở tầng 1, ngay trong nhà. Ô tô gửi ở bãi cách nhà khoảng 100 m, phí 50.000đ/đêm."}}]}</script>
 </head>
@@ -99,7 +99,7 @@
       </div>
       <div class="rooms">
         <article class="room" data-max="4">
-          <img src="/img/phong-bi-800.webp" alt="Phòng Bi: giường đôi, tủ gỗ lớn, đèn hắt" loading="lazy" width="800" height="600">
+          <div class="room-media"><img src="/img/phong-bi-800.webp" alt="Phòng Bi: giường đôi, tủ gỗ lớn, đèn hắt" loading="lazy" width="800" height="600"></div>
           <div class="room-b">
             <h3 data-i="bi_t">Phòng Bi</h3>
             <ul class="tags"><li data-i="bed1">1 giường đôi</li><li data-i="wc">WC riêng</li><li data-i="fit12">1–2 người</li><li data-i="proj">Máy chiếu Netflix</li><li data-i="xbed34">Kê giường phụ, tới 3–4 người</li></ul>
@@ -110,7 +110,7 @@
         </article>
         <article class="room" data-max="4">
           <span class="badge" data-i="moon_badge">Hợp nhóm bạn</span>
-          <img src="/img/phong-moon-800.webp" alt="Phòng Moon: hai giường đôi lớn" loading="lazy" width="800" height="601">
+          <div class="room-media"><img src="/img/phong-moon-800.webp" alt="Phòng Moon: hai giường đôi lớn" loading="lazy" width="800" height="601"></div>
           <div class="room-b">
             <h3 data-i="moon_t">Phòng Moon</h3>
             <ul class="tags"><li data-i="bed2">2 giường (1m8 và 1m2)</li><li data-i="wc">WC riêng</li><li data-i="fit34">3–4 người</li><li data-i="tv">TV Netflix</li><li data-i="xbed">Kê thêm giường phụ</li></ul>
@@ -120,7 +120,7 @@
           </div>
         </article>
         <article class="room" data-max="4">
-          <img src="/img/phong-mun-800.webp?v=2" alt="Phòng Mun: tông be sáng, giường đôi" loading="lazy" width="800" height="600">
+          <div class="room-media"><img src="/img/phong-mun-800.webp?v=2" alt="Phòng Mun: tông be sáng, giường đôi" loading="lazy" width="800" height="600"></div>
           <div class="room-b">
             <h3 data-i="mun_t">Phòng Mun</h3>
             <ul class="tags"><li data-i="bed1">1 giường đôi</li><li data-i="wc">WC riêng</li><li data-i="fit12">1–2 người</li><li data-i="proj">Máy chiếu Netflix</li><li data-i="xbed34">Kê giường phụ, tới 3–4 người</li></ul>

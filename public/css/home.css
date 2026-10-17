@@ -178,8 +178,20 @@ ul{margin:0;padding:0;list-style:none}
 @media (min-width:720px){.rooms{grid-template-columns:repeat(2,1fr)}}
 @media (min-width:1024px){.rooms{grid-template-columns:repeat(3,1fr)}}
 .room{position:relative;background:var(--card);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform var(--t),box-shadow var(--t),opacity var(--t)}
-.room:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(51,66,42,.06),0 16px 36px rgba(51,66,42,.14)}
-.room img{aspect-ratio:4/3;object-fit:cover;width:100%}
+.room-media{overflow:hidden;aspect-ratio:4/3;background:var(--placeholder)}
+.room img{aspect-ratio:4/3;object-fit:cover;width:100%;height:100%;transition:transform 700ms cubic-bezier(.2,.7,.2,1),filter 400ms ease}
+.room h3{transition:color var(--t)}
+.room-b .btn::before{content:"";position:absolute;inset:0;z-index:1}
+.room-b .btn::after{content:"→";display:inline-block;margin-left:-14px;opacity:0;transition:margin var(--t),opacity var(--t)}
+@media (hover:hover){
+  .room:hover{transform:translateY(-6px);box-shadow:0 0 0 1.5px var(--accent),0 4px 8px rgba(51,66,42,.08),0 22px 44px rgba(51,66,42,.2)}
+  .room:hover img{transform:scale(1.07);filter:brightness(1.05) saturate(1.08)}
+  .room:hover h3{color:var(--accent-text)}
+  .room:hover .room-b .btn{background:var(--accent);color:var(--on-accent)}
+  .room:hover .room-b .btn::after{margin-left:2px;opacity:1}
+}
+.room:focus-within{box-shadow:0 0 0 2px var(--accent),var(--shadow)}
+@media (prefers-reduced-motion:reduce){.room:hover,.room:hover img{transform:none}}
 .room-b{padding:18px;display:grid;gap:10px;flex:1;align-content:start}
 .room-b p{color:var(--muted-fg)}
 .room-b .btn{margin-top:auto}
