@@ -69,7 +69,8 @@ const escHtml = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;
 const homeHtml = pages["/"];
 const pick = (re) => (homeHtml.match(re) || [""])[0];
 const shell = {
-  nav: pick(/<header class="nav"[\s\S]*?<\/header>/).replace(/href="#/g, 'href="/#'),
+  // Menu về trang chủ, riêng nút "Đặt phòng" cuộn tới khối liên hệ ngay trên trang phòng.
+  nav: pick(/<header class="nav"[\s\S]*?<\/header>/).replace(/href="#(?!dat-phong")/g, 'href="/#'),
   contact: pick(/<section class="wrap sec" id="dat-phong">[\s\S]*?<\/section>/),
   foot: pick(/<footer class="foot">[\s\S]*?<\/footer>/).replace('href="#top"', 'href="/"'),
   fab: pick(/<div class="fab" id="fab">[\s\S]*?\n<\/div>/),
@@ -174,7 +175,7 @@ ${shell.fab}
 <script type="application/json" id="room-i18n">${JSON.stringify(en).replace(/</g, "\\u003c")}</script>
 <script src="/js/theme.js?v=1" defer></script>
 <script src="/js/fab.js?v=1" defer></script>
-<script src="/js/phong.js?v=1" defer></script>
+<script src="/js/phong.js?v=3" defer></script>
 </body>
 </html>`;
 }

@@ -2,7 +2,7 @@
 const $ = (id) => document.getElementById(id);
 
 const EN = {
-  skip: "Skip to content", n_rooms: "Rooms", n_amen: "Amenities", n_rev: "Reviews", n_loc: "Location", n_food: "Food",
+  skip: "Skip to content", n_rooms: "Rooms", n_amen: "Amenities", n_rev: "Reviews", n_loc: "Location", n_food: "Food", book: "Book now",
   h_eye: "Homestay · Hai Phong", h_title: "Slow living in the heart of Hai Phong's old quarter",
   h_sub: "3 private rooms, en-suite bathrooms, self check-in. Step off the train, walk home, drop your bags and go eat.",
   f_in: "Check-in", f_out: "Check-out", f_guests: "Guests",

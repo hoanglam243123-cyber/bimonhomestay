@@ -3,7 +3,7 @@ const $ = (id) => document.getElementById(id);
 
 // ---------- Ngôn ngữ ----------
 const EN = {
-  skip: "Skip to content", n_rooms: "Rooms", n_amen: "Amenities", n_rev: "Reviews", n_loc: "Location", n_food: "Food",
+  skip: "Skip to content", n_rooms: "Rooms", n_amen: "Amenities", n_rev: "Reviews", n_loc: "Location", n_food: "Food", book: "Book now",
   rp_back: "All rooms", rp_photos: "Photos", rp_amen: "In the room", rp_other: "Other rooms", rp_view: "View room",
   b_eye: "Booking", b_title: "Call or text Bimon", b_lead: "Bimon checks availability and sends you a quote right away.", c_msg: "Message us on Messenger",
   foot: "At Bimon you don't just rent a room, you join a family of travellers.",
