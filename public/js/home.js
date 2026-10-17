@@ -12,7 +12,7 @@ const EN = {
   s_body2: "Bimon sits in lane 141 off Cau Dat street, between the Cau Dat and Luong Khanh Thien food streets. With only 3 rooms the house stays quiet and clean, and your host has time to point you to the good places.",
   s_link: "See 41 favourite eateries nearby",
   c_go: "Check availability",
-  r_eye: "Rooms", r_title: "Choose a space of your own", r_lead: "Every room has air-conditioning, Wi-Fi and its own bathroom. Weekend nights (Fri, Sat) cost a little more.",
+  r_eye: "Rooms", r_title: "Choose a space of your own", r_lead: "Every room has air-conditioning, Wi-Fi and its own bathroom.",
   bi_t: "Bi room", mun_t: "Mun room", moon_t: "Moon room", bed1: "1 double bed", bed2: "2 beds (1.8 m & 1.2 m)", wc: "Private bathroom", fit12: "1–2 guests", fit34: "3–4 guests", proj: "Netflix projector", tv: "Netflix TV", xbed: "Extra bed available", xbed34: "Extra bed, up to 3–4 guests", xbed: "Extra bed available",
   moon_badge: "Great for groups",
   q_eye: "FAQ", q_title: "Frequently asked questions",
