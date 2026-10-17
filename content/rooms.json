@@ -10,7 +10,7 @@
       { "vi": "WC riêng", "en": "Private bathroom" },
       { "vi": "1–2 người", "en": "1–2 guests" },
       { "vi": "Máy chiếu Netflix", "en": "Netflix projector" },
-      { "vi": "Kê thêm giường phụ", "en": "Extra bed available" }
+      { "vi": "Kê giường phụ, tới 3–4 người", "en": "Extra bed, up to 3–4 guests" }
     ],
     "amenities": [
       { "vi": "Giường đôi 1m8 × 2m", "en": "Double bed, 1.8 × 2 m" },
@@ -23,11 +23,11 @@
       { "vi": "Bàn trang điểm", "en": "Vanity table" },
       { "vi": "Bàn làm việc", "en": "Work desk" },
       { "vi": "2 ghế sofa đơn", "en": "2 single sofa chairs" },
-      { "vi": "Có thể kê thêm giường phụ", "en": "Extra bed on request" }
+      { "vi": "Có thể kê thêm giường phụ cho 3–4 người", "en": "Extra bed on request for 3–4 guests" }
     ]
   },
   "moon": {
-    "price": { "week": 550000, "weekend": 650000 },
+    "price": { "week": 590000, "weekend": 690000 },
     "name": { "vi": "Phòng Moon", "en": "Moon room" },
     "cover": "/img/phong-moon-1600.webp",
     "desc": { "vi": "Phòng rộng nhất nhà, hai giường, hợp nhóm bạn đi foodtour.", "en": "Our largest room, two beds, ideal for a group of friends on a food trip." },
@@ -61,7 +61,7 @@
       { "vi": "WC riêng", "en": "Private bathroom" },
       { "vi": "1–2 người", "en": "1–2 guests" },
       { "vi": "Máy chiếu Netflix", "en": "Netflix projector" },
-      { "vi": "Kê thêm giường phụ", "en": "Extra bed available" }
+      { "vi": "Kê giường phụ, tới 3–4 người", "en": "Extra bed, up to 3–4 guests" }
     ],
     "amenities": [
       { "vi": "Giường đôi 1m8 × 2m", "en": "Double bed, 1.8 × 2 m" },
@@ -74,7 +74,7 @@
       { "vi": "Tủ lạnh mini", "en": "Mini fridge" },
       { "vi": "Ghế băng", "en": "Bench" },
       { "vi": "Đèn đứng đọc sách", "en": "Reading lamp" },
-      { "vi": "Có thể kê thêm giường phụ", "en": "Extra bed on request" }
+      { "vi": "Có thể kê thêm giường phụ cho 3–4 người", "en": "Extra bed on request for 3–4 guests" }
     ]
   }
 }
