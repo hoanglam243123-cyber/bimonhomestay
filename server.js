@@ -96,6 +96,7 @@ function renderRoom(slug, rooms, req) {
   const t = (key, v) => { en[key] = v.en; return `data-i="${key}">${escHtml(v.vi)}`; };
   const tags = r.tags.map((v, i) => `<li ${t(`tag${i}`, v)}</li>`).join("");
   const amen = r.amenities.map((v, i) => `<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span ${t(`am${i}`, v)}</span></li>`).join("");
+  const vid = r.video ? `<figure class="rp-video"><video src="${escHtml(r.video.src)}" poster="${escHtml(r.video.poster)}" controls playsinline muted loop preload="metadata" aria-label="${escHtml(r.video.vi)}"></video></figure>` : "";
   const gal = photos.map((src, i) => `<button type="button" data-full="${escHtml(src)}"${i === 0 ? ' class="first"' : ""}><img src="${escHtml(src)}" alt="${escHtml(r.name.vi)}, ảnh ${i + 1}" ${i === 0 ? 'fetchpriority="high"' : 'loading="lazy"'}></button>`).join("");
   const others = Object.entries(rooms).filter(([k]) => k !== slug && !k.startsWith("_")).map(([k, o]) => {
     en[`${k}_t`] = o.name.en;
@@ -139,6 +140,7 @@ ${shell.nav}
       ${r.price ? `<p class="price"><b data-i="rp_from">Từ ${vnd(r.price.week)}/đêm</b><span data-i="rp_wk">Thứ 6, thứ 7: ${vnd(r.price.weekend)}</span></p>` : ""}
     </div>
     <h2 class="sr-only" data-i="rp_photos">Ảnh phòng</h2>
+    ${vid}
     <div class="rp-gal${photos.length === 1 ? " one" : ""}">${gal}</div>
     <section class="rp-amen">
       <h2 data-i="rp_amen">Tiện nghi trong phòng</h2>
