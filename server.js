@@ -83,7 +83,8 @@ function roomPhotos(slug) {
     return fs.readdirSync(path.join(ROOM_IMG_DIR, slug))
       .filter((f) => /\.(jpe?g|png|webp)$/i.test(f))
       .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
-      .map((f) => `/img/phong/${slug}/${encodeURIComponent(f)}`);
+      // ?v=<giờ sửa file>: thay ảnh trùng tên thì trình duyệt tự tải bản mới, không giữ ảnh cũ
+      .map((f) => `/img/phong/${slug}/${encodeURIComponent(f)}?v=${Math.floor(fs.statSync(path.join(ROOM_IMG_DIR, slug, f)).mtimeMs / 1000)}`);
   } catch { return []; }
 }
 
