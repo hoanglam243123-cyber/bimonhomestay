@@ -5,11 +5,11 @@
 <script>try{var t=localStorage.getItem("bimon-theme");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Ăn gì quanh Bimon Homestay | Foodtour Hải Phòng</title>
-<meta name="description" content="41 quán ăn và 4 điểm nên đi trong bán kính 3 km quanh Bimon Homestay, có giờ mở cửa và chỉ đường Google Maps.">
+<meta name="description" content="44 quán ăn trong bán kính 3 km và 6 điểm nên đi quanh Bimon Homestay, có giờ mở cửa và chỉ đường Google Maps.">
 <link rel="canonical" href="__SITE_URL__/an-gi">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Ăn gì quanh Bimon Homestay | Foodtour Hải Phòng">
-<meta property="og:description" content="41 quán ăn và 4 điểm nên đi trong bán kính 3 km quanh Bimon Homestay, có giờ mở cửa và chỉ đường Google Maps.">
+<meta property="og:description" content="44 quán ăn trong bán kính 3 km và 6 điểm nên đi quanh Bimon Homestay, có giờ mở cửa và chỉ đường Google Maps.">
 <meta property="og:image" content="__SITE_URL__/img/og.jpg">
 <meta property="og:url" content="__SITE_URL__/an-gi">
 <meta property="og:locale" content="vi_VN">
@@ -174,15 +174,22 @@ const P = [
  {n:"Bánh giò cô Ngân",k:"Bánh giò",a:"29 Trần Quang Khải",q:"29 Trần Quang Khải Hải Phòng",m:"Bánh giò",best:"Chiều",h:[[840,1080]],t:["chieu"],d:1800,v:1},
  {n:"Giò cô Yến",k:"Giò · bữa sáng",a:"18C Minh Khai",q:"18C Minh Khai Hải Phòng",m:"Giò",best:"Sáng đến chiều",h:[[360,1140]],t:["sang","trua","chieu"],d:2000,v:1},
  {n:"Xá xíu gia truyền",k:"Xá xíu · gia truyền",a:"124 Trần Phú",q:"124 Trần Phú Hải Phòng",m:"Xá xíu",best:"Sáng đến tối",h:[[540,1320]],t:["sang","trua","chieu","toi"],d:1500,v:1,warn:"Chỉ nhận tiền mặt, không nhận chuyển khoản. Nhớ mang tiền mặt khi đi ăn."},
+ {n:"Chè Thái Bà Hoa",k:"Chè Thái",a:"18/420 Lạch Tray",q:"18/420 Lạch Tray Hải Phòng",m:"Chè Thái",best:"Chiều, 13h–17h",h:[[780,1020]],t:["trua","chieu"],d:2800,v:1},
+ {n:"Sữa thạch găng Cô Vân",k:"Sữa thạch găng · đồ uống",a:"38 Chợ Cột Đèn",q:"38 Chợ Cột Đèn Hải Phòng",m:"Sữa thạch găng",best:"Sáng 6h–11h hoặc chiều 15h–19h",h:[[360,660],[900,1140]],t:["sang","chieu"],d:2700,v:1},
+ // hd: giờ riêng theo thứ (0 = Chủ nhật, 1 = thứ 2...)
+ {n:"2046 Espresso Bar",k:"Cà phê espresso",a:"72 Hoàng Văn Thụ",q:"2046 Espresso Bar 72 Hoàng Văn Thụ Hải Phòng",m:"Cà phê espresso",best:"Sáng đến đầu giờ chiều",h:[[420,900]],hd:{1:[[420,720]]},hdTxt:"Thứ 2 chỉ mở tới 12h",t:["sang","trua","chieu"],d:1800,pick:1,v:1},
  // ---- Nên đi khi tới Hải Phòng ----
  {s:1,n:"Nhà hát lớn Hải Phòng",k:"Kiến trúc Pháp",a:"28 Trần Hưng Đạo",q:"Nhà hát lớn Hải Phòng",m:"Quảng trường trước nhà hát, đẹp nhất khi lên đèn",best:"Tối",t:["chieu","toi"],d:1300,pick:1,v:1},
  {s:1,n:"Phố đi bộ Tam Bạc",k:"Phố cổ · biểu diễn đường phố",a:"Dọc sông Tam Bạc",q:"Phố đi bộ Tam Bạc Hải Phòng",m:"Acoustic, nhảy, ảo thuật, ăn vặt; miễn phí",best:"Tối thứ Sáu đến Chủ nhật, 19h–23h",t:["toi"],d:1700,pick:1,v:1},
  {s:1,n:"Bảo tàng Hải Phòng",k:"Bảo tàng",a:"66 Điện Biên Phủ",q:"Bảo tàng Hải Phòng 66 Điện Biên Phủ",m:"Lịch sử đất Cảng trong toà nhà kiểu Pháp",best:"Sáng 8h–10h30 (T3–CN), chiều 14h–16h30 (T3–T6)",t:["sang","chieu"],d:1600,v:1},
  {s:1,n:"Nhà thờ Lớn Hải Phòng",k:"Kiến trúc Gothic",a:"46 Hoàng Văn Thụ",q:"Nhà thờ Lớn Hải Phòng",m:"Chụp ảnh kiến trúc",best:"Sáng hoặc chiều",t:["sang","chieu"],d:2000,v:1},
+ // ---- Đi xa trong ngày (drv: số phút đi ô tô/Grab, ước tính) ----
+ {s:1,n:"VinWonders Vũ Yên",k:"Công viên vui chơi",a:"Đảo Vũ Yên, Thủy Nguyên",q:"VinWonders Vũ Yên Hải Phòng",m:"Công viên chủ đề trên đảo Vũ Yên, chơi trọn một ngày",best:"Cả ngày, nên đi từ sáng",t:["sang","trua","chieu"],d:12000,drv:25,v:0,warn:"Xem giờ mở cửa và giá vé trên trang VinWonders trước khi đi."},
+ {s:1,n:"Biển Đồ Sơn",k:"Biển · hải sản",a:"Đồ Sơn",q:"Bãi biển Đồ Sơn Hải Phòng",m:"Tắm biển, đi dạo bờ biển, ăn hải sản",best:"Sáng sớm hoặc chiều mát; mùa tắm biển khoảng tháng 5–9",t:["sang","chieu"],d:22000,drv:40,v:1},
 ];
 
 const TYPES=[["food","Ăn uống"],["see","Nên đi"],["pick","Bimon gợi ý"],["all","Tất cả"]];
-const DISTS=[["all","Mọi khoảng cách"],["near","Dưới 1 km"],["far","1–3 km"]];
+const DISTS=[["all","Mọi khoảng cách"],["near","Dưới 1 km"],["far","1–3 km"],["trip","Đi xa trong ngày"]];
 const TIMES=[["all","Cả ngày"],["now","Đang mở"],["sang","Sáng"],["trua","Trưa"],["chieu","Chiều"],["toi","Tối"],["khuya","Khuya"]];
 const st={type:"food",dist:"all",time:"all"};
 try{const s=JSON.parse(localStorage.getItem("bimon-loc")||"{}");Object.assign(st,s)}catch(e){}
@@ -196,25 +203,27 @@ chips("f-type",TYPES,"type");chips("f-dist",DISTS,"dist");chips("f-time",TIMES,"
 
 const enc=s=>encodeURIComponent(s);
 const q=p=>p.q||`${p.n.replace(/\s*\(.*\)/,"")}, ${p.a}, Hải Phòng`;
-function how(d){
+function how(p){
+  const d=p.d;
+  if(p.drv) return {mode:"driving",txt:`Ô tô/Grab ~${p.drv} phút`};
   if(d<=1000) return {mode:"walking",txt:`Đi bộ ~${Math.max(1,Math.round(d/80))} phút`};
   return {mode:"driving",txt:`Xe máy/Grab ~${Math.round(d/250)+2} phút · đi bộ ~${Math.round(d/80)} phút`};
 }
-const fmtD=d=>d<1000?`~${Math.round(d/50)*50} m`:`~${(d/1000).toFixed(1).replace(".",",")} km`;
+const fmtD=d=>d<1000?`~${Math.round(d/50)*50} m`:d>=10000?`~${Math.round(d/1000)} km`:`~${(d/1000).toFixed(1).replace(".",",")} km`;
 const hm=m=>{m=m%1440;const h=Math.floor(m/60),mm=m%60;return h+"h"+(mm?String(mm).padStart(2,"0"):"")};
 function nowMin(){const d=new Date();return d.getHours()*60+d.getMinutes()}
 function status(p){
   if(!p.h) return null;
-  const n=nowMin();
-  for(const [a,b] of p.h){
+  const n=nowMin(),hh=(p.hd&&p.hd[new Date().getDay()])||p.h;
+  for(const [a,b] of hh){
     for(const t of [n,n+1440]){ if(t>=a&&t<b){ return b-t<=45?{c:"soon",t:"Sắp đóng, còn "+(b-t)+" phút"}:{c:"open",t:"Đang mở · tới "+hm(b)} } }
   }
   return {c:"closed",t:"Đang đóng"};
 }
-const hoursTxt=p=>p.h?p.h.map(([a,b])=>hm(a)+"–"+hm(b)).join(", "):"Chưa rõ";
+const hoursTxt=p=>p.h?p.h.map(([a,b])=>hm(a)+"–"+hm(b)).join(", ")+(p.hdTxt?" ("+p.hdTxt+")":""):"Chưa rõ";
 
 function card(p){
-  const w=how(p.d),s=status(p);
+  const w=how(p),s=status(p);
   const map=`https://www.google.com/maps/search/?api=1&query=${enc(q(p))}`;
   const dir=`https://www.google.com/maps/dir/?api=1&origin=${enc(HOME)}&destination=${enc(q(p))}&travelmode=${w.mode}`;
   const vtxt=p.v===2?"Giờ mở: 2 nguồn khớp":p.v===1?"Giờ mở: theo 1 nguồn":"Chưa chắc giờ";
@@ -258,16 +267,18 @@ function render(){
     if(st.type==="see"&&!p.s) return false;
     if(st.type==="pick"&&!p.pick) return false;
     if(st.dist==="near"&&p.d>1000) return false;
-    if(st.dist==="far"&&p.d<=1000) return false;
+    if(st.dist==="far"&&(p.d<=1000||p.d>3000)) return false;
+    if(st.dist==="trip"&&p.d<=3000) return false;
     if(st.time==="now"){const s=status(p);if(!s||s.c==="closed")return false}
     else if(st.time!=="all"&&!p.t.includes(st.time)) return false;
     return true;
   }).sort((a,b)=>a.d-b.d);
   document.getElementById("count").textContent=L.length?(q?`${L.length} kết quả cho “${qEl.value.trim()}”, gần home nhất trước`:`${L.length} điểm, gần home nhất trước`):"";
-  const near=L.filter(p=>p.d<=1000),far=L.filter(p=>p.d>1000);
+  const near=L.filter(p=>p.d<=1000),far=L.filter(p=>p.d>1000&&p.d<=3000),trip=L.filter(p=>p.d>3000);
   let html="";
   if(near.length) html+=`<div class="ring">Dưới 1 km · đi bộ được</div><div class="list">${near.map(card).join("")}</div>`;
   if(far.length) html+=`<div class="ring">1–3 km · nên đi xe</div><div class="list">${far.map(card).join("")}</div>`;
+  if(trip.length) html+=`<div class="ring">Đi xa trong ngày · ô tô hoặc Grab</div><div class="list">${trip.map(card).join("")}</div>`;
   document.getElementById("out").innerHTML=html||(q
     ?`<p class="empty">Không tìm thấy “${esc(qEl.value.trim())}”. Thử từ khác, hoặc chọn “Tất cả”, “Mọi khoảng cách”, “Cả ngày”.</p>`
     :`<p class="empty">Không có điểm nào khớp bộ lọc này. Thử chọn “Cả ngày” hoặc “Mọi khoảng cách”.</p>`);
