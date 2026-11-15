@@ -51,6 +51,56 @@ const EN = {
   c_msg: "Message us on Messenger",
   foot: "At Bimon you don't just rent a room, you join a family of travellers.",
 };
+// 简体中文 (tiếng Trung giản thể). Thiếu khoá nào thì tự dùng tiếng Anh.
+const ZH = {
+  skip: "跳到主要内容", n_rooms: "房间", n_amen: "设施", n_rev: "评价", n_loc: "位置", n_food: "美食", book: "立即预订",
+  h_eye: "民宿 · 海防", h_title: "在海防老城中心慢慢生活",
+  h_sub: "3 间独立房间，独立卫浴，自助入住。下了火车走回家，放下行李就去吃。",
+  f_in: "入住", f_out: "退房", f_guests: "人数",
+  t1: "骑车 3 分钟到海防火车站", t2: "独立房间，独立卫浴", t3: "自助入住", t4: "3 公里内的小吃店",
+  s_eye: "我们的故事", s_title: "不是酒店，是给爱吃之人的家。",
+  s_body1: "来海防吃美食，如果住得离市中心远，半天时间都花在路上。大酒店又吵又贵，也少了本地味道。",
+  s_body2: "Bimon 位于 Cầu Đất 街 141 巷，就在 Cầu Đất 和 Lương Khánh Thiện 两条美食街之间。全屋只有 3 间房，安静干净，房东也有时间给你推荐好吃的地方。",
+  s_link: "看看附近 44 家好吃的店",
+  c_go: "查询空房",
+  r_eye: "房间", r_title: "选一个属于你的角落", r_lead: "每间房都有空调、WiFi 和独立卫生间。",
+  bi_t: "Bi 房", mun_t: "Mun 房", moon_t: "Moon 房", bed1: "1 张双人床", bed2: "2 张床（1.8 米和 1.2 米）", wc: "独立卫生间", fit12: "1–2 人", fit34: "3–4 人", proj: "Netflix 投影仪", tv: "Netflix 电视", xbed34: "可加床，最多 3–4 人", xbed: "可加床",
+  moon_badge: "适合朋友结伴",
+  h2_eye: "入住须知", h2_title: "Bimon 入住须知", h2_lead: "三间房同在一个屋檐下，请大家注意以下几点，让每个人都住得舒心。",
+  r1: "入住和退房时间", r1d: "14:00 起可入住，12:00 前退房。",
+  r2: "身份证件", r2d: "每位客人请发送身份证或护照照片，Bimon 需按规定为您办理住宿登记。",
+  r3: "禁止吸烟", r3d: "屋内任何地方都禁止吸烟，包括电子烟。",
+  r4: "不接待宠物", r4d: "很抱歉，Bimon 暂时无法接待四条腿的朋友。",
+  r5: "22:00 – 7:00 请保持安静", r5d: "请小声说话，调低音箱和电视音量，以免打扰隔壁房间。",
+  r6: "请勿带入气味浓烈的食物", r6d: "请勿将榴莲、虾酱等气味浓烈的食物带进屋内。使用公共厨房后请收拾干净。",
+  r7: "爱护屋内物品", r7d: "如损坏或丢失房内物品，客人需按实际价值赔偿。",
+  q_eye: "问答", q_title: "常见问题",
+  q1: "入住和退房时间是几点？", q1a: "14:00 起可入住，12:00 前退房。Bimon 支持自助入住，晚到也能进门。如需提前入住或延迟退房，请提前联系 Bimon。",
+  q2: "房费包含早餐吗？", q2a: "房费不含早餐。巷口就是 Cầu Đất 美食街，可在菜单“美食”里查看早餐推荐。",
+  q3: "可以包下整栋房子吗？", q3a: "可以。最多 12 人的团体可以包下全部 3 间房，价格比单独订每间更优惠。请致电或发消息给 Bimon 询价。",
+  q4: "取消政策是怎样的？", q4a: "Bimon 收取 30% 房费作为订金。取消预订时订金不退，但如果 Bimon 有空房，可以改到其他日期。",
+  q5: "可以用哪些方式付款？", q5a: "银行转账、现金或电子钱包。预订时支付 30% 订金，余款在入住时付清。",
+  q6: "有停车位吗？", q6a: "摩托车可停在一楼屋内。汽车可停在离家约 100 米的停车场，每晚 50,000 越南盾。",
+  bi_d: "温暖的木色调，柔和的灯光，配有大衣柜和小梳妆台。", mun_d: "整洁明亮的浅米色调，配有长凳和阅读落地灯。", moon_d: "全屋最大的房间，两张床，适合结伴来吃美食的朋友。",
+  room_b: "查看房间详情",
+  bi_p: "490,000₫/晚起", bi_w: "周五、周六：590,000₫", mun_p: "490,000₫/晚起", mun_w: "周五、周六：590,000₫",
+  moon_p: "590,000₫/晚起", moon_w: "周五、周六：690,000₫",
+  a_eye: "设施与优待", a_title: "用心照顾每个小细节",
+  perk1: "稳定的 WiFi", perk1d: "住宿期间可以安心远程办公、随时保持联系",
+  perk2: "五星级体验", perk2d: "每位客人退房后，床品、毛巾、用品和清洁流程都会重新检查",
+  perk3: "绝佳位置", perk3d: "去火车站、海防大剧院和市中心步行街都很方便",
+  perk4: "本地团队", perk4d: "为你推荐美食、行程和城里好玩的地方",
+  a3: "独立卫浴", a4: "公共厨房",
+  g_eye: "照片", g_title: "照片什么样，住起来就什么样",
+  v_eye: "Google 评价", v_title: "客人怎么说 Bimon", v_empty: "在 Google 地图上查看住过 Bimon 的客人的真实评价。", v_all: "在 Google 地图查看全部评价",
+  l_eye: "位置", l_lead: "安静的小巷，走到巷口就是 Cầu Đất 和 Lương Khánh Thiện 美食街。",
+  p1: "海防火车站", p1t: "骑车约 3 分钟", p2: "Bà Cụ 蟹汤粉", p2t: "步行约 2 分钟", p3: "Lương Văn Can 小吃市场", p3t: "步行约 10 分钟",
+  p4: "海防大剧院、Tam Bạc 步行街", p4t: "骑车约 5 分钟", p5: "吉碑机场", p5t: "打车约 20–30 分钟",
+  l_hint: "时间为估算。从河内坐火车来，下车就能走回家。", l_map: "打开 Google 地图", l_food: "Bimon 附近有什么？",
+  b_eye: "预订", b_title: "给 Bimon 打电话或发消息", b_lead: "Bimon 会马上查看空房并给你报价。",
+  c_msg: "通过 Messenger 联系",
+  foot: "在 Bimon，你不只是租一个房间，而是加入一个旅行者的大家庭。",
+};
 const T = {
   vi: { reviews: "đánh giá", of: "/", need: "Chọn ngày nhận và ngày trả phòng nhé.", order: "Ngày trả phòng cần sau ngày nhận phòng.", long: "Ở trên 30 đêm, bạn nhắn Bimon để có giá tốt nhé.", checking: "Đang kiểm tra...",
     free: "Còn trống", booked: "Đã kín", ask: "Liên hệ để hỏi", view: "Xem phòng", upto: "Tối đa {n} người", uptoX: "1–{b} người, tới {n} người khi kê giường phụ", est: "~{p} / {n} đêm",
@@ -60,25 +110,32 @@ const T = {
     free: "Available", booked: "Fully booked", ask: "Contact us to check", view: "View room", upto: "Up to {n} guests", uptoX: "1–{b} guests, up to {n} with an extra bed", est: "~{p} / {n} night(s)",
     sumFree: "{x} room(s) available for {n} night(s) ({a} – {b}). Message Bimon to hold it:", sumNone: "Those dates are fully booked. Message Bimon for the nearest free dates:", sumAsk: "Bimon needs to double-check these dates. Message us for a quick answer:",
     off: "Live availability isn't available right now. Message Bimon to check:", group: "Groups of 5+: book several rooms or the whole house (up to 12 guests).", call: "Call" },
+  zh: { reviews: "条评价", of: "/", need: "请选择入住和退房日期。", order: "退房日期需晚于入住日期。", long: "住 30 晚以上，请联系 Bimon 获取优惠价。", checking: "正在查询...",
+    free: "有空房", booked: "已满", ask: "请联系询问", view: "查看房间", upto: "最多 {n} 人", uptoX: "1–{b} 人，加床最多 {n} 人", est: "约 {p} / {n} 晚",
+    sumFree: "{n} 晚（{a} – {b}）有 {x} 间空房。给 Bimon 发消息留房：", sumNone: "所选日期已满房。给 Bimon 发消息，推荐最近的空房日期：", sumAsk: "Bimon 需要再确认这些日期。发消息给我们，马上回复：",
+    off: "暂时无法自动查询空房。请给 Bimon 发消息询问：", group: "5 人以上：可以订多间房或包下整栋（最多 12 人）。", call: "打电话" },
 };
 
 // ---------- Ngôn ngữ ----------
 const VI = {};
 document.querySelectorAll("[data-i]").forEach((el) => { if (!(el.dataset.i in VI)) VI[el.dataset.i] = el.textContent; });
 let lang = "vi";
+// Chữ theo ngôn ngữ đang chọn; tiếng Trung thiếu khoá thì dùng tiếng Anh
+const word = (k) => (lang === "en" ? EN[k] : lang === "zh" ? ZH[k] || EN[k] : VI[k]);
 function setLang(l) {
   lang = l;
-  const dict = l === "en" ? EN : VI;
-  document.querySelectorAll("[data-i]").forEach((el) => { const v = dict[el.dataset.i]; if (v) el.textContent = v; });
-  document.documentElement.lang = l;
+  document.querySelectorAll("[data-i]").forEach((el) => { const v = word(el.dataset.i); if (v) el.textContent = v; });
+  document.documentElement.lang = l === "zh" ? "zh-Hans" : l;
   $("l-vi").setAttribute("aria-pressed", l === "vi");
   $("l-en").setAttribute("aria-pressed", l === "en");
+  $("l-zh").setAttribute("aria-pressed", l === "zh");
   try { localStorage.setItem("bimon-lang", l); } catch (e) {}
   if (reviewsData) renderReviews();
   if (lastCheck) renderCheck();
 }
 $("l-vi").onclick = () => setLang("vi");
 $("l-en").onclick = () => setLang("en");
+$("l-zh").onclick = () => setLang("zh");
 
 // ---------- Ảnh nền đầu trang chạy slide ----------
 (() => {
@@ -138,7 +195,7 @@ function renderCheck() {
   box.hidden = false;
   if (c.msg) { box.innerHTML = `<p class="check-err">${t[c.msg]}</p>`; return; }
   if (c.loading) { box.innerHTML = `<p>${t.checking}</p>`; return; }
-  const name = (id) => (lang === "en" ? EN : VI)[id + "_t"];
+  const name = (id) => word(id + "_t");
   let html = "";
   if (!c.data || !c.data.ready) html = `<p class="check-sum">${t.off}</p>`;
   else {
@@ -214,4 +271,4 @@ $("revList").addEventListener("scroll", () => {
 
 fetch("/reviews.json").then((r) => (r.ok ? r.json() : null)).then((d) => { if (d) { reviewsData = d; renderReviews(); } }).catch(() => {});
 
-try { if (localStorage.getItem("bimon-lang") === "en") setLang("en"); } catch (e) {}
+try { const l = localStorage.getItem("bimon-lang"); if (l === "en" || l === "zh") setLang(l); } catch (e) {}

@@ -110,7 +110,7 @@ footer a{color:var(--moss)}
 <div class="wrap">
   <header>
     <a href="/" aria-label="Về trang chủ Bimon Homestay" style="display:block;width:110px"><span class="logo" aria-hidden="true" style="width:110px;background:var(--moss)"></span></a>
-    <div class="hrow"><h1 data-i="h1">Ăn gì, đi đâu quanh Bimon</h1><div class="lang" role="group" aria-label="Ngôn ngữ / Language"><button type="button" id="l-vi" aria-pressed="true">VN</button><button type="button" id="l-en" aria-pressed="false">EN</button></div></div>
+    <div class="hrow"><h1 data-i="h1">Ăn gì, đi đâu quanh Bimon</h1><div class="lang" role="group" aria-label="Ngôn ngữ / Language"><button type="button" id="l-vi" aria-pressed="true">VN</button><button type="button" id="l-en" aria-pressed="false">EN</button><button type="button" id="l-zh" aria-pressed="false" lang="zh-Hans">中文</button></div></div>
     <p class="home"><span data-i="from">Xuất phát từ home:</span> <strong>5/141 Cầu Đất, Gia Viên, Hải Phòng</strong> · <a href="https://share.google/xh4tSK7Lf7EP9lr3K" target="_blank" rel="noopener" data-i="openHome">Mở vị trí home</a> · <a href="/" data-i="back">Về trang Bimon</a></p>
   </header>
 
@@ -461,11 +461,279 @@ const EN_P={
  "b": "Early morning or cool afternoon; swimming season is roughly May–September"
  }
  };
-P.forEach(p=>{p.e=EN_P[p.n]||{}});
+const ZH_P={
+ "Bánh đa cua Bà Cụ": {
+ "k": "蟹汤粉 · 50 多年老店",
+ "m": "海蟹汤粉、海蟹春卷、拌蟹粉",
+ "b": "清晨或下午加餐"
+ },
+ "Sủi dìn, chè nóng Cô Út": {
+ "k": "街头小吃 · 甜品",
+ "m": "姜汁汤圆（Sủi dìn）、热芝麻糊和绿豆糖水（夏天有冰的）",
+ "b": "傍晚或晚上，冷天最合适",
+ "w": "Bimon 旧指南写的是“Đông Dung”，网上写的是“Cô Út”。请向 Bimon 确认。"
+ },
+ "Hàu nướng 154 Cầu Đất": {
+ "k": "烤生蚝 · 夜宵",
+ "m": "葱油烤生蚝、芝士烤生蚝",
+ "b": "晚上 8 点以后",
+ "w": "只在 Bimon 自己的指南里出现，网上暂无来源。营业时间为估计（到凌晨 1 点左右）。"
+ },
+ "Bún, miến ngan trộn 145 Cầu Đất": {
+ "k": "鸭肉粉",
+ "m": "鸭肉拌粉丝、鸭肉米粉汤",
+ "b": "晚餐",
+ "w": "只在 Bimon 自己的指南里出现。营业到晚上 11 点左右，开门时间未确认。"
+ },
+ "Bánh đa cua bể ngõ 195 Cầu Đất": {
+ "k": "蟹汤粉",
+ "m": "蟹汤粉，配蒌叶肉卷、鱼饼、猪杂和牛肉",
+ "b": "早上或夜宵"
+ },
+ "Trung Hoa Đắc Lợi": {
+ "k": "云吞面 · 牛排面包",
+ "m": "云吞面、水饺、牛排配法棍、豉油鸡爪",
+ "b": "午餐或晚餐"
+ },
+ "Hoa Bích Vân, bánh cuốn nóng": {
+ "k": "越南粉卷",
+ "m": "热粉卷，木耳馅多，配越南肉肠",
+ "b": "傍晚，只在下午 4 点到晚上 9 点营业"
+ },
+ "Bánh cuốn đêm chợ Ga": {
+ "k": "越南粉卷 · 夜宵",
+ "m": "粉卷配肉肠和炸葱酥",
+ "b": "深夜，吃完一圈后收尾"
+ },
+ "Bún tôm Hợi Hợi": {
+ "k": "虾汤米粉",
+ "m": "全料虾汤米粉",
+ "b": "晚餐"
+ },
+ "Sủi dìn Lương Khánh Thiện": {
+ "k": "街头小吃",
+ "m": "姜汁汤圆（Sủi dìn）",
+ "b": "下午"
+ },
+ "Giá bể 166 Lương Khánh Thiện": {
+ "k": "街头小吃",
+ "m": "炒海芽（giá bể）、米粉拌海芽",
+ "b": "下午，只在 3 点到 6 点营业"
+ },
+ "Sữa chua Lương Khánh Thiện": {
+ "k": "甜品",
+ "m": "三层果冻酸奶",
+ "b": "任何时候当甜点"
+ },
+ "Chợ ăn vặt Lương Văn Can": {
+ "k": "小吃市场",
+ "m": "蟹汤粉、海芽、蒸米糕、螺、辣味棍子面包、猪耳拌米粉、炸饺子",
+ "b": "清晨或下午",
+ "w": "市场营业时间为估计，每个摊位时间不同。"
+ },
+ "Lòng nướng Chú Tuấn": {
+ "k": "烧烤",
+ "m": "烤猪杂、烤肉肠、罗望子炒鹌鹑蛋",
+ "b": "晚上",
+ "w": "资料里没有门牌号，地图按店名搜索。"
+ },
+ "Ốc Thương": {
+ "k": "螺 · 贝类",
+ "m": "咸蛋黄炒香螺、香草炒蛏子、菠萝蜜螺",
+ "b": "傍晚"
+ },
+ "Bánh đa bề bề Chị Quẩy": {
+ "k": "皮皮虾粉 · 夜宵",
+ "m": "皮皮虾、大虾和蟹膏汤粉",
+ "b": "深夜，营业到凌晨 3:30"
+ },
+ "Chè dừa dầm Hiền Béo": {
+ "k": "甜品",
+ "m": "椰子冰糖水",
+ "b": "中午或下午"
+ },
+ "Bò sốt vang phố Cấm": {
+ "k": "早餐",
+ "m": "红酒炖牛肉，配河粉、鸡蛋面或法棍",
+ "b": "早上 6 点到 10:30"
+ },
+ "Bánh mì pate Cột Đèn": {
+ "k": "越南法棍",
+ "m": "肝酱法棍",
+ "b": "晚上"
+ },
+ "Bún ngan 53 Quang Trung": {
+ "k": "鸭肉米粉 · 早餐",
+ "m": "鸭肉米粉汤",
+ "b": "早餐",
+ "w": "Bimon 推荐的早餐。营业时间未确认，建议早点去。"
+ },
+ "Bún cá cây cổng Cảng": {
+ "k": "鱼汤米粉 · 早餐",
+ "m": "鱼汤米粉",
+ "b": "早餐"
+ },
+ "Xôi thịt 20 Lãn Ông": {
+ "k": "糯米饭 · 早餐",
+ "m": "卤肉糯米饭",
+ "b": "早餐"
+ },
+ "Bánh cuốn Bà Bảy": {
+ "k": "越南粉卷",
+ "m": "热粉卷",
+ "b": "早餐或晚餐"
+ },
+ "Bánh đa bò Bà Châu": {
+ "k": "牛肉粉 · 早餐",
+ "m": "牛肉红粉汤",
+ "b": "早餐"
+ },
+ "Nem cua bể Thuận Yến": {
+ "k": "海蟹春卷 · 午餐",
+ "m": "海蟹方形春卷（nem cua bể）",
+ "b": "午餐"
+ },
+ "Bún chả cô Bình": {
+ "k": "烤肉米线 · 午餐",
+ "m": "烤肉米线（bún chả），配香草",
+ "b": "午餐",
+ "w": "营业时间不详。"
+ },
+ "Nem nướng nhà Kèn": {
+ "k": "烤肉串",
+ "m": "越南烤肉串",
+ "b": "午餐或晚餐"
+ },
+ "Bánh cuốn 153 Trần Nguyên Hãn": {
+ "k": "越南粉卷 · 晚餐夜宵",
+ "m": "越南粉卷",
+ "b": "晚上或深夜"
+ },
+ "Mì chờ Kỳ Đồng": {
+ "k": "汤面 · 晚餐夜宵",
+ "m": "鸡蛋汤面（mì chờ）",
+ "b": "晚上或深夜"
+ },
+ "Chè Quỳnh Béo": {
+ "k": "牛油果椰子冰淇淋 · 糖水",
+ "m": "牛油果椰子冰淇淋、越南糖水",
+ "b": "傍晚"
+ },
+ "Hương chè": {
+ "k": "糖水",
+ "m": "越南糖水（chè）",
+ "b": "上午到下午"
+ },
+ "Cà phê cốt dừa cô Hạnh": {
+ "k": "咖啡 · 椰子",
+ "m": "椰奶咖啡",
+ "b": "早上到晚上"
+ },
+ "Xôi cô Tám": {
+ "k": "糯米饭 · 晚餐",
+ "m": "糯米饭",
+ "b": "傍晚"
+ },
+ "Miến trộn Long Hương": {
+ "k": "拌粉丝",
+ "m": "鸡肉或虾拌粉丝",
+ "b": "午餐或晚餐"
+ },
+ "Nem chua bà Cụ": {
+ "k": "酸肉 · 小吃",
+ "m": "越南酸肉（nem chua）",
+ "b": "中午或下午"
+ },
+ "Mì gà tần 2/145 Cầu Đất": {
+ "k": "药膳炖鸡面 · 晚餐",
+ "m": "药膳炖鸡面",
+ "b": "傍晚"
+ },
+ "Cháo ếch Singapore": {
+ "k": "田鸡粥 · 晚餐夜宵",
+ "m": "新加坡田鸡粥",
+ "b": "晚上或深夜"
+ },
+ "Bánh tráng Thanh Thanh (lòng nướng)": {
+ "k": "烤猪杂 · 米纸小吃",
+ "m": "烤猪杂、米纸小吃",
+ "b": "下午"
+ },
+ "Bánh giò cô Ngân": {
+ "k": "越南粽（bánh giò）",
+ "m": "猪肉木耳馅米粽",
+ "b": "下午"
+ },
+ "Giò cô Yến": {
+ "k": "越南肉肠 · 早餐",
+ "m": "越南肉肠（giò）",
+ "b": "上午到下午"
+ },
+ "Xá xíu gia truyền": {
+ "k": "叉烧 · 祖传配方",
+ "m": "叉烧",
+ "b": "早上到晚上",
+ "w": "只收现金，不能转账。记得带现金。"
+ },
+ "Chè Thái Bà Hoa": {
+ "k": "泰式糖水",
+ "m": "泰式水果糖水（chè Thái）",
+ "b": "下午 1 点到 5 点"
+ },
+ "Sữa thạch găng Cô Vân": {
+ "k": "găng 叶凉粉奶 · 饮品",
+ "m": "găng 叶凉粉配牛奶，海防特色",
+ "b": "早上 6 点到 11 点，或下午 3 点到 7 点"
+ },
+ "2046 Espresso Bar": {
+ "k": "意式浓缩咖啡",
+ "m": "意式浓缩咖啡",
+ "b": "早上到午后",
+ "hd": "周一只营业到中午 12 点"
+ },
+ "Nhà hát lớn Hải Phòng": {
+ "n": "海防大剧院",
+ "k": "法式建筑",
+ "m": "剧院前的广场，亮灯后最美",
+ "b": "晚上"
+ },
+ "Phố đi bộ Tam Bạc": {
+ "n": "Tam Bạc 步行街",
+ "k": "老街 · 街头表演",
+ "m": "原声音乐、舞蹈、魔术和小吃；免费",
+ "b": "周五到周日晚上 7 点到 11 点"
+ },
+ "Bảo tàng Hải Phòng": {
+ "n": "海防博物馆",
+ "k": "博物馆",
+ "m": "法式建筑里的海防港城历史",
+ "b": "上午 8:00–10:30（周二至周日），下午 14:00–16:30（周二至周五）"
+ },
+ "Nhà thờ Lớn Hải Phòng": {
+ "n": "海防大教堂",
+ "k": "哥特式建筑",
+ "m": "拍建筑照片",
+ "b": "上午或下午"
+ },
+ "VinWonders Vũ Yên": {
+ "n": "武安岛 VinWonders",
+ "k": "主题乐园",
+ "m": "武安岛上的主题乐园，可以玩一整天",
+ "b": "全天，建议早上出发",
+ "w": "出发前请在 VinWonders 官网查看开放时间和票价。"
+ },
+ "Biển Đồ Sơn": {
+ "n": "涂山海滩",
+ "k": "海滩 · 海鲜",
+ "m": "游泳、海边散步、吃海鲜",
+ "b": "清晨或傍晚凉快时；游泳季大约 5 月到 9 月"
+ }
+ };
+P.forEach(p=>{p.e=EN_P[p.n]||{};p.z=ZH_P[p.n]||{}});
 
-const TYPES=[["food","Ăn uống","Food"],["see","Nên đi","Sights"],["pick","Bimon gợi ý","Bimon picks"],["all","Tất cả","All"]];
-const DISTS=[["all","Mọi khoảng cách","Any distance"],["near","Dưới 1 km","Under 1 km"],["far","1–3 km","1–3 km"],["trip","Đi xa trong ngày","Day trips"]];
-const TIMES=[["all","Cả ngày","All day"],["now","Đang mở","Open now"],["sang","Sáng","Morning"],["trua","Trưa","Midday"],["chieu","Chiều","Afternoon"],["toi","Tối","Evening"],["khuya","Khuya","Late night"]];
+const TYPES=[["food","Ăn uống","Food","美食"],["see","Nên đi","Sights","景点"],["pick","Bimon gợi ý","Bimon picks","Bimon 推荐"],["all","Tất cả","All","全部"]];
+const DISTS=[["all","Mọi khoảng cách","Any distance","不限距离"],["near","Dưới 1 km","Under 1 km","1 公里内"],["far","1–3 km","1–3 km","1–3 公里"],["trip","Đi xa trong ngày","Day trips","一日游"]];
+const TIMES=[["all","Cả ngày","All day","全天"],["now","Đang mở","Open now","营业中"],["sang","Sáng","Morning","早上"],["trua","Trưa","Midday","中午"],["chieu","Chiều","Afternoon","下午"],["toi","Tối","Evening","晚上"],["khuya","Khuya","Late night","深夜"]];
 // Chữ giao diện hai thứ tiếng
 const UI={
  vi:{title:"Ăn gì quanh Bimon Homestay | Foodtour Hải Phòng",h1:"Ăn gì, đi đâu quanh Bimon",from:"Xuất phát từ home:",openHome:"Mở vị trí home",back:"Về trang Bimon",ph:"Tìm món hoặc quán: bánh đa cua, bún cá, chè…",lblType:"Xem",lblDist:"Cách home",lblTime:"Buổi",
@@ -474,6 +742,12 @@ const UI={
   v2:"Giờ mở: 2 nguồn khớp",v1:"Giờ mở: theo 1 nguồn",v0:"Chưa chắc giờ",walk:"đi bộ",go:"đi xe",pick:"★ Bimon gợi ý",doWhat:"Làm gì",eat:"Ăn gì",best:"Nên đi",hours:"Giờ mở",addr:"Địa chỉ",how:"Cách đi",dir:"Chỉ đường từ home",map:"Xem trên bản đồ",
   cntQ:"{n} kết quả cho “{q}”, gần home nhất trước",cnt:"{n} điểm, gần home nhất trước",rNear:"Dưới 1 km · đi bộ được",rFar:"1–3 km · nên đi xe",rTrip:"Đi xa trong ngày · ô tô hoặc Grab",
   emptyQ:"Không tìm thấy “{q}”. Thử từ khác, hoặc chọn “Tất cả”, “Mọi khoảng cách”, “Cả ngày”.",empty:"Không có điểm nào khớp bộ lọc này. Thử chọn “Cả ngày” hoặc “Mọi khoảng cách”."},
+ zh:{title:"Bimon 民宿周边吃什么 | 海防美食之旅",h1:"Bimon 周边吃什么、玩什么",from:"从 Bimon 出发：",openHome:"在地图上打开 Bimon",back:"返回 Bimon",ph:"搜索菜名或店名：蟹汤粉、鱼汤米粉、糖水…",lblType:"查看",lblDist:"距离",lblTime:"时段",
+  foot1:"<strong>距离和分钟数是根据地图估算的</strong>（步行约 80 米/分钟，市区骑摩托约 4 分钟/公里）。点“路线”，Google 地图会算出从 Bimon 出发的实际路线。",foot2:"有需要随时给 Bimon 发消息！",
+  drv:"汽车/Grab 约 {n} 分钟",walkM:"步行约 {n} 分钟",ride:"摩托/Grab 约 {n} 分钟 · 步行约 {w} 分钟",dec:".",soon:"即将关门，还剩 {n} 分钟",open:"营业中 · 到 {t}",closed:"已关门",unk:"不详",
+  v2:"营业时间：两个来源一致",v1:"营业时间：一个来源",v0:"营业时间未确认",walk:"步行",go:"乘车",pick:"★ Bimon 推荐",doWhat:"玩什么",eat:"吃什么",best:"最佳时间",hours:"营业时间",addr:"地址",how:"怎么去",dir:"从 Bimon 出发的路线",map:"在地图上查看",
+  cntQ:"“{q}”共 {n} 个结果，由近到远",cnt:"共 {n} 个地点，由近到远",rNear:"1 公里内 · 可步行",rFar:"1–3 公里 · 建议乘车",rTrip:"一日游 · 汽车或 Grab",
+  emptyQ:"没有找到“{q}”。换个词试试，或选择“全部”“不限距离”“全天”。",empty:"没有符合筛选条件的地点。试试“全天”或“不限距离”。"},
  en:{title:"Where to eat around Bimon Homestay | Hai Phong food tour",h1:"Where to eat and what to see around Bimon",from:"Starting from Bimon:",openHome:"Open Bimon on the map",back:"Back to Bimon",ph:"Search a dish or place: crab noodles, fish noodles, sweet soup…",lblType:"Show",lblDist:"Distance",lblTime:"Time",
   foot1:"<strong>Distances and minutes are estimates</strong> from the map (walking ~80 m/min, motorbike ~4 min/km in town). Tap “Directions” and Google Maps will work out the real route from Bimon.",foot2:"Need anything? Just message Bimon!",
   drv:"Car/Grab ~{n} min",walkM:"Walk ~{n} min",ride:"Motorbike/Grab ~{n} min · walk ~{w} min",dec:".",soon:"Closing soon, {n} min left",open:"Open now · until {t}",closed:"Closed now",unk:"Unknown",
@@ -482,17 +756,19 @@ const UI={
   emptyQ:"Nothing found for “{q}”. Try another word, or pick “All”, “Any distance”, “All day”.",empty:"Nothing matches these filters. Try “All day” or “Any distance”."}
 };
 let lang="vi";
-try{if(localStorage.getItem("bimon-lang")==="en")lang="en"}catch(e){}
+try{const l=localStorage.getItem("bimon-lang");if(l==="en"||l==="zh")lang=l}catch(e){}
 const U=(k,o)=>{let t=UI[lang][k];if(o)for(const x in o)t=t.split("{"+x+"}").join(o[x]);return t};
-const E=(p,k)=>lang==="en"&&p.e[k]?p.e[k]:p[k==="b"?"best":k==="w"?"warn":k==="hd"?"hdTxt":k];
+// Chữ của một điểm theo ngôn ngữ; tiếng Trung thiếu thì dùng tiếng Anh
+const E=(p,k)=>(lang==="zh"&&(p.z[k]||p.e[k]))||(lang==="en"&&p.e[k])||p[k==="b"?"best":k==="w"?"warn":k==="hd"?"hdTxt":k];
 function setLang(l){
-  lang=l;document.documentElement.lang=l;document.title=U("title");
+  lang=l;document.documentElement.lang=l==="zh"?"zh-Hans":l;document.title=U("title");
   try{localStorage.setItem("bimon-lang",l)}catch(e){}
   document.querySelectorAll("[data-i]").forEach(el=>{el.innerHTML=U(el.dataset.i)});
   qEl.placeholder=U("ph");qEl.setAttribute("aria-label",U("ph"));
   document.querySelectorAll(".chip").forEach(b=>{b.textContent=b.dataset[l]});
   document.getElementById("l-vi").setAttribute("aria-pressed",String(l==="vi"));
   document.getElementById("l-en").setAttribute("aria-pressed",String(l==="en"));
+  document.getElementById("l-zh").setAttribute("aria-pressed",String(l==="zh"));
   render();
 }
 const st={type:"food",dist:"all",time:"all"};
@@ -500,7 +776,7 @@ try{const s=JSON.parse(localStorage.getItem("bimon-loc")||"{}");Object.assign(st
 
 function chips(id,list,key){
   const el=document.getElementById(id);
-  list.forEach(([v,l,le])=>{const b=document.createElement("button");b.type="button";b.className="chip";b.id=id+"-"+v;b.textContent=l;b.dataset.v=v;b.dataset.vi=l;b.dataset.en=le;
+  list.forEach(([v,l,le,lz])=>{const b=document.createElement("button");b.type="button";b.className="chip";b.id=id+"-"+v;b.textContent=l;b.dataset.v=v;b.dataset.vi=l;b.dataset.en=le;b.dataset.zh=lz;
     b.onclick=()=>{st[key]=v;try{localStorage.setItem("bimon-loc",JSON.stringify(st))}catch(e){}render()};el.appendChild(b)});
 }
 chips("f-type",TYPES,"type");chips("f-dist",DISTS,"dist");chips("f-time",TIMES,"time");
@@ -515,6 +791,7 @@ function how(p){
 }
 const fmtD=d=>d<1000?`~${Math.round(d/50)*50} m`:d>=10000?`~${Math.round(d/1000)} km`:`~${(d/1000).toFixed(1).replace(".",U("dec"))} km`;
 const hm=m=>{m=m%1440;const h=Math.floor(m/60),mm=m%60;
+  if(lang==="zh") return h+":"+String(mm).padStart(2,"0");
   if(lang==="en"){const ap=h<12?"am":"pm",h12=h%12||12;return h12+(mm?":"+String(mm).padStart(2,"0"):"")+ap}
   return h+"h"+(mm?String(mm).padStart(2,"0"):"")};
 function nowMin(){const d=new Date();return d.getHours()*60+d.getMinutes()}
@@ -552,11 +829,13 @@ function card(p){
 const norm=s=>String(s).normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[đĐ]/g,"d").toLowerCase();
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 // Chuỗi tìm kiếm: bỏ dấu, chỉ giữ chữ/số, có dấu cách hai đầu để so khớp đầu từ
-const toWords=s=>norm(s).replace(/[^a-z0-9]+/g," ").trim();
-P.forEach(p=>{p._s=" "+toWords([p.n,p.k,p.m,p.a,p.e.n||"",p.e.k||"",p.e.m||""].join(" "))+" "});
+const toWords=s=>norm(s).replace(/[^a-z0-9\u4e00-\u9fff]+/g," ").trim();
+P.forEach(p=>{p._s=" "+toWords([p.n,p.k,p.m,p.a,p.e.n||"",p.e.k||"",p.e.m||"",p.z.n||"",p.z.k||"",p.z.m||""].join(" "))+" "});
 // Ưu tiên khớp nguyên cụm ("bun ca" → Bún cá); không có thì mọi từ phải khớp ở đầu chữ
 function match(list,q){
   const ph=toWords(q);if(!ph) return list;
+  // Tiếng Trung không có dấu cách giữa các chữ: khớp chuỗi con
+  if(/[\u4e00-\u9fff]/.test(ph)){const z=ph.replace(/ /g,"");return list.filter(p=>p._s.replace(/ /g,"").includes(z))}
   const exact=list.filter(p=>p._s.includes(" "+ph));
   if(exact.length) return exact;
   const ws=ph.split(" ");
@@ -591,6 +870,7 @@ function render(){
 }
 document.getElementById("l-vi").onclick=()=>setLang("vi");
 document.getElementById("l-en").onclick=()=>setLang("en");
+document.getElementById("l-zh").onclick=()=>setLang("zh");
 setLang(lang);
 setInterval(render,60000);
 </script>

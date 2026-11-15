@@ -7,21 +7,32 @@ const EN = {
   rp_back: "All rooms", rp_photos: "Photos", rp_amen: "In the room", rp_other: "Other rooms", rp_view: "View room",
   b_eye: "Booking", b_title: "Call or text Bimon", b_lead: "Bimon checks availability and sends you a quote right away.", c_msg: "Message us on Messenger",
   foot: "At Bimon you don't just rent a room, you join a family of travellers.",
-  ...JSON.parse($("room-i18n").textContent),
 };
+const ZH = {
+  skip: "跳到主要内容", n_rooms: "房间", n_amen: "设施", n_rev: "评价", n_loc: "位置", n_food: "美食", book: "立即预订",
+  rp_back: "全部房间", rp_photos: "照片", rp_amen: "房内设施", rp_other: "其他房间", rp_view: "查看房间",
+  b_eye: "预订", b_title: "给 Bimon 打电话或发消息", b_lead: "Bimon 会马上查看空房并给你报价。", c_msg: "通过 Messenger 联系",
+  foot: "在 Bimon，你不只是租一个房间，而是加入一个旅行者的大家庭。",
+};
+// Dữ liệu phòng do server gửi kèm: { en: {...}, zh: {...} }
+const ROOM = JSON.parse($("room-i18n").textContent);
+Object.assign(EN, ROOM.en || ROOM);
+Object.assign(ZH, ROOM.zh || {});
 const VI = {};
 document.querySelectorAll("[data-i]").forEach((el) => { if (!(el.dataset.i in VI)) VI[el.dataset.i] = el.textContent; });
 function setLang(l) {
-  const dict = l === "en" ? EN : VI;
-  document.querySelectorAll("[data-i]").forEach((el) => { const v = dict[el.dataset.i]; if (v) el.textContent = v; });
-  document.documentElement.lang = l;
+  const word = (k) => (l === "en" ? EN[k] : l === "zh" ? ZH[k] || EN[k] : VI[k]);
+  document.querySelectorAll("[data-i]").forEach((el) => { const v = word(el.dataset.i); if (v) el.textContent = v; });
+  document.documentElement.lang = l === "zh" ? "zh-Hans" : l;
   $("l-vi").setAttribute("aria-pressed", l === "vi");
   $("l-en").setAttribute("aria-pressed", l === "en");
+  $("l-zh").setAttribute("aria-pressed", l === "zh");
   try { localStorage.setItem("bimon-lang", l); } catch (e) {}
 }
 $("l-vi").onclick = () => setLang("vi");
 $("l-en").onclick = () => setLang("en");
-try { if (localStorage.getItem("bimon-lang") === "en") setLang("en"); } catch (e) {}
+$("l-zh").onclick = () => setLang("zh");
+try { const l = localStorage.getItem("bimon-lang"); if (l === "en" || l === "zh") setLang(l); } catch (e) {}
 
 // ---------- Xem ảnh phóng to ----------
 const shots = [...document.querySelectorAll(".rp-gal button")];

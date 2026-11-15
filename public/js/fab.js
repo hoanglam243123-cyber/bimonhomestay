@@ -3,7 +3,7 @@
   const $ = (id) => document.getElementById(id);
   const fab = $("fab");
   if (!fab) return;
-  const LABEL = { vi: { hide: "Thu gọn liên hệ", show: "Mở liên hệ" }, en: { hide: "Hide contact options", show: "Show contact options" } };
+  const LABEL = { vi: { hide: "Thu gọn liên hệ", show: "Mở liên hệ" }, en: { hide: "Hide contact options", show: "Show contact options" }, "zh-Hans": { hide: "收起联系方式", show: "展开联系方式" } };
   const pops = [...fab.querySelectorAll(".fab-item > button")];
   const closePops = (except) => pops.forEach((b) => { if (b !== except) { b.setAttribute("aria-expanded", "false"); $(b.getAttribute("aria-controls")).hidden = true; } });
   pops.forEach((b) => b.addEventListener("click", () => {

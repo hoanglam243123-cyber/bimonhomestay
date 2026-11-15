@@ -93,15 +93,20 @@ function renderRoom(slug, rooms, req) {
   const r = rooms[slug];
   const site = baseUrl(req);
   const photos = [r.cover, ...roomPhotos(slug)].filter(Boolean);
+  // Bản dịch cho trình duyệt: en (tiếng Anh), zh (tiếng Trung giản thể; thiếu thì dùng tiếng Anh)
   const en = { [`${slug}_t`]: r.name.en, [`${slug}_d`]: r.desc.en };
-  if (r.price) Object.assign(en, { rp_from: `From ${r.price.week.toLocaleString("en-US")}₫/night`, rp_wk: `Fri & Sat: ${r.price.weekend.toLocaleString("en-US")}₫` });
-  const t = (key, v) => { en[key] = v.en; return `data-i="${key}">${escHtml(v.vi)}`; };
+  const zh = { [`${slug}_t`]: r.name.zh || r.name.en, [`${slug}_d`]: r.desc.zh || r.desc.en };
+  if (r.price) {
+    Object.assign(en, { rp_from: `From ${r.price.week.toLocaleString("en-US")}₫/night`, rp_wk: `Fri & Sat: ${r.price.weekend.toLocaleString("en-US")}₫` });
+    Object.assign(zh, { rp_from: `${r.price.week.toLocaleString("en-US")}₫/晚起`, rp_wk: `周五、周六：${r.price.weekend.toLocaleString("en-US")}₫` });
+  }
+  const t = (key, v) => { en[key] = v.en; zh[key] = v.zh || v.en; return `data-i="${key}">${escHtml(v.vi)}`; };
   const tags = r.tags.map((v, i) => `<li ${t(`tag${i}`, v)}</li>`).join("");
   const amen = r.amenities.map((v, i) => `<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span ${t(`am${i}`, v)}</span></li>`).join("");
   const vid = "";
   const gal = photos.map((src, i) => `<button type="button" data-full="${escHtml(src)}"${i === 0 ? ' class="first"' : ""}><img src="${escHtml(src)}" alt="${escHtml(r.name.vi)}, ảnh ${i + 1}" ${i === 0 ? 'fetchpriority="high"' : 'loading="lazy"'}></button>`).join("");
   const others = Object.entries(rooms).filter(([k]) => k !== slug && !k.startsWith("_")).map(([k, o]) => {
-    en[`${k}_t`] = o.name.en;
+    en[`${k}_t`] = o.name.en; zh[`${k}_t`] = o.name.zh || o.name.en;
     return `<a class="rp-card" href="/phong/${k}"><img src="${escHtml(o.cover)}" alt="" loading="lazy"><span><b data-i="${k}_t">${escHtml(o.name.vi)}</b><small data-i="rp_view">Xem phòng</small></span></a>`;
   }).join("");
   const title = `${r.name.vi} | Bimon Homestay Hải Phòng`;
@@ -172,10 +177,10 @@ ${shell.foot}
 
 ${shell.fab}
 
-<script type="application/json" id="room-i18n">${JSON.stringify(en).replace(/</g, "\\u003c")}</script>
+<script type="application/json" id="room-i18n">${JSON.stringify({ en, zh }).replace(/</g, "\\u003c")}</script>
 <script src="/js/theme.js?v=1" defer></script>
-<script src="/js/fab.js?v=1" defer></script>
-<script src="/js/phong.js?v=3" defer></script>
+<script src="/js/fab.js?v=2" defer></script>
+<script src="/js/phong.js?v=4" defer></script>
 </body>
 </html>`;
 }
