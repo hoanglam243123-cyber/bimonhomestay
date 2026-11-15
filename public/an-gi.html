@@ -99,29 +99,34 @@ dt{color:var(--muted)}dd{margin:0;min-width:0}
 .empty{padding:28px 0;text-align:center;color:var(--muted)}
 footer{margin-top:32px;font-size:.8rem;color:var(--muted);display:grid;gap:6px}
 footer a{color:var(--moss)}
+.hrow{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.lang{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;flex:none}
+.lang button{border:0;background:var(--paper);font:600 .8rem var(--f-body);color:var(--muted);min-width:44px;min-height:40px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--moss);color:var(--paper)}
+.lang button:focus-visible{outline:2px solid var(--moss);outline-offset:-2px}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <a href="/" aria-label="Về trang chủ Bimon Homestay" style="display:block;width:110px"><span class="logo" aria-hidden="true" style="width:110px;background:var(--moss)"></span></a>
-    <h1>Ăn gì, đi đâu quanh Bimon</h1>
-    <p class="home">Xuất phát từ home: <strong>5/141 Cầu Đất, Gia Viên, Hải Phòng</strong> · <a href="https://share.google/xh4tSK7Lf7EP9lr3K" target="_blank" rel="noopener">Mở vị trí home</a> · <a href="/">Về trang Bimon</a></p>
+    <div class="hrow"><h1 data-i="h1">Ăn gì, đi đâu quanh Bimon</h1><div class="lang" role="group" aria-label="Ngôn ngữ / Language"><button type="button" id="l-vi" aria-pressed="true">VN</button><button type="button" id="l-en" aria-pressed="false">EN</button></div></div>
+    <p class="home"><span data-i="from">Xuất phát từ home:</span> <strong>5/141 Cầu Đất, Gia Viên, Hải Phòng</strong> · <a href="https://share.google/xh4tSK7Lf7EP9lr3K" target="_blank" rel="noopener" data-i="openHome">Mở vị trí home</a> · <a href="/" data-i="back">Về trang Bimon</a></p>
   </header>
 
   <div class="filters" role="group" aria-label="Bộ lọc">
     <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Tìm món hoặc quán: bánh đa cua, bún cá, chè…" autocomplete="off" enterkeyhint="search" aria-label="Tìm món hoặc quán"><button type="button" id="q-clear" aria-label="Xoá tìm kiếm" hidden>✕</button></label>
-    <div class="row" id="f-type"><span class="lbl">Xem</span></div>
-    <div class="row" id="f-dist"><span class="lbl">Cách home</span></div>
-    <div class="row" id="f-time"><span class="lbl">Buổi</span></div>
+    <div class="row" id="f-type"><span class="lbl" data-i="lblType">Xem</span></div>
+    <div class="row" id="f-dist"><span class="lbl" data-i="lblDist">Cách home</span></div>
+    <div class="row" id="f-time"><span class="lbl" data-i="lblTime">Buổi</span></div>
   </div>
 
   <p class="count" id="count"></p>
   <div id="out"></div>
 
   <footer>
-    <p><strong>Khoảng cách và số phút là ước tính</strong> theo bản đồ (đi bộ ~80 m/phút, xe máy ~4 phút/km trong phố). Bấm “Chỉ đường” để Google Maps tính đường thật từ home.</p>
-    <p>Cần gì cứ nhắn Bimon nhé!</p>
+    <p data-i="foot1"><strong>Khoảng cách và số phút là ước tính</strong> theo bản đồ (đi bộ ~80 m/phút, xe máy ~4 phút/km trong phố). Bấm “Chỉ đường” để Google Maps tính đường thật từ home.</p>
+    <p data-i="foot2">Cần gì cứ nhắn Bimon nhé!</p>
   </footer>
 </div>
 
@@ -187,16 +192,315 @@ const P = [
  {s:1,n:"VinWonders Vũ Yên",k:"Công viên vui chơi",a:"Đảo Vũ Yên, Thủy Nguyên",q:"VinWonders Vũ Yên Hải Phòng",m:"Công viên chủ đề trên đảo Vũ Yên, chơi trọn một ngày",best:"Cả ngày, nên đi từ sáng",t:["sang","trua","chieu"],d:12000,drv:25,v:0,warn:"Xem giờ mở cửa và giá vé trên trang VinWonders trước khi đi."},
  {s:1,n:"Biển Đồ Sơn",k:"Biển · hải sản",a:"Đồ Sơn",q:"Bãi biển Đồ Sơn Hải Phòng",m:"Tắm biển, đi dạo bờ biển, ăn hải sản",best:"Sáng sớm hoặc chiều mát; mùa tắm biển khoảng tháng 5–9",t:["sang","chieu"],d:22000,drv:40,v:1},
 ];
+// Bản tiếng Anh, khớp theo tên quán: n (tên, chỉ cho điểm tham quan), k, m, b (nên đi), w (lưu ý), hd (giờ riêng)
+const EN_P={
+ "Bánh đa cua Bà Cụ": {
+ "k": "Crab noodle soup · 50+ years old",
+ "m": "Sea-crab noodle soup, crab spring rolls, dry crab noodles",
+ "b": "Early morning or an afternoon snack"
+ },
+ "Sủi dìn, chè nóng Cô Út": {
+ "k": "Street snacks · sweets",
+ "m": "Sủi dìn (hot glutinous rice balls in ginger syrup), hot sesame and mung bean sweet soup (cold versions in summer)",
+ "b": "Late afternoon or evening, best on a cold day",
+ "w": "Our old guide calls it “Đông Dung”, websites call it “Cô Út”. Ask Bimon to confirm."
+ },
+ "Hàu nướng 154 Cầu Đất": {
+ "k": "Grilled oysters · late night",
+ "m": "Oysters grilled with scallion oil, oysters with cheese",
+ "b": "Late evening, after 8pm",
+ "w": "Only in Bimon's own guide, no web source yet. Hours are an estimate (until ~1am)."
+ },
+ "Bún, miến ngan trộn 145 Cầu Đất": {
+ "k": "Duck noodles",
+ "m": "Dry-tossed glass noodles with duck, duck rice noodle soup",
+ "b": "Dinner",
+ "w": "Only in Bimon's own guide. Open until ~11pm, opening time not confirmed."
+ },
+ "Bánh đa cua bể ngõ 195 Cầu Đất": {
+ "k": "Crab noodle soup",
+ "m": "Crab noodle soup with betel-leaf sausage, fish cake, offal and beef",
+ "b": "Morning or late night"
+ },
+ "Trung Hoa Đắc Lợi": {
+ "k": "Wonton noodles · steak banh mi",
+ "m": "Wonton noodles, dumplings, beef steak with banh mi, soy chicken feet",
+ "b": "Lunch or dinner"
+ },
+ "Hoa Bích Vân, bánh cuốn nóng": {
+ "k": "Steamed rice rolls",
+ "m": "Hot steamed rice rolls with wood-ear mushrooms and pork sausage",
+ "b": "Late afternoon to evening, open only 4pm–9pm"
+ },
+ "Bánh cuốn đêm chợ Ga": {
+ "k": "Steamed rice rolls · late night",
+ "m": "Rice rolls with pork sausage and fried shallots",
+ "b": "Late night, to end a food crawl"
+ },
+ "Bún tôm Hợi Hợi": {
+ "k": "Shrimp noodle soup",
+ "m": "Full bowl of shrimp noodle soup",
+ "b": "Dinner"
+ },
+ "Sủi dìn Lương Khánh Thiện": {
+ "k": "Street snacks",
+ "m": "Sủi dìn (hot glutinous rice balls in ginger syrup)",
+ "b": "Afternoon"
+ },
+ "Giá bể 166 Lương Khánh Thiện": {
+ "k": "Street snacks",
+ "m": "Stir-fried sea sprouts (giá bể), sea sprouts with roasted rice powder",
+ "b": "Afternoon, open only 3pm–6pm"
+ },
+ "Sữa chua Lương Khánh Thiện": {
+ "k": "Sweets",
+ "m": "Three-layer yogurt with jelly",
+ "b": "Dessert any time"
+ },
+ "Chợ ăn vặt Lương Văn Can": {
+ "k": "Snack market",
+ "m": "Crab noodle soup, sea sprouts, steamed rice cakes, snails, spicy stick banh mi, pork-ear salad, fried dumplings",
+ "b": "Early morning or afternoon",
+ "w": "Market hours are an estimate; each stall keeps its own hours."
+ },
+ "Lòng nướng Chú Tuấn": {
+ "k": "Grilled food",
+ "m": "Grilled pork offal, grilled pork sausage, quail eggs with tamarind",
+ "b": "Evening",
+ "w": "No street number in the sources; the map searches by name."
+ },
+ "Ốc Thương": {
+ "k": "Snails & shellfish",
+ "m": "Snails stir-fried with salted egg, razor clams with herbs, jackfruit snails",
+ "b": "Late afternoon to evening"
+ },
+ "Bánh đa bề bề Chị Quẩy": {
+ "k": "Mantis-shrimp noodles · late night",
+ "m": "Noodle soup with mantis shrimp, prawns and crab broth",
+ "b": "Late night, open until 3:30am"
+ },
+ "Chè dừa dầm Hiền Béo": {
+ "k": "Sweets",
+ "m": "Coconut sweet soup with crushed ice",
+ "b": "Midday or afternoon"
+ },
+ "Bò sốt vang phố Cấm": {
+ "k": "Breakfast",
+ "m": "Beef stewed in red wine with pho noodles, egg noodles or banh mi",
+ "b": "Morning, 6am–10:30am"
+ },
+ "Bánh mì pate Cột Đèn": {
+ "k": "Banh mi",
+ "m": "Pâté banh mi",
+ "b": "Evening"
+ },
+ "Bún ngan 53 Quang Trung": {
+ "k": "Duck noodle soup · breakfast",
+ "m": "Duck rice noodle soup",
+ "b": "Breakfast",
+ "w": "Bimon's breakfast tip. Opening hours not confirmed, so go early."
+ },
+ "Bún cá cây cổng Cảng": {
+ "k": "Fish noodle soup · breakfast",
+ "m": "Fish noodle soup",
+ "b": "Breakfast"
+ },
+ "Xôi thịt 20 Lãn Ông": {
+ "k": "Sticky rice · breakfast",
+ "m": "Sticky rice with braised pork",
+ "b": "Breakfast"
+ },
+ "Bánh cuốn Bà Bảy": {
+ "k": "Steamed rice rolls",
+ "m": "Hot steamed rice rolls",
+ "b": "Breakfast or dinner"
+ },
+ "Bánh đa bò Bà Châu": {
+ "k": "Beef noodle soup · breakfast",
+ "m": "Flat rice noodle soup with beef",
+ "b": "Breakfast"
+ },
+ "Nem cua bể Thuận Yến": {
+ "k": "Crab spring rolls · lunch",
+ "m": "Sea-crab spring rolls (square nem cua bể)",
+ "b": "Lunch"
+ },
+ "Bún chả cô Bình": {
+ "k": "Grilled pork with noodles · lunch",
+ "m": "Bún chả: grilled pork with rice noodles and herbs",
+ "b": "Lunch",
+ "w": "Opening hours unknown."
+ },
+ "Nem nướng nhà Kèn": {
+ "k": "Grilled pork sausage",
+ "m": "Grilled pork sausage",
+ "b": "Lunch or dinner"
+ },
+ "Bánh cuốn 153 Trần Nguyên Hãn": {
+ "k": "Steamed rice rolls · late dinner",
+ "m": "Steamed rice rolls",
+ "b": "Evening or late night"
+ },
+ "Mì chờ Kỳ Đồng": {
+ "k": "Noodles · late dinner",
+ "m": "Mì chờ (egg noodles in broth)",
+ "b": "Evening or late night"
+ },
+ "Chè Quỳnh Béo": {
+ "k": "Avocado-coconut ice cream · sweet soup",
+ "m": "Avocado-coconut ice cream, sweet soup",
+ "b": "Late afternoon to evening"
+ },
+ "Hương chè": {
+ "k": "Sweet soup",
+ "m": "Vietnamese sweet soups (chè)",
+ "b": "Morning to afternoon"
+ },
+ "Cà phê cốt dừa cô Hạnh": {
+ "k": "Coffee · coconut",
+ "m": "Coconut cream coffee",
+ "b": "Morning to evening"
+ },
+ "Xôi cô Tám": {
+ "k": "Sticky rice · dinner",
+ "m": "Sticky rice",
+ "b": "Late afternoon to evening"
+ },
+ "Miến trộn Long Hương": {
+ "k": "Tossed glass noodles",
+ "m": "Tossed glass noodles with chicken or shrimp",
+ "b": "Lunch or dinner"
+ },
+ "Nem chua bà Cụ": {
+ "k": "Fermented pork · snack",
+ "m": "Nem chua (fermented pork rolls)",
+ "b": "Midday or afternoon"
+ },
+ "Mì gà tần 2/145 Cầu Đất": {
+ "k": "Herbal chicken noodles · dinner",
+ "m": "Noodles with herbal-braised chicken",
+ "b": "Late afternoon to evening"
+ },
+ "Cháo ếch Singapore": {
+ "k": "Frog porridge · late dinner",
+ "m": "Singapore-style frog porridge",
+ "b": "Evening or late night"
+ },
+ "Bánh tráng Thanh Thanh (lòng nướng)": {
+ "k": "Grilled offal · rice paper snacks",
+ "m": "Grilled pork offal, rice paper snacks",
+ "b": "Afternoon"
+ },
+ "Bánh giò cô Ngân": {
+ "k": "Pyramid rice dumplings",
+ "m": "Bánh giò (rice dumplings with pork and mushroom)",
+ "b": "Afternoon"
+ },
+ "Giò cô Yến": {
+ "k": "Pork roll · breakfast",
+ "m": "Giò (Vietnamese pork roll)",
+ "b": "Morning to afternoon"
+ },
+ "Xá xíu gia truyền": {
+ "k": "Char siu · family recipe",
+ "m": "Char siu (Chinese-style barbecue pork)",
+ "b": "Morning to evening",
+ "w": "Cash only, no bank transfer. Bring cash."
+ },
+ "Chè Thái Bà Hoa": {
+ "k": "Thai-style sweet soup",
+ "m": "Thai-style fruit sweet soup (chè Thái)",
+ "b": "Afternoon, 1pm–5pm"
+ },
+ "Sữa thạch găng Cô Vân": {
+ "k": "Găng jelly milk · drinks",
+ "m": "Milk with găng leaf jelly, a Hai Phong speciality",
+ "b": "Morning 6am–11am or afternoon 3pm–7pm"
+ },
+ "2046 Espresso Bar": {
+ "k": "Espresso coffee",
+ "m": "Espresso coffee",
+ "b": "Morning to early afternoon",
+ "hd": "Mondays only until 12pm"
+ },
+ "Nhà hát lớn Hải Phòng": {
+ "n": "Hai Phong Opera House",
+ "k": "French architecture",
+ "m": "The square in front of the Opera House, prettiest when lit up",
+ "b": "Evening"
+ },
+ "Phố đi bộ Tam Bạc": {
+ "n": "Tam Bac Walking Street",
+ "k": "Old quarter · street performances",
+ "m": "Acoustic music, dance, magic and snacks; free",
+ "b": "Friday to Sunday evenings, 7pm–11pm"
+ },
+ "Bảo tàng Hải Phòng": {
+ "n": "Hai Phong Museum",
+ "k": "Museum",
+ "m": "History of the port city in a French colonial building",
+ "b": "Mornings 8am–10:30am (Tue–Sun), afternoons 2pm–4:30pm (Tue–Fri)"
+ },
+ "Nhà thờ Lớn Hải Phòng": {
+ "n": "Hai Phong Cathedral",
+ "k": "Gothic architecture",
+ "m": "Architecture photos",
+ "b": "Morning or afternoon"
+ },
+ "VinWonders Vũ Yên": {
+ "n": "VinWonders Vu Yen",
+ "k": "Theme park",
+ "m": "Theme park on Vu Yen island, a full day out",
+ "b": "All day, best to set off in the morning",
+ "w": "Check opening hours and ticket prices on the VinWonders website before you go."
+ },
+ "Biển Đồ Sơn": {
+ "n": "Do Son Beach",
+ "k": "Beach · seafood",
+ "m": "Swimming, beach walks, seafood",
+ "b": "Early morning or cool afternoon; swimming season is roughly May–September"
+ }
+ };
+P.forEach(p=>{p.e=EN_P[p.n]||{}});
 
-const TYPES=[["food","Ăn uống"],["see","Nên đi"],["pick","Bimon gợi ý"],["all","Tất cả"]];
-const DISTS=[["all","Mọi khoảng cách"],["near","Dưới 1 km"],["far","1–3 km"],["trip","Đi xa trong ngày"]];
-const TIMES=[["all","Cả ngày"],["now","Đang mở"],["sang","Sáng"],["trua","Trưa"],["chieu","Chiều"],["toi","Tối"],["khuya","Khuya"]];
+const TYPES=[["food","Ăn uống","Food"],["see","Nên đi","Sights"],["pick","Bimon gợi ý","Bimon picks"],["all","Tất cả","All"]];
+const DISTS=[["all","Mọi khoảng cách","Any distance"],["near","Dưới 1 km","Under 1 km"],["far","1–3 km","1–3 km"],["trip","Đi xa trong ngày","Day trips"]];
+const TIMES=[["all","Cả ngày","All day"],["now","Đang mở","Open now"],["sang","Sáng","Morning"],["trua","Trưa","Midday"],["chieu","Chiều","Afternoon"],["toi","Tối","Evening"],["khuya","Khuya","Late night"]];
+// Chữ giao diện hai thứ tiếng
+const UI={
+ vi:{title:"Ăn gì quanh Bimon Homestay | Foodtour Hải Phòng",h1:"Ăn gì, đi đâu quanh Bimon",from:"Xuất phát từ home:",openHome:"Mở vị trí home",back:"Về trang Bimon",ph:"Tìm món hoặc quán: bánh đa cua, bún cá, chè…",lblType:"Xem",lblDist:"Cách home",lblTime:"Buổi",
+  foot1:"<strong>Khoảng cách và số phút là ước tính</strong> theo bản đồ (đi bộ ~80 m/phút, xe máy ~4 phút/km trong phố). Bấm “Chỉ đường” để Google Maps tính đường thật từ home.",foot2:"Cần gì cứ nhắn Bimon nhé!",
+  drv:"Ô tô/Grab ~{n} phút",walkM:"Đi bộ ~{n} phút",ride:"Xe máy/Grab ~{n} phút · đi bộ ~{w} phút",dec:",",soon:"Sắp đóng, còn {n} phút",open:"Đang mở · tới {t}",closed:"Đang đóng",unk:"Chưa rõ",
+  v2:"Giờ mở: 2 nguồn khớp",v1:"Giờ mở: theo 1 nguồn",v0:"Chưa chắc giờ",walk:"đi bộ",go:"đi xe",pick:"★ Bimon gợi ý",doWhat:"Làm gì",eat:"Ăn gì",best:"Nên đi",hours:"Giờ mở",addr:"Địa chỉ",how:"Cách đi",dir:"Chỉ đường từ home",map:"Xem trên bản đồ",
+  cntQ:"{n} kết quả cho “{q}”, gần home nhất trước",cnt:"{n} điểm, gần home nhất trước",rNear:"Dưới 1 km · đi bộ được",rFar:"1–3 km · nên đi xe",rTrip:"Đi xa trong ngày · ô tô hoặc Grab",
+  emptyQ:"Không tìm thấy “{q}”. Thử từ khác, hoặc chọn “Tất cả”, “Mọi khoảng cách”, “Cả ngày”.",empty:"Không có điểm nào khớp bộ lọc này. Thử chọn “Cả ngày” hoặc “Mọi khoảng cách”."},
+ en:{title:"Where to eat around Bimon Homestay | Hai Phong food tour",h1:"Where to eat and what to see around Bimon",from:"Starting from Bimon:",openHome:"Open Bimon on the map",back:"Back to Bimon",ph:"Search a dish or place: crab noodles, fish noodles, sweet soup…",lblType:"Show",lblDist:"Distance",lblTime:"Time",
+  foot1:"<strong>Distances and minutes are estimates</strong> from the map (walking ~80 m/min, motorbike ~4 min/km in town). Tap “Directions” and Google Maps will work out the real route from Bimon.",foot2:"Need anything? Just message Bimon!",
+  drv:"Car/Grab ~{n} min",walkM:"Walk ~{n} min",ride:"Motorbike/Grab ~{n} min · walk ~{w} min",dec:".",soon:"Closing soon, {n} min left",open:"Open now · until {t}",closed:"Closed now",unk:"Unknown",
+  v2:"Hours: 2 sources agree",v1:"Hours: 1 source",v0:"Hours not confirmed",walk:"walk",go:"ride",pick:"★ Bimon pick",doWhat:"What to do",eat:"What to eat",best:"Best time",hours:"Hours",addr:"Address",how:"Getting there",dir:"Directions from Bimon",map:"View on map",
+  cntQ:"{n} results for “{q}”, nearest first",cnt:"{n} places, nearest first",rNear:"Under 1 km · walkable",rFar:"1–3 km · take a ride",rTrip:"Day trips · car or Grab",
+  emptyQ:"Nothing found for “{q}”. Try another word, or pick “All”, “Any distance”, “All day”.",empty:"Nothing matches these filters. Try “All day” or “Any distance”."}
+};
+let lang="vi";
+try{if(localStorage.getItem("bimon-lang")==="en")lang="en"}catch(e){}
+const U=(k,o)=>{let t=UI[lang][k];if(o)for(const x in o)t=t.split("{"+x+"}").join(o[x]);return t};
+const E=(p,k)=>lang==="en"&&p.e[k]?p.e[k]:p[k==="b"?"best":k==="w"?"warn":k==="hd"?"hdTxt":k];
+function setLang(l){
+  lang=l;document.documentElement.lang=l;document.title=U("title");
+  try{localStorage.setItem("bimon-lang",l)}catch(e){}
+  document.querySelectorAll("[data-i]").forEach(el=>{el.innerHTML=U(el.dataset.i)});
+  qEl.placeholder=U("ph");qEl.setAttribute("aria-label",U("ph"));
+  document.querySelectorAll(".chip").forEach(b=>{b.textContent=b.dataset[l]});
+  document.getElementById("l-vi").setAttribute("aria-pressed",String(l==="vi"));
+  document.getElementById("l-en").setAttribute("aria-pressed",String(l==="en"));
+  render();
+}
 const st={type:"food",dist:"all",time:"all"};
 try{const s=JSON.parse(localStorage.getItem("bimon-loc")||"{}");Object.assign(st,s)}catch(e){}
 
 function chips(id,list,key){
   const el=document.getElementById(id);
-  list.forEach(([v,l])=>{const b=document.createElement("button");b.type="button";b.className="chip";b.id=id+"-"+v;b.textContent=l;b.dataset.v=v;
+  list.forEach(([v,l,le])=>{const b=document.createElement("button");b.type="button";b.className="chip";b.id=id+"-"+v;b.textContent=l;b.dataset.v=v;b.dataset.vi=l;b.dataset.en=le;
     b.onclick=()=>{st[key]=v;try{localStorage.setItem("bimon-loc",JSON.stringify(st))}catch(e){}render()};el.appendChild(b)});
 }
 chips("f-type",TYPES,"type");chips("f-dist",DISTS,"dist");chips("f-time",TIMES,"time");
@@ -205,41 +509,43 @@ const enc=s=>encodeURIComponent(s);
 const q=p=>p.q||`${p.n.replace(/\s*\(.*\)/,"")}, ${p.a}, Hải Phòng`;
 function how(p){
   const d=p.d;
-  if(p.drv) return {mode:"driving",txt:`Ô tô/Grab ~${p.drv} phút`};
-  if(d<=1000) return {mode:"walking",txt:`Đi bộ ~${Math.max(1,Math.round(d/80))} phút`};
-  return {mode:"driving",txt:`Xe máy/Grab ~${Math.round(d/250)+2} phút · đi bộ ~${Math.round(d/80)} phút`};
+  if(p.drv) return {mode:"driving",txt:U("drv",{n:p.drv})};
+  if(d<=1000) return {mode:"walking",txt:U("walkM",{n:Math.max(1,Math.round(d/80))})};
+  return {mode:"driving",txt:U("ride",{n:Math.round(d/250)+2,w:Math.round(d/80)})};
 }
-const fmtD=d=>d<1000?`~${Math.round(d/50)*50} m`:d>=10000?`~${Math.round(d/1000)} km`:`~${(d/1000).toFixed(1).replace(".",",")} km`;
-const hm=m=>{m=m%1440;const h=Math.floor(m/60),mm=m%60;return h+"h"+(mm?String(mm).padStart(2,"0"):"")};
+const fmtD=d=>d<1000?`~${Math.round(d/50)*50} m`:d>=10000?`~${Math.round(d/1000)} km`:`~${(d/1000).toFixed(1).replace(".",U("dec"))} km`;
+const hm=m=>{m=m%1440;const h=Math.floor(m/60),mm=m%60;
+  if(lang==="en"){const ap=h<12?"am":"pm",h12=h%12||12;return h12+(mm?":"+String(mm).padStart(2,"0"):"")+ap}
+  return h+"h"+(mm?String(mm).padStart(2,"0"):"")};
 function nowMin(){const d=new Date();return d.getHours()*60+d.getMinutes()}
 function status(p){
   if(!p.h) return null;
   const n=nowMin(),hh=(p.hd&&p.hd[new Date().getDay()])||p.h;
   for(const [a,b] of hh){
-    for(const t of [n,n+1440]){ if(t>=a&&t<b){ return b-t<=45?{c:"soon",t:"Sắp đóng, còn "+(b-t)+" phút"}:{c:"open",t:"Đang mở · tới "+hm(b)} } }
+    for(const t of [n,n+1440]){ if(t>=a&&t<b){ return b-t<=45?{c:"soon",t:U("soon",{n:b-t})}:{c:"open",t:U("open",{t:hm(b)})} } }
   }
-  return {c:"closed",t:"Đang đóng"};
+  return {c:"closed",t:U("closed")};
 }
-const hoursTxt=p=>p.h?p.h.map(([a,b])=>hm(a)+"–"+hm(b)).join(", ")+(p.hdTxt?" ("+p.hdTxt+")":""):"Chưa rõ";
+const hoursTxt=p=>p.h?p.h.map(([a,b])=>hm(a)+"–"+hm(b)).join(", ")+(p.hdTxt?" ("+E(p,"hd")+")":""):U("unk");
 
 function card(p){
   const w=how(p),s=status(p);
   const map=`https://www.google.com/maps/search/?api=1&query=${enc(q(p))}`;
   const dir=`https://www.google.com/maps/dir/?api=1&origin=${enc(HOME)}&destination=${enc(q(p))}&travelmode=${w.mode}`;
-  const vtxt=p.v===2?"Giờ mở: 2 nguồn khớp":p.v===1?"Giờ mở: theo 1 nguồn":"Chưa chắc giờ";
+  const vtxt=U(p.v===2?"v2":p.v===1?"v1":"v0");
   return `<article class="card">
-    <div class="top"><div style="min-width:0"><h3 class="name">${p.n}</h3><div class="kind">${p.k}</div></div>
-      <div class="dist"><b>${fmtD(p.d)}</b>${p.d<=1000?"đi bộ":"đi xe"}</div></div>
-    <div class="badges">${p.pick?'<span class="b pick">★ Bimon gợi ý</span>':""}${p.s?"":`<span class="b">${vtxt}</span>`}${s?`<span class="st ${s.c}">● ${s.t}</span>`:""}</div>
+    <div class="top"><div style="min-width:0"><h3 class="name">${E(p,"n")}</h3><div class="kind">${E(p,"k")}</div></div>
+      <div class="dist"><b>${fmtD(p.d)}</b>${p.d<=1000?U("walk"):U("go")}</div></div>
+    <div class="badges">${p.pick?`<span class="b pick">${U("pick")}</span>`:""}${p.s?"":`<span class="b">${vtxt}</span>`}${s?`<span class="st ${s.c}">● ${s.t}</span>`:""}</div>
     <dl>
-      <dt>${p.s?"Làm gì":"Ăn gì"}</dt><dd>${p.m}</dd>
-      <dt>Nên đi</dt><dd>${p.best}</dd>
-      ${p.s?"":`<dt>Giờ mở</dt><dd>${hoursTxt(p)}</dd>`}
-      <dt>Địa chỉ</dt><dd>${p.a}</dd>
-      <dt>Cách đi</dt><dd>${w.txt}</dd>
+      <dt>${p.s?U("doWhat"):U("eat")}</dt><dd>${E(p,"m")}</dd>
+      <dt>${U("best")}</dt><dd>${E(p,"b")}</dd>
+      ${p.s?"":`<dt>${U("hours")}</dt><dd>${hoursTxt(p)}</dd>`}
+      <dt>${U("addr")}</dt><dd>${p.a}</dd>
+      <dt>${U("how")}</dt><dd>${w.txt}</dd>
     </dl>
-    ${p.warn?`<p class="note warn">${p.warn}</p>`:""}
-    <div class="acts"><a class="btn main" href="${dir}" target="_blank" rel="noopener">Chỉ đường từ home</a><a class="btn" href="${map}" target="_blank" rel="noopener">Xem trên bản đồ</a></div>
+    ${p.warn?`<p class="note warn">${E(p,"w")}</p>`:""}
+    <div class="acts"><a class="btn main" href="${dir}" target="_blank" rel="noopener">${U("dir")}</a><a class="btn" href="${map}" target="_blank" rel="noopener">${U("map")}</a></div>
   </article>`;
 }
 
@@ -247,7 +553,7 @@ const norm=s=>String(s).normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 // Chuỗi tìm kiếm: bỏ dấu, chỉ giữ chữ/số, có dấu cách hai đầu để so khớp đầu từ
 const toWords=s=>norm(s).replace(/[^a-z0-9]+/g," ").trim();
-P.forEach(p=>{p._s=" "+toWords([p.n,p.k,p.m,p.a].join(" "))+" "});
+P.forEach(p=>{p._s=" "+toWords([p.n,p.k,p.m,p.a,p.e.n||"",p.e.k||"",p.e.m||""].join(" "))+" "});
 // Ưu tiên khớp nguyên cụm ("bun ca" → Bún cá); không có thì mọi từ phải khớp ở đầu chữ
 function match(list,q){
   const ph=toWords(q);if(!ph) return list;
@@ -273,17 +579,19 @@ function render(){
     else if(st.time!=="all"&&!p.t.includes(st.time)) return false;
     return true;
   }).sort((a,b)=>a.d-b.d);
-  document.getElementById("count").textContent=L.length?(q?`${L.length} kết quả cho “${qEl.value.trim()}”, gần home nhất trước`:`${L.length} điểm, gần home nhất trước`):"";
+  document.getElementById("count").textContent=L.length?(q?U("cntQ",{n:L.length,q:qEl.value.trim()}):U("cnt",{n:L.length})):"";
   const near=L.filter(p=>p.d<=1000),far=L.filter(p=>p.d>1000&&p.d<=3000),trip=L.filter(p=>p.d>3000);
   let html="";
-  if(near.length) html+=`<div class="ring">Dưới 1 km · đi bộ được</div><div class="list">${near.map(card).join("")}</div>`;
-  if(far.length) html+=`<div class="ring">1–3 km · nên đi xe</div><div class="list">${far.map(card).join("")}</div>`;
-  if(trip.length) html+=`<div class="ring">Đi xa trong ngày · ô tô hoặc Grab</div><div class="list">${trip.map(card).join("")}</div>`;
+  if(near.length) html+=`<div class="ring">${U("rNear")}</div><div class="list">${near.map(card).join("")}</div>`;
+  if(far.length) html+=`<div class="ring">${U("rFar")}</div><div class="list">${far.map(card).join("")}</div>`;
+  if(trip.length) html+=`<div class="ring">${U("rTrip")}</div><div class="list">${trip.map(card).join("")}</div>`;
   document.getElementById("out").innerHTML=html||(q
-    ?`<p class="empty">Không tìm thấy “${esc(qEl.value.trim())}”. Thử từ khác, hoặc chọn “Tất cả”, “Mọi khoảng cách”, “Cả ngày”.</p>`
-    :`<p class="empty">Không có điểm nào khớp bộ lọc này. Thử chọn “Cả ngày” hoặc “Mọi khoảng cách”.</p>`);
+    ?`<p class="empty">${U("emptyQ",{q:esc(qEl.value.trim())})}</p>`
+    :`<p class="empty">${U("empty")}</p>`);
 }
-render();
+document.getElementById("l-vi").onclick=()=>setLang("vi");
+document.getElementById("l-en").onclick=()=>setLang("en");
+setLang(lang);
 setInterval(render,60000);
 </script>
 </body>
